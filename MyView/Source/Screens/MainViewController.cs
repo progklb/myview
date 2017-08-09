@@ -10,16 +10,23 @@ namespace MyView
 	public partial class MainViewController : UIViewController
 	{
 		#region PROPERTIES
+		/// The duration of transitions between displaying images.
         public int TransitionDuration { get; set; } = 2000;
 		#endregion
         
         
 		#region VARIABLES
+		// Additional UI elements
 		private CategorySelectView m_Select;
 		private HeaderView m_Header;
 		private FooterView m_Footer;
+		
+		/// Provides images for display on this page
+        private SlideshowController m_Slideshow;
 
+		/// A cache of the two image views for displaying images to the user
 		private UIImageView[] m_ImageViews;
+		/// The index of the currently display image view.
 		private int m_CurrentImageIdx;
 		#endregion
 
@@ -33,10 +40,26 @@ namespace MyView
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
+			
 			InitialiseInterface();
 
-			Cycle();
+			m_Slideshow = new SlideshowController();
+		}
+		
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
+			
+			// Start image provider
+            m_Slideshow.Start();
+            m_Slideshow.OnImageCycled += SetBackground;
+		}
+		
+		public override void ViewWillDisappear(bool animated)
+		{
+			base.ViewWillDisappear(animated);
+			
+			m_Slideshow.Stop();
 		}
 		#endregion
 
@@ -91,7 +114,7 @@ namespace MyView
 			}
 		}
 
-		void SetBackground()
+		void SetBackground(UnsplashImage image)
 		{	
 			// Fade out old view		
 			UIView.Animate(
@@ -127,7 +150,7 @@ namespace MyView
 			for (;;)
 			{
 				await Task.Delay(2000);
-				SetBackground();
+				SetBackground(null);
 			}
 		}
 		#endregion

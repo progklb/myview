@@ -84,6 +84,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.TVOS" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\App Icon &amp; Top Shelf Image.brandassets\Contents.json" />
@@ -147,6 +149,10 @@
     </Compile>
     <Compile Include="Source\Views\BaseView.cs" />
     <Compile Include="Source\Colors.cs" />
+    <Compile Include="Source\Adapters\UnsplashImage.cs" />
+    <Compile Include="Source\Adapters\UnsplashUser.cs" />
+    <Compile Include="Source\Adapters\SlideshowController.cs" />
+    <Compile Include="Source\Adapters\UnsplashAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Storyboard\Main.storyboard" />
