@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+
+using Foundation;
 using UIKit;
 
 namespace MyView
@@ -11,7 +13,7 @@ namespace MyView
 	{
 		#region PROPERTIES
 		/// The duration of transitions between displaying images.
-        public int TransitionDuration { get; set; } = 2000;
+        public double TransitionDuration { get; set; } = 2;
 		#endregion
         
         
@@ -53,6 +55,8 @@ namespace MyView
 			// Start image provider
             m_Slideshow.Start();
             m_Slideshow.OnImageCycled += SetBackground;
+            
+            CycleElements().ConfigureAwait(false);
 		}
 		
 		public override void ViewWillDisappear(bool animated)
@@ -116,7 +120,7 @@ namespace MyView
 
 		void SetBackground(UnsplashImage image)
 		{	
-			// Fade out old view		
+			// Fade out old view
 			UIView.Animate(
 				TransitionDuration, 
 				() => { m_ImageViews[m_CurrentImageIdx].Alpha = 0f; }
@@ -130,6 +134,10 @@ namespace MyView
 				TransitionDuration, 
 				() => { m_ImageViews[m_CurrentImageIdx].Alpha = 1f; }
 			);
+			
+			// Assign new image
+			var data = NSData.FromArray(image.imageData);
+			m_ImageViews[m_CurrentImageIdx].Image = UIImage.LoadFromData(data);
 		}
 		#endregion
 
@@ -137,20 +145,17 @@ namespace MyView
 		#region DEBUG
 		async Task CycleElements()
 		{
-			await Task.Delay(3000);
-			ShowImageInterface(true);
-			await Task.Delay(3000);
-			ShowImageInterface(false);
-			
-			await Task.Delay(3000);
-			ShowSelectionInterface(true);
-			await Task.Delay(3000);
-			ShowSelectionInterface(false);
-				
 			for (;;)
 			{
-				await Task.Delay(2000);
-				SetBackground(null);
+				await Task.Delay(6000);
+				ShowImageInterface(true);
+				await Task.Delay(3000);
+				ShowImageInterface(false);
+				
+				await Task.Delay(6000);
+				ShowSelectionInterface(true);
+				await Task.Delay(3000);
+				ShowSelectionInterface(false);
 			}
 		}
 		#endregion

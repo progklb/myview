@@ -22,8 +22,8 @@ namespace MyView
         public UnsplashImageLinks links { get; private set; }
         public UnsplashUser user { get; private set; }
 
-        public string ImagePath { get; set; }
-        public byte[] ImageData { get; set; }
+        public string imagePath { get; set; }
+        public byte[] imageData { get; set; }
     }
 
     public partial class UnsplashImage

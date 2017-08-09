@@ -153,7 +153,6 @@
     <Compile Include="Source\Adapters\UnsplashUser.cs" />
     <Compile Include="Source\Adapters\SlideshowController.cs" />
     <Compile Include="Source\Adapters\UnsplashAdapter.cs" />
-    <Compile Include="Source\Adapters\DownloadAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Storyboard\Main.storyboard" />
