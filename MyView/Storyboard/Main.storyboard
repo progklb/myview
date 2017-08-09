@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="11762" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" sceneMemberID="viewController" title="My View" useStoryboardIdentifierAsRestorationIdentifier="YES" customClass="MainViewController" storyboardIdentifier="MainViewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="80" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIImageBackground1" image="TestImages/7.jpg" alpha="0.5">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="81" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIImageBackground2" alpha="0.5" image="TestImages/0.jpg">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint id="82" firstItem="81" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading"/>
+                            <constraint id="83" firstItem="81" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top"/>
+                            <constraint id="84" firstItem="81" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing"/>
+                            <constraint id="85" firstItem="81" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom"/>
+                            <constraint id="86" firstItem="80" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading"/>
+                            <constraint id="87" firstItem="80" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top"/>
+                            <constraint id="88" firstItem="80" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing"/>
+                            <constraint id="89" firstItem="80" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="UIImageBackground1" destination="80" id="name-outlet-80"/>
+                        <outlet property="UIImageBackground2" destination="81" id="name-outlet-81"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="FavouriteEmpty.png" width="54" height="52"/>
+        <image name="FavouriteFull.png" width="54" height="52"/>
+        <image name="LogoMadeWithUnsplash.png" width="297" height="27"/>
+        <image name="LogoMyView.png" width="209" height="40"/>
+        <image name="TestImages/0.jpg" width="1920" height="1080"/>
+        <image name="TestImages/1.jpg" width="5472" height="3648"/>
+        <image name="TestImages/2.jpg" width="1800" height="1069"/>
+        <image name="TestImages/3.jpg" width="1920" height="1080"/>
+        <image name="TestImages/4.jpg" width="4928" height="2946"/>
+        <image name="TestImages/5.jpg" width="6000" height="4000"/>
+        <image name="TestImages/6.jpg" width="5426" height="3617"/>
+        <image name="TestImages/7.jpg" width="1920" height="1200"/>
+        <image name="TestImages/8.jpg" width="1680" height="1050"/>
+        <image name="TestImages/9.jpg" width="4000" height="2667"/>
+    </resources>
+</document>

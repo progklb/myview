@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="11762" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1" customClass="CategorySelectView">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="75" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIViewBackground" alpha="0.35">
+                    <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                    <subviews/>
+                    <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
+                </view>
+                <view contentMode="scaleToFill" id="82" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIViewBar">
+                    <rect key="frame" x="0.0" y="700" width="1920" height="250"/>
+                    <subviews>
+                        <visualEffectView opaque="NO" contentMode="scaleToFill" id="125" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIVisualEffectBlur">
+                            <rect key="frame" x="0.0" y="0.0" width="1920" height="250"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="126" fixedFrame="YES">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="250"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <blurEffect style="dark"/>
+                        </visualEffectView>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="93" translatesAutoresizingMaskIntoConstraints="NO" showsVerticalScrollIndicator="NO" restorationIdentifier="UICollectionCategories" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO">
+                            <rect key="frame" x="0.0" y="0.0" width="1920" height="250"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="95" scrollDirection="horizontal">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="60" minY="0" maxX="0" maxY="0"/>
+                            </collectionViewFlowLayout>
+                            <cells>
+                                <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" id="94" customClass="ImageCell" reuseIdentifier="ImageCell" restorationIdentifier="ImageCell" clipsSubviews="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="444" height="250"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                        <rect key="frame" x="0.0" y="0.0" width="444" height="250"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="96" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIImageViewImage" image="TestImages/9.jpg" clipsSubviews="YES" clearsContextBeforeDrawing="NO">
+                                                <rect key="frame" x="54" y="35" width="335" height="180"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                                        <real key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <constraints>
+                                                    <constraint id="123" firstItem="96" firstAttribute="height" constant="180"/>
+                                                    <constraint id="124" firstItem="96" firstAttribute="width" constant="335"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="131" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" restorationIdentifier="UILabelName" adjustsLetterSpacingToFitWidth="YES" minimumScaleFactor="0.5">
+                                                <rect key="frame" x="0.0" y="180" width="444" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="26"/>
+                                                <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </view>
+                                    <size key="customSize" width="444" height="250"/>
+                                    <connections>
+                                        <outlet property="UIImageViewImage" destination="96" id="name-outlet-96"/>
+                                        <outlet property="UILabelName" destination="131" id="name-outlet-131"/>
+                                    </connections>
+                                    <constraints>
+                                        <constraint id="119" firstItem="96" firstAttribute="leading" secondItem="94" secondAttribute="leading" constant="54"/>
+                                        <constraint id="120" firstItem="96" firstAttribute="top" secondItem="94" secondAttribute="top" constant="35"/>
+                                        <constraint id="121" firstItem="94" firstAttribute="trailing" secondItem="96" secondAttribute="trailing" constant="55"/>
+                                        <constraint id="122" firstItem="94" firstAttribute="bottom" secondItem="96" secondAttribute="bottom" constant="35"/>
+                                    </constraints>
+                                </collectionViewCell>
+                            </cells>
+                            <constraints>
+                                <constraint id="118" firstItem="93" firstAttribute="height" constant="250"/>
+                            </constraints>
+                        </collectionView>
+                    </subviews>
+                    <constraints>
+                        <constraint id="90" firstItem="82" firstAttribute="height" constant="250"/>
+                        <constraint id="112" firstItem="93" firstAttribute="leading" secondItem="82" secondAttribute="leading"/>
+                        <constraint id="114" firstItem="93" firstAttribute="top" secondItem="82" secondAttribute="top"/>
+                        <constraint id="115" firstItem="93" firstAttribute="bottom" secondItem="82" secondAttribute="bottom"/>
+                        <constraint id="117" firstItem="93" firstAttribute="trailing" secondItem="82" secondAttribute="trailing"/>
+                        <constraint id="127" firstItem="125" firstAttribute="leading" secondItem="93" secondAttribute="leading"/>
+                        <constraint id="128" firstItem="125" firstAttribute="bottom" secondItem="93" secondAttribute="bottom"/>
+                        <constraint id="129" firstItem="125" firstAttribute="trailing" secondItem="93" secondAttribute="trailing"/>
+                        <constraint id="130" firstItem="125" firstAttribute="top" secondItem="93" secondAttribute="top"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" id="138" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIViewDetails">
+                    <rect key="frame" x="0.0" y="550" width="1920" height="150"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="144" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UILabelCategory">
+                            <rect key="frame" x="60" y="70" width="1000" height="40"/>
+                            <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="30"/>
+                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                            <nil key="highlightedColor"/>
+                            <constraints>
+                                <constraint id="159" firstItem="144" firstAttribute="height" constant="40"/>
+                                <constraint id="160" firstItem="144" firstAttribute="width" constant="1000"/>
+                            </constraints>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="145" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="60" y="45" width="1000" height="30"/>
+                            <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="21"/>
+                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                            <nil key="highlightedColor"/>
+                            <constraints>
+                                <constraint id="163" firstItem="145" firstAttribute="width" constant="1000"/>
+                                <constraint id="164" firstItem="145" firstAttribute="height" constant="30"/>
+                            </constraints>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint id="156" firstItem="138" firstAttribute="height" constant="150"/>
+                        <constraint id="157" firstItem="138" firstAttribute="bottom" secondItem="144" secondAttribute="bottom" constant="40"/>
+                        <constraint id="158" firstItem="144" firstAttribute="leading" secondItem="138" secondAttribute="leading" constant="60"/>
+                        <constraint id="161" firstItem="145" firstAttribute="leading" secondItem="138" secondAttribute="leading" constant="60"/>
+                        <constraint id="162" firstItem="145" firstAttribute="bottom" secondItem="144" secondAttribute="top" constant="5"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <point key="canvasLocation" x="1" y="-3"/>
+            <connections>
+                <outlet property="UIViewBackground" destination="75" id="name-outlet-75"/>
+                <outlet property="UIViewBar" destination="82" id="name-outlet-82"/>
+                <outlet property="UICollectionCategories" destination="93" id="name-outlet-93"/>
+                <outlet property="UIViewDetails" destination="138" id="name-outlet-138"/>
+                <outlet property="UILabelCategory" destination="144" id="name-outlet-144"/>
+                <outlet property="UIVisualEffectBlur" destination="125" id="name-outlet-125"/>
+            </connections>
+            <constraints>
+                <constraint id="76" firstItem="75" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>
+                <constraint id="77" firstItem="75" firstAttribute="top" secondItem="1" secondAttribute="top"/>
+                <constraint id="78" firstItem="75" firstAttribute="bottom" secondItem="1" secondAttribute="bottom"/>
+                <constraint id="79" firstItem="75" firstAttribute="trailing" secondItem="1" secondAttribute="trailing"/>
+                <constraint id="85" firstItem="82" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>
+                <constraint id="86" firstItem="1" firstAttribute="bottom" secondItem="82" secondAttribute="bottom" constant="130"/>
+                <constraint id="88" firstItem="82" firstAttribute="trailing" secondItem="1" secondAttribute="trailing"/>
+                <constraint id="89" firstItem="82" firstAttribute="top" secondItem="1" secondAttribute="top" constant="700"/>
+                <constraint id="153" firstItem="138" firstAttribute="bottom" secondItem="82" secondAttribute="top"/>
+                <constraint id="154" firstItem="138" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>
+                <constraint id="155" firstItem="138" firstAttribute="trailing" secondItem="1" secondAttribute="trailing"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="FavouriteEmpty.png" width="54" height="52"/>
+        <image name="FavouriteFull.png" width="54" height="52"/>
+        <image name="LogoMadeWithUnsplash.png" width="297" height="27"/>
+        <image name="LogoMyView.png" width="209" height="40"/>
+        <image name="TestImages/0.jpg" width="1920" height="1080"/>
+        <image name="TestImages/1.jpg" width="5472" height="3648"/>
+        <image name="TestImages/2.jpg" width="1800" height="1069"/>
+        <image name="TestImages/3.jpg" width="1920" height="1080"/>
+        <image name="TestImages/4.jpg" width="4928" height="2946"/>
+        <image name="TestImages/5.jpg" width="6000" height="4000"/>
+        <image name="TestImages/6.jpg" width="5426" height="3617"/>
+        <image name="TestImages/7.jpg" width="1920" height="1200"/>
+        <image name="TestImages/8.jpg" width="1680" height="1050"/>
+        <image name="TestImages/9.jpg" width="4000" height="2667"/>
+    </resources>
+</document>
