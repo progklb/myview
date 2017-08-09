@@ -135,7 +135,7 @@ namespace MyView
 
 
 		#region DEBUG
-		async Task Cycle()
+		async Task CycleElements()
 		{
 			await Task.Delay(3000);
 			ShowImageInterface(true);
