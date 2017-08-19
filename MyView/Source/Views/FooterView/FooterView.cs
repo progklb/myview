@@ -2,6 +2,8 @@ using Foundation;
 using System;
 using UIKit;
 
+using MyView.Additional;
+
 namespace MyView.Views
 {
 	/// <summary>

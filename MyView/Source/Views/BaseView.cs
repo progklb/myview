@@ -79,7 +79,7 @@ namespace MyView.Views
 		/// <summary>
 		/// Fades this view in from complete transparent to it's default <see cref="UIView.Alpha"/> value.
 		/// </summary>
-		public void AnimateIn()
+		public virtual void AnimateIn()
 		{
 			Hidden = false;
 			nfloat targetAlpha = 1f;
@@ -94,7 +94,7 @@ namespace MyView.Views
 		/// <summary>
 		/// Fades this view out to completely transparent.
 		/// </summary>
-		public void AnimateOut()
+		public virtual void AnimateOut()
 		{
 			Animate(
 				FadeOutDuration,

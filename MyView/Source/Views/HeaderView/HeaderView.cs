@@ -3,6 +3,8 @@ using System;
 using UIKit;
 using CoreGraphics;
 
+using MyView.Additional;
+
 namespace MyView.Views
 {
 	/// <summary>
@@ -10,7 +12,14 @@ namespace MyView.Views
 	/// </summary>
     public partial class HeaderView : BaseView
     {
-    	#region CONSTTRUCTOR
+    	#region PROPERTIES
+    	/// Whether or not the background gradient should be displayed. 
+		/// Note that this does not take effect immediately and will only be considered when showing this view.
+    	public bool ShowBackingGradient { get; set; }
+    	#endregion
+    	
+    	
+    	#region CONSTRUCTOR
         public HeaderView(IntPtr handle) : base (handle) { }
         #endregion
         
@@ -21,6 +30,12 @@ namespace MyView.Views
 			base.AwakeFromNib();
 			
 			InsertGradient(UIViewGradient, Colors.Black.CGColor, Colors.BlackTransparent.CGColor);
+		}
+		
+		public override void AnimateIn()
+		{
+			UIViewGradient.Hidden = !ShowBackingGradient;
+			base.AnimateIn();
 		}
         #endregion
     }

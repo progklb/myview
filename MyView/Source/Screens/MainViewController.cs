@@ -22,6 +22,9 @@ namespace MyView.Screens
 		
 		
 		#region PROPERTIES
+		/// The current mode that we are viewing the app in.
+		public ApplicationModes CurrentMode { get; private set; }
+		
 		/// The duration of transitions between displaying images.
         public double TransitionDuration { get; set; } = 2;
 		#endregion
@@ -54,6 +57,7 @@ namespace MyView.Screens
 			base.ViewDidLoad();
 			
 			InitialiseInterface();
+			ShowSelectionInterface(true);
 
 			m_Slideshow = new SlideshowController();
 		}
@@ -67,8 +71,6 @@ namespace MyView.Screens
             m_Slideshow.OnImageCycled += SetBackground;
             
             UnsplashAdapter.OnErrorThrown += ShowAlert;
-            
-            CycleElements().ConfigureAwait(false);
 		}
 		
 		public override void ViewWillDisappear(bool animated)
@@ -80,12 +82,12 @@ namespace MyView.Screens
 		#endregion
 
 
-		#region HELPERS
+		#region USER INTERFACE
 		/// <summary>
 		/// Initialises the interface for the first time.
 		/// </summary>
 		void InitialiseInterface()
-		{
+		{			
 			m_Select = BaseView.CreateView<CategorySelectView>(this.View);
 			m_Header = BaseView.CreateView<HeaderView>(this.View);
 			m_Footer = BaseView.CreateView<FooterView>(this.View);
@@ -104,10 +106,13 @@ namespace MyView.Screens
 		{
 			if (show)
 			{
+				m_Header.ShowBackingGradient = false;
+				m_Header.AnimateIn();
 				m_Select.AnimateIn();
 			}
 			else
 			{
+				m_Header.AnimateOut();
 				m_Select.AnimateOut();
 			}
 		}
@@ -120,6 +125,7 @@ namespace MyView.Screens
 		{
 			if (show)
 			{
+				m_Header.ShowBackingGradient = true;
 				m_Header.AnimateIn();
 				m_Footer.AnimateIn();
 			}
@@ -166,22 +172,32 @@ namespace MyView.Screens
 			PresentViewController(alert, true, completionHandler: null);
 		}
 		#endregion
-
-
-		#region DEBUG
-		async Task CycleElements()
+		
+		
+		#region APPLICATION MODE
+		/// <summary>
+		/// Sets the viewing mode of the app.
+		/// </summary>
+		/// <param name="mode">Mode.</param>
+		public void SetMode(ApplicationModes mode)
 		{
-			for (;;)
+			// Sanity check to ensure that our transition makes sense.
+			if 	(CurrentMode == mode || 
+				(CurrentMode == ApplicationModes.CategorySelect && mode == ApplicationModes.ImageDetails) ||
+				(CurrentMode == ApplicationModes.ImageDetails && mode == ApplicationModes.CategorySelect))
 			{
-				await Task.Delay(6000);
-				ShowImageInterface(true);
-				await Task.Delay(3000);
-				ShowImageInterface(false);
-				
-				await Task.Delay(6000);
-				ShowSelectionInterface(true);
-				await Task.Delay(3000);
-				ShowSelectionInterface(false);
+				Console.WriteLine($"Illegal mode selection. Cannot transition directly from {CurrentMode} to {mode}");
+				return;
+			}
+			
+			var oldMode = mode;
+			CurrentMode = mode;
+			
+			switch (CurrentMode)
+			{
+				case ApplicationModes.CategorySelect:
+					ShowSelectionInterface(false);
+					break;
 			}
 		}
 		#endregion

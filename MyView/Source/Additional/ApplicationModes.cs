@@ -6,7 +6,7 @@
 	public enum ApplicationModes
 	{
 		CategorySelect,
-		PhotoDetails,
-		PhotoView
+		ImageDetails,
+		ImageView
 	}
 }

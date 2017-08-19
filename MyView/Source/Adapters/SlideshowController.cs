@@ -89,7 +89,7 @@ namespace MyView.Adapters
             	m_CycleTicks = DateTime.Now.Ticks;
                 
 				var unsplashImage = await UnsplashAdapter.Instance.GetRandomPhotoAsync();
-                unsplashImage.imageData = await UnsplashAdapter.DownloadPhotoAsync(new UnsplashImage() { id = imageURLS[rng.Next(0, imageURLS.Length-1)] }, UnsplashAdapter.UriMode.PhotoID);
+                unsplashImage.imageData = await UnsplashAdapter.DownloadPhotoAsync(new UnsplashImage() { id = imageURLS[rng.Next(0, imageURLS.Length-1)] }	);
                 //TODO Push into history
                 
 				m_CycleTicks = DateTime.Now.Ticks - m_CycleTicks;                
