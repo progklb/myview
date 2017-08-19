@@ -158,7 +158,7 @@ namespace MyView.Screens
 			);
 			
 			// Assign new image
-			var data = NSData.FromArray(image.imageData);
+			var data = NSData.FromArray(image.custom.imageData);
 			m_ImageViews[m_CurrentImageIdx].Image = UIImage.LoadFromData(data);
 		}
 		

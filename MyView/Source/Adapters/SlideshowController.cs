@@ -51,33 +51,7 @@ namespace MyView.Adapters
         async Task StartService()
         {
             var imageSet = new string[] { "cars", "food", "forests", "horses", "mountains", "people", "space" };
-            var imageURLS = new string[] { 
-				"xCmvrpzctaQ", 
-				"OVlFXzeAoqQ", 
-				"kSmTaltv9KU",
-				"7HVGbM4JilI",
-				"OTd55EeZMT4",
-				"PB-14uh_lyg",
-				"PHIgYUGQPvU",
-				"anhQGEYbnV4",
-				"AMGMIHBIT5g",
-				"L5aI2jU0i50",
-				"29seD7tA",
-				"Oj9z9dvGh6E",
-				"iq0EoeLNoy8",
-				"6vjJZYYIiBw",
-				"eCjij29oPc",
-				"fBkkiSWvnmM",
-				"JknoLnbr7hI",
-				"Z1COpZVLB0Y" 
-			};
 			
-			// Working schemas:
-			//"https://images.unsplash.com/photo-1452457807411-4979b707c5be"
-			//"https://unsplash.com/photos/SoC1ex6sI4w/download";
-			
-			//imageURLS[rng.Next(0, imageURLS.Length-1)]     
-
             Random rng = new Random();
             int timeRemaining;
             
@@ -89,15 +63,19 @@ namespace MyView.Adapters
             	m_CycleTicks = DateTime.Now.Ticks;
                 
 				var unsplashImage = await UnsplashAdapter.Instance.GetRandomPhotoAsync();
-                unsplashImage.imageData = await UnsplashAdapter.DownloadPhotoAsync(new UnsplashImage() { id = imageURLS[rng.Next(0, imageURLS.Length-1)] }	);
-                //TODO Push into history
+				
+				if (unsplashImage != null)
+				{
+                	unsplashImage.custom.imageData = await UnsplashAdapter.DownloadPhotoAsync(unsplashImage);
+                	
+                	//TODO Push into history
                 
-				m_CycleTicks = DateTime.Now.Ticks - m_CycleTicks;                
-                     
-				timeRemaining = CycleTimeRemaining;
-                await Task.Delay(timeRemaining > 0 ? timeRemaining : 0);
-                
-                OnImageCycled(unsplashImage);
+					m_CycleTicks = DateTime.Now.Ticks - m_CycleTicks;
+					timeRemaining = CycleTimeRemaining;
+	                await Task.Delay(timeRemaining > 0 ? timeRemaining : 0);
+	                
+	                OnImageCycled(unsplashImage);
+                }
             }
             while (Running);
         }

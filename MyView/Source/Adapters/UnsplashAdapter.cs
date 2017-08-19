@@ -3,6 +3,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using LightWeightJsonParser;
+using MyView.Unsplash;
+
 namespace MyView.Adapters
 {
 	/// <summary>
@@ -45,7 +48,7 @@ namespace MyView.Adapters
         #endregion
 
 
-        #region PUBLIC API
+        #region PUBLIC API - UNSPLASH REQUESTS
         /// <summary>
         /// Retrieves a random photo from the server.
         /// Note that a null photo is returned if the call fails.
@@ -60,11 +63,11 @@ namespace MyView.Adapters
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = response.Content.ReadAsStringAsync().Result;
-                    var json = LightWeightJsonParser.LWJson.Parse(jsonResponse);
-                	Console.WriteLine($"GetRandomPhotoAsync() JSON:\n{jsonResponse}\n{json.ToString()}");
-                    
+                    var jsonObj = LWJson.Parse(jsonResponse);
+					var image = new UnsplashImage();
+					image.FromLWJson(jsonObj);                    
 
-                    return new UnsplashImage();
+                    return image;
                 }
                 else
                 {
@@ -80,7 +83,44 @@ namespace MyView.Adapters
 
             return null;
         }
+		
+		/// <summary>
+		/// Fetches the list counts for all of Unsplash.
+		/// </summary>
+		/// <returns>The latest Unsplash statistics.</returns>
+		public static async Task<UnsplashStats> GetStats()
+		{
+			try
+            {
+				var response = await m_HttpClient.GetAsync($"{BASE_API}/stats/total");
+				
+				if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                    var jsonObj = LWJson.Parse(jsonResponse);
+                    var stats = new UnsplashStats();
+                    stats.FromLWJson(jsonObj);
+                    
+                    return stats;
+                }
+                else
+                {
+                    Console.WriteLine("GetRandomPhotoAsync() failed: " + response.Content.ReadAsStringAsync().Result);
+                	OnErrorThrown(SERVER_ERROR_MESSAGE);
+                }
+			}
+            catch (Exception e)
+            {
+                Console.WriteLine($"GetRandomPhotoAsync() exception: \n{e}");
+                OnErrorThrown(GENERIC_FAILURE_MESSAGE);
+            }
+            
+            return null;
+		}
+        #endregion
         
+        
+        #region PUBLIC API - HELPERS
         /// <summary>
 		/// Retrieves the specified data from the provided URI.
 		/// </summary>
@@ -93,18 +133,8 @@ namespace MyView.Adapters
 			
 			try
 			{
-				// finalUri = null;
-				//switch (mode)
-				//{
-				//	case UriMode.Absolute:		finalUri = $"{uri}";									break;
-				//	case UriMode.PhotoID:		finalUri = $"{BASE_SITE}/photos/{uri}/download/";		break;
-				//}
-				
-				var finalUri = $"{BASE_SITE}/photos/{uri}/download/";
-				
-				data = await m_WebClient.DownloadDataTaskAsync(finalUri);
-				
-				Console.WriteLine($"Photo downloaded. Size = {data.Length} bytes. Location = {finalUri}");
+				data = await m_WebClient.DownloadDataTaskAsync(image.links.download_location);
+				Console.WriteLine($"Photo downloaded. Size = {data.Length} bytes. Location = {image.links.download_location}");
 			}
 			catch (Exception e)
 			{
