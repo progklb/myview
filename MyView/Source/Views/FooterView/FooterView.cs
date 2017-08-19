@@ -2,7 +2,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace MyView
+namespace MyView.Views
 {
 	/// <summary>
 	/// The bottom footer bar that is displayed as an overlay when viewing images to

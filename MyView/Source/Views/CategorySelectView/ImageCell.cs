@@ -2,7 +2,7 @@ using Foundation;
 using System;
 using UIKit;
 
-namespace MyView
+namespace MyView.Views
 {
     public partial class ImageCell : UICollectionViewCell
     {

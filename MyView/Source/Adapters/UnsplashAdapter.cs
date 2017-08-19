@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace MyView
+namespace MyView.Adapters
 {
 	/// <summary>
 	/// Handles all requests to and from the Unsplash server.
@@ -27,6 +27,18 @@ namespace MyView
         const string BASE_API = "http://api.unsplash.com";
         const string BASE_SITE = "https://unsplash.com";
         const string CLIENT_AUTH = "client_id=" + APP_ID;
+        
+        const string GENERIC_FAILURE_MESSAGE = "Unsplash could not be reached for images. Are you sure you are online?";
+        const string SERVER_ERROR_MESSAGE = "Something went wrong with Unsplash! Please try again.";
+        
+		#endregion
+		
+		
+		#region EVENTS
+		/// <summary>
+		/// Is raised when an error occurs. The provided string paramter passes a message that describes the error.
+		/// </summary>
+		public static  Action<string> OnErrorThrown = delegate {};
 		#endregion
 
 
@@ -52,26 +64,32 @@ namespace MyView
         {
             try
             {
+                Debug.Write("GetRandomPhotoAsync(): Requesting image ... ");
+            	
                 var response = await m_HttpClient.GetAsync($"{BASE_API}/photos/random/?{CLIENT_AUTH}");
 
+                Debug.WriteLine("Done!");
+				
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = response.Content.ReadAsStringAsync().Result;
-                    Debug.WriteLine(jsonResponse);
+                    Debug.WriteLine("GetRandomPhotoAsync() Server response: " + jsonResponse);
+                    
+                    var json = LightWeightJsonParser.LWJson.Parse(jsonResponse);
+                    //Debug.WriteLine("LWJson :\n" + json.ToString());
 
-                    //dynamic photoObject = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonResponse);
-                    //UnsplashImage photoObject = Newtonsoft.Json.JsonConvert.DeserializeObject<UnsplashImage>(jsonResponse);
-
-                    return new UnsplashImage();//photoObject;
+                    return new UnsplashImage();
                 }
                 else
                 {
-                    Debug.WriteLine("GetRandomPhoto failed: " + response.Content.ReadAsStringAsync().Result);
+                    Debug.WriteLine("GetRandomPhotoAsync() failed: " + response.Content.ReadAsStringAsync().Result);
+                	OnErrorThrown(SERVER_ERROR_MESSAGE);
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"GetRandomPhoto exception: \n{e}");
+                Debug.WriteLine($"GetRandomPhotoAsync() exception: \n{e}");
+                OnErrorThrown(GENERIC_FAILURE_MESSAGE);
             }
 
             return null;
@@ -81,10 +99,11 @@ namespace MyView
 		/// Retrieves the specified data from the provided URI.
 		/// </summary>
 		/// <returns>The data at the provided end-point.</returns>
-		/// <param name="uri">End-point.</param>
-		public static async Task<byte[]> DownloadPhotoAsync(string uri, UriMode mode)
+		/// <param name="image">The image to download and return.</param>
+		public static async Task<byte[]> DownloadPhotoAsync(UnsplashImage image, UriMode mode)
 		{
 			byte[] data = null;
+			var uri = image.id;
 			
 			try
 			{
@@ -102,6 +121,7 @@ namespace MyView
 			catch (Exception e)
 			{
 				Console.Error.WriteLine($"Downloading file failed: Exception:\n{e}");
+                OnErrorThrown(GENERIC_FAILURE_MESSAGE);
 			}
 
 			return data;

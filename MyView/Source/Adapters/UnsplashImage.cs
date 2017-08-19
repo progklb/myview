@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MyView
+namespace MyView.Adapters
 {
     /// <summary>
     /// Represents a deserialised response from Unsplash, along with associated logic.
     /// </summary>
     public partial class UnsplashImage
     {
-        public string id { get; private set; }
+        public string id { get; set; }	// TODO Make private set
         public DateTime created_at { get; private set; }
         public DateTime updated_at { get; private set; }
         public int width { get; private set; }

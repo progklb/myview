@@ -3,7 +3,7 @@ using System;
 using UIKit;
 using CoreGraphics;
 
-namespace MyView
+namespace MyView.Views
 {
 	/// <summary>
 	/// The top header bar that is displayed as an overlay over the main screen.

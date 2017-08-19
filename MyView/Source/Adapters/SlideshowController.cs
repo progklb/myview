@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MyView
+namespace MyView.Adapters
 {
     /// <summary>
     /// Provides images at fixed intervals and defines parameters for display.
@@ -10,13 +9,27 @@ namespace MyView
     class SlideshowController
     {
         #region EVENTS
+        /// <summary>
+        /// Is raised when an image cycle expires. The parameter carries the new image to display.
+        /// </summary>
         public event Action<UnsplashImage> OnImageCycled = delegate { };
         #endregion
 
 
         #region PROPERTIES
+        /// Whether the slideshow is active.
         public bool Running;
+        /// The time in milliseconds between cycles. Changes to this value will only take effect after the current image cycle.
         public int CycleTime { get; set; } = 3000;
+        
+        /// The time in milliseconds remaining of the current image cycle, based on the <see cref="m_CycleTicks"/> value.
+        private int CycleTimeRemaining { get { return (int)(m_CycleTicks / TimeSpan.TicksPerMillisecond); } }
+        #endregion
+        
+        
+        #region VARIABLES
+        /// A storage variable for tracking cycle time.
+        private long m_CycleTicks;
         #endregion
 
 
@@ -58,23 +71,35 @@ namespace MyView
 				"JknoLnbr7hI",
 				"Z1COpZVLB0Y" 
 			};
-					// Working schemas:
-					//"https://images.unsplash.com/photo-1452457807411-4979b707c5be"
-					//"https://unsplash.com/photos/SoC1ex6sI4w/download";
+			
+			// Working schemas:
+			//"https://images.unsplash.com/photo-1452457807411-4979b707c5be"
+			//"https://unsplash.com/photos/SoC1ex6sI4w/download";
+			
+			//imageURLS[rng.Next(0, imageURLS.Length-1)]     
 
             Random rng = new Random();
+            int timeRemaining;
             
-            while (Running)
+            // Download the next image. Note that we take the current time, initiate image download, and then wait the remaining time until
+            // raising the cycle event. In this manner, download time does not affect the cycling time (unless the download exceeds the cycle time,
+            // in which case we immediately cycle to the downloaded image as soon as it is available).
+            do
             {
-                var unsplashImage = await UnsplashAdapter.Instance.GetRandomPhotoAsync();
-                unsplashImage.imageData = await UnsplashAdapter.DownloadPhotoAsync(        imageURLS[rng.Next(0, imageURLS.Length-1)]     , UnsplashAdapter.UriMode.PhotoID);
+            	m_CycleTicks = DateTime.Now.Ticks;
                 
+				var unsplashImage = await UnsplashAdapter.Instance.GetRandomPhotoAsync();
+                unsplashImage.imageData = await UnsplashAdapter.DownloadPhotoAsync(new UnsplashImage() { id = imageURLS[rng.Next(0, imageURLS.Length-1)] }, UnsplashAdapter.UriMode.PhotoID);
                 //TODO Push into history
                 
-                OnImageCycled(unsplashImage);
+				m_CycleTicks = DateTime.Now.Ticks - m_CycleTicks;                
+                     
+				timeRemaining = CycleTimeRemaining;
+                await Task.Delay(timeRemaining > 0 ? timeRemaining : 0);
                 
-                await Task.Delay(CycleTime);
+                OnImageCycled(unsplashImage);
             }
+            while (Running);
         }
         #endregion
     }

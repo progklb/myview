@@ -6,7 +6,7 @@ using CoreGraphics;
 using CoreAnimation;
 using ObjCRuntime;
 
-namespace MyView
+namespace MyView.Views
 {
 	/// <summary>
     /// Custom <see cref="UIView"/> base class that has convenient functionality.

@@ -1,10 +1,6 @@
-﻿using System;
+﻿using UIKit;
 
-using CoreGraphics;
-using Foundation;
-using UIKit;
-
-namespace MyView
+namespace MyView.Additional
 {
 	public static class Colors
 	{

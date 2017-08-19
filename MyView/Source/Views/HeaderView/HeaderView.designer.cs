@@ -9,7 +9,7 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace MyView
+namespace MyView.Views
 {
     [Register ("HeaderView")]
     partial class HeaderView

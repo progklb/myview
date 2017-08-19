@@ -4,13 +4,23 @@ using System.Threading.Tasks;
 using Foundation;
 using UIKit;
 
-namespace MyView
+using MyView.Adapters;
+using MyView.Additional;
+using MyView.Views;
+
+namespace MyView.Screens
 {
 	/// <summary>
 	/// The main screen of the app.
 	/// </summary>
 	public partial class MainViewController : UIViewController
 	{
+		#region CONSTANTS
+		/// The text displayed as the header of the alert screen.
+		private const string ALERT_HEADER = "Oh no!";
+		#endregion
+		
+		
 		#region PROPERTIES
 		/// The duration of transitions between displaying images.
         public double TransitionDuration { get; set; } = 2;
@@ -55,6 +65,8 @@ namespace MyView
 			// Start image provider
             m_Slideshow.Start();
             m_Slideshow.OnImageCycled += SetBackground;
+            
+            UnsplashAdapter.OnErrorThrown += ShowAlert;
             
             CycleElements().ConfigureAwait(false);
 		}
@@ -118,6 +130,10 @@ namespace MyView
 			}
 		}
 
+		/// <summary>
+		/// Sets the provided image as the displayed image. This intiates a transition from the current image to the new image.
+		/// </summary>
+		/// <param name="image">Image to display.</param>
 		void SetBackground(UnsplashImage image)
 		{	
 			// Fade out old view
@@ -138,6 +154,16 @@ namespace MyView
 			// Assign new image
 			var data = NSData.FromArray(image.imageData);
 			m_ImageViews[m_CurrentImageIdx].Image = UIImage.LoadFromData(data);
+		}
+		
+		/// <summary>
+		/// Presents an alert to the user, indicating that something went wrong.
+		/// </summary>
+		/// <param name="message">Message.</param>
+		void ShowAlert(string message)
+		{
+			var alert = UIAlertController.Create(ALERT_HEADER, message, UIAlertControllerStyle.Alert);
+			PresentViewController(alert, true, completionHandler: null);
 		}
 		#endregion
 
