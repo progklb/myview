@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{555C9A48-C747-4490-8519-0EF5BF17F87E}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>LightWeightJsonParser</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DataType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FailureMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LWJson.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LWJsonArray.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LWJsonObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LWJsonValue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StringMode.cs" />
+  </ItemGroup>
+</Project>

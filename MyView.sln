@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyView", "MyView\MyView.csproj", "{BFDFFC5B-E898-40E6-A5AF-236D7759A964}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "LightWeightJsonParser", "LightWeightJsonParser\LightWeightJsonParser.shproj", "{555C9A48-C747-4490-8519-0EF5BF17F87E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
