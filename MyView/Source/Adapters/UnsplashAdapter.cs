@@ -50,109 +50,23 @@ namespace MyView.Adapters
 
         #region PUBLIC API - UNSPLASH REQUESTS
         /// <summary>
-        /// Retrieves a random photo from the server.
-        /// Note that a null photo is returned if the call fails.
+        /// Retrieves a random photo from the server. Note that a null object is returned if the call fails.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The parsed server response.</returns>
         public async Task<UnsplashImage> GetRandomPhotoAsync()
         {
-        	try
-        	{
-                var response = await m_HttpClient.GetAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape");
-				
-                if (response.IsSuccessStatusCode)
-                {
-                    var jsonResponse = response.Content.ReadAsStringAsync().Result;
-                    var jsonObj = LWJson.Parse(jsonResponse);
-					var image = new UnsplashImage();
-					image.FromLWJson(jsonObj);
-
-                    return image;
-                }
-                else
-                {
-                    Console.WriteLine("GetRandomPhotoAsync() failed: " + response.Content.ReadAsStringAsync().Result);
-                	OnErrorThrown(SERVER_ERROR_MESSAGE);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"GetRandomPhotoAsync() exception: \n{e}");
-                OnErrorThrown(GENERIC_FAILURE_MESSAGE);
-            }
-
-            return null;
+            return await RequestImageAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape");
         }
         
         /// <summary>
-        /// Retrieves a random photo from the server using a query request according to what parameter is provided.
-        /// Note that a null photo is returned if the call fails.
+        /// Retrieves a random photo from the server using a query request according to what parameter is provided. Note that a null object is returned if the call fails.
         /// Format: <paramref name="queryParam"/> can take the form of a search query, such as "forests".
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The parsed server response.</returns>
         public async Task<UnsplashImage> GetRandomQueryAsync(string queryParam)
         {
-            try
-            {
-                var response = await m_HttpClient.GetAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape&query={queryParam}");
-				
-                if (response.IsSuccessStatusCode)
-                {
-                    var jsonResponse = response.Content.ReadAsStringAsync().Result;
-                    var jsonObj = LWJson.Parse(jsonResponse);
-					var image = new UnsplashImage();
-					image.FromLWJson(jsonObj);
-
-                    return image;
-                }
-                else
-                {
-                    Console.WriteLine("GetRandomPhotoAsync() failed: " + response.Content.ReadAsStringAsync().Result);
-                	OnErrorThrown(SERVER_ERROR_MESSAGE);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"GetRandomPhotoAsync() exception: \n{e}");
-                OnErrorThrown(GENERIC_FAILURE_MESSAGE);
-            }
-
-            return null;
+           	return await RequestImageAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape&query={queryParam}");
         }
-		
-		/// <summary>
-		/// Fetches the list counts for all of Unsplash.
-		/// </summary>
-		/// <returns>The latest Unsplash statistics.</returns>
-		public static async Task<UnsplashStats> GetStats()
-		{
-			try
-            {
-				var response = await m_HttpClient.GetAsync($"{BASE_API}/stats/total");
-				
-				if (response.IsSuccessStatusCode)
-                {
-                    var jsonResponse = response.Content.ReadAsStringAsync().Result;
-                    var jsonObj = LWJson.Parse(jsonResponse);
-                    var stats = new UnsplashStats();
-                    stats.FromLWJson(jsonObj);
-                    
-                    return stats;
-                }
-                else
-                {
-                    Console.WriteLine("GetRandomPhotoAsync() failed: " + response.Content.ReadAsStringAsync().Result);
-                	OnErrorThrown(SERVER_ERROR_MESSAGE);
-                }
-			}
-            catch (Exception e)
-            {
-                Console.WriteLine($"GetRandomPhotoAsync() exception: \n{e}");
-                OnErrorThrown(GENERIC_FAILURE_MESSAGE);
-            }
-            
-            return null;
-		}
         #endregion
         
         
@@ -194,7 +108,14 @@ namespace MyView.Adapters
 			return m_UnsplashAdapter; 
 		}
 		
-		async Task<UnsplashImage> GetRequest(string endpoint)
+		/// <summary>
+		/// Makes the call to the server using the provided endpoint. If the response is successful, the return JSON is 
+		/// parsed to produce an <see cref="UnsplashImage"/> that is returned to the calling function. If there is an error,
+		/// null is returned.
+		/// </summary>
+		/// <returns>The .</returns>
+		/// <param name="endpoint">Endpoint.</param>
+		async Task<UnsplashImage> RequestImageAsync(string endpoint)
         {
             try
             {

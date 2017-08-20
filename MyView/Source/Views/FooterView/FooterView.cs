@@ -14,12 +14,6 @@ namespace MyView.Views
 	/// </summary>
     public partial class FooterView : BaseView
     {
-    	#region PROPERTIES
-    	/// The length in seconds of the author value change animation.
-    	public float AuthorChangeAnimationDuration = 1f;
-    	#endregion
-    	
-    	
     	#region CONSTTRUCTOR
         public FooterView(IntPtr handle) : base (handle) { }
         #endregion
@@ -54,20 +48,18 @@ namespace MyView.Views
         #region HELPERS
         async Task AnimateAuthorChange(string authorName, string authorHandle)
         {
-			TriggerAuthorAnimation(AuthorChangeAnimationDuration, 0f);
+			FadeAuthor(ChangeAnimDuration, 0f);
 			
-			await Task.Delay((int)(AuthorChangeAnimationDuration * 1000));
+			await Task.Delay((int)(ChangeAnimDuration * 1000));
 			
 			UILabelAuthorName.Text = authorName;
         	UILabelAuthorHandle.Text = authorHandle;
-			TriggerAuthorAnimation(AuthorChangeAnimationDuration, 1f);
+			FadeAuthor(ChangeAnimDuration, 1f);
         }
         
-        void TriggerAuthorAnimation(float duration, float targetAlpha)
+        void FadeAuthor(nfloat duration, nfloat targetAlpha)
         {
-        	Animate(
-				duration,
-				() => { 
+        	Animate(duration, () => { 
 					UILabelAuthorName.Alpha = targetAlpha;
 					UILabelAuthorHandle.Alpha = targetAlpha;
 				}

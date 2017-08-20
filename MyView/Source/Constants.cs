@@ -12,10 +12,11 @@ namespace MyView
 			#endregion
 		}
 		
-		public static class Categories
+		public static class SlideshowModes
 		{
 			#region PROPERTIES
-			public static string[] List { get; set; } = { "Mountains", "Horses", "Cars", "Forests", "Food", "Space", "People" };
+			public static string[] Categories { get; set; } = { "Mountains", "Horses", "Cars", "Forests", "Food", "Space", "People" };
+			public static string Random { get; set; } = "Random";
 			#endregion
 		}
 	}

@@ -16,6 +16,9 @@ namespace MyView.Views
 		#region PROPERTIES
 		public nfloat FadeInDuration { get; set; } = 0.25f;
 		public nfloat FadeOutDuration { get; set; } = 0.5f;
+		
+		/// The length in seconds of a UI value change animation.
+    	public nfloat ChangeAnimDuration = 1f;
 		#endregion
 		
 		

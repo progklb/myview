@@ -60,6 +60,23 @@ namespace MyView.Screens
 			ShowImageInterface(true);
 
 			m_Slideshow = new SlideshowController();
+			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.Random);
+			
+			CycleModes().ConfigureAwait(false);
+		}
+		
+		async Task CycleModes()
+		{
+			await Task.Delay(10000);
+			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.RandomQuery, "Trees");
+			await Task.Delay(10000);
+			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.RandomQuery, "Girls");
+			await Task.Delay(10000);
+			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.RandomQuery, "Space");
+			await Task.Delay(10000);
+			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.RandomQuery, "Travel");
+			await Task.Delay(10000);
+			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.Random);
 		}
 		
 		public override void ViewWillAppear(bool animated)
@@ -70,6 +87,7 @@ namespace MyView.Screens
             m_Slideshow.Start();
             m_Slideshow.OnImageCycled += SetBackground;
             m_Slideshow.OnImageCycled += SetFooter;
+            m_Slideshow.OnModeChanged += SetHeader;
             m_Slideshow.OnErrorThrown += ShowAlert;
 		}
 		
@@ -169,6 +187,15 @@ namespace MyView.Screens
 		void SetFooter(UnsplashImage image)
 		{
 			m_Footer.SetAuthorText(image.user.name, image.user.username);
+		}
+		
+		/// <summary>
+		/// Sets the items to display on the header view.
+		/// </summary>
+		/// <param name="categoryText">The text that should be displayed in the header.</param>
+		void SetHeader(string categoryText)
+		{
+			m_Header.SetCategoryText(categoryText);
 		}
 		
 		/// <summary>
