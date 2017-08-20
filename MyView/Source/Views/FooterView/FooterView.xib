@@ -18,7 +18,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="1920" height="250"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="9" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIImageFavourite" image="FavouriteEmpty.png" misplaced="YES">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="9" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIImageFavourite" image="FavouriteEmpty.png" misplaced="YES" hidden="YES">
                             <rect key="frame" x="1810" y="140" width="60" height="60"/>
                             <constraints>
                                 <constraint id="51" firstItem="9" firstAttribute="width" constant="60"/>

@@ -1,6 +1,4 @@
-﻿using System;
-
-using LightWeightJsonParser;
+﻿using LightWeightJsonParser;
 using MyView.Adapters;
 using MyView.Unsplash;
 
@@ -17,8 +15,12 @@ namespace MyView
 			// TODO Set the rest of these fields.
 			
 			image.id = json["id"].AsString();
+			
 			image.user.name = json["user"]["name"].AsString();
 			image.user.username = json["user"]["username"].AsString();
+			
+			image.links.html = json["links"]["html"].AsString();
+			image.links.download = json["links"]["download"].AsString();
 			image.links.download_location = json["links"]["download_location"].AsString();
 		}
 		

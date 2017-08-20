@@ -1,5 +1,7 @@
-using Foundation;
 using System;
+using System.Threading.Tasks;
+
+using Foundation;
 using UIKit;
 
 using MyView.Additional;
@@ -12,6 +14,12 @@ namespace MyView.Views
 	/// </summary>
     public partial class FooterView : BaseView
     {
+    	#region PROPERTIES
+    	/// The length in seconds of the author value change animation.
+    	public float AuthorChangeAnimationDuration = 1f;
+    	#endregion
+    	
+    	
     	#region CONSTTRUCTOR
         public FooterView(IntPtr handle) : base (handle) { }
         #endregion
@@ -22,8 +30,49 @@ namespace MyView.Views
 		{
 			base.AwakeFromNib();
 			
-			InsertGradient(UIViewGradient, Colors.BlackTransparent.CGColor, Colors.Black.CGColor);
+			InsertGradient(UIViewGradient, Constants.Colors.BlackTransparent.CGColor, Constants.Colors.Black.CGColor);
+			
+			UILabelAuthorName.Text = 
+			UILabelAuthorHandle.Text = string.Empty;
 		}
+        #endregion
+        
+        
+        #region PUBLIC API
+        /// <summary>
+        /// Assigns the provided parameters to the display on the footer.
+        /// </summary>
+        /// <param name="authorName">Author name.</param>
+        /// <param name="authorHandle">Author handle.</param>
+        public void SetAuthorText(string authorName, string authorHandle)
+        {
+        	AnimateAuthorChange(authorName, authorHandle).ConfigureAwait(false);
+        }
+        #endregion
+        
+        
+        #region HELPERS
+        async Task AnimateAuthorChange(string authorName, string authorHandle)
+        {
+			TriggerAuthorAnimation(AuthorChangeAnimationDuration, 0f);
+			
+			await Task.Delay((int)(AuthorChangeAnimationDuration * 1000));
+			
+			UILabelAuthorName.Text = authorName;
+        	UILabelAuthorHandle.Text = authorHandle;
+			TriggerAuthorAnimation(AuthorChangeAnimationDuration, 1f);
+        }
+        
+        void TriggerAuthorAnimation(float duration, float targetAlpha)
+        {
+        	Animate(
+				duration,
+				() => { 
+					UILabelAuthorName.Alpha = targetAlpha;
+					UILabelAuthorHandle.Alpha = targetAlpha;
+				}
+			);
+        }
         #endregion
     }
 }

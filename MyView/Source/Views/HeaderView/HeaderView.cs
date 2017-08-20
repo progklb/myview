@@ -29,7 +29,7 @@ namespace MyView.Views
 		{
 			base.AwakeFromNib();
 			
-			InsertGradient(UIViewGradient, Colors.Black.CGColor, Colors.BlackTransparent.CGColor);
+			InsertGradient(UIViewGradient, Constants.Colors.Black.CGColor, Constants.Colors.BlackTransparent.CGColor);
 		}
 		
 		public override void AnimateIn()

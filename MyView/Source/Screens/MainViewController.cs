@@ -24,9 +24,6 @@ namespace MyView.Screens
 		#region PROPERTIES
 		/// The current mode that we are viewing the app in.
 		public ApplicationModes CurrentMode { get; private set; }
-		
-		/// The duration of transitions between displaying images.
-        public double TransitionDuration { get; set; } = 2;
 		#endregion
         
         
@@ -57,7 +54,10 @@ namespace MyView.Screens
 			base.ViewDidLoad();
 			
 			InitialiseInterface();
-			ShowSelectionInterface(true);
+			
+			// TODO Show selection first.
+			//ShowSelectionInterface(true);
+			ShowImageInterface(true);
 
 			m_Slideshow = new SlideshowController();
 		}
@@ -69,8 +69,8 @@ namespace MyView.Screens
 			// Start image provider
             m_Slideshow.Start();
             m_Slideshow.OnImageCycled += SetBackground;
-            
-            UnsplashAdapter.OnErrorThrown += ShowAlert;
+            m_Slideshow.OnImageCycled += SetFooter;
+            m_Slideshow.OnErrorThrown += ShowAlert;
 		}
 		
 		public override void ViewWillDisappear(bool animated)
@@ -144,7 +144,7 @@ namespace MyView.Screens
 		{	
 			// Fade out old view
 			UIView.Animate(
-				TransitionDuration, 
+				m_Slideshow.TransitionDuration / 1000f,
 				() => { m_ImageViews[m_CurrentImageIdx].Alpha = 0f; }
 			);
 			
@@ -153,13 +153,22 @@ namespace MyView.Screens
 			
 			// Fade in new view
 			UIView.Animate(
-				TransitionDuration, 
+				m_Slideshow.TransitionDuration / 1000f, 
 				() => { m_ImageViews[m_CurrentImageIdx].Alpha = 1f; }
 			);
 			
 			// Assign new image
 			var data = NSData.FromArray(image.custom.imageData);
 			m_ImageViews[m_CurrentImageIdx].Image = UIImage.LoadFromData(data);
+		}
+		
+		/// <summary>
+		/// Sets the items to display on the footer view according to the provided image.
+		/// </summary>
+		/// <param name="image">Image that should be represented.</param>
+		void SetFooter(UnsplashImage image)
+		{
+			m_Footer.SetAuthorText(image.user.name, image.user.username);
 		}
 		
 		/// <summary>

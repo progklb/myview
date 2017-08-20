@@ -13,5 +13,16 @@ namespace MyView.Views
     	#region CONSTTRUCTOR
         public CategorySelectView(IntPtr handle) : base (handle) { }
         #endregion
+        
+        
+        #region INHERITED METHODS
+        public override void AwakeFromNib()
+		{
+			base.AwakeFromNib();
+			
+			//UICollectionCategories.RegisterClassForCell(typeof(ImageCell), new NSString(ImageCell.CellIdentifier));
+			//UICollectionCategories.Source = new UICollectionViewSource();
+		}
+        #endregion
     }
 }

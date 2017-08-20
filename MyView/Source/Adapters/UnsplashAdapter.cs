@@ -20,11 +20,11 @@ namespace MyView.Adapters
 
         const string BASE_API = "http://api.unsplash.com";
         const string BASE_SITE = "https://unsplash.com";
-        const string CLIENT_AUTH = "client_id=" + APP_ID;
+        
+        const string PARAM_CLIENT_AUTH = "client_id=" + APP_ID;
         
         const string GENERIC_FAILURE_MESSAGE = "Unsplash could not be reached at this time.";
-        const string SERVER_ERROR_MESSAGE = "Something went wrong with Unsplash! Please try again.";
-        
+        const string SERVER_ERROR_MESSAGE = "Something went wrong with Unsplash! Please try again later.";
 		#endregion
 		
 		
@@ -32,7 +32,7 @@ namespace MyView.Adapters
 		/// <summary>
 		/// Is raised when an error occurs. The provided string paramter passes a message that describes the error.
 		/// </summary>
-		public static  Action<string> OnErrorThrown = delegate {};
+		public static event Action<string> OnErrorThrown = delegate {};
 		#endregion
 
 
@@ -56,16 +56,52 @@ namespace MyView.Adapters
         /// <returns></returns>
         public async Task<UnsplashImage> GetRandomPhotoAsync()
         {
-            try
-            {
-                var response = await m_HttpClient.GetAsync($"{BASE_API}/photos/random/?{CLIENT_AUTH}");
+        	try
+        	{
+                var response = await m_HttpClient.GetAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape");
 				
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = response.Content.ReadAsStringAsync().Result;
                     var jsonObj = LWJson.Parse(jsonResponse);
 					var image = new UnsplashImage();
-					image.FromLWJson(jsonObj);                    
+					image.FromLWJson(jsonObj);
+
+                    return image;
+                }
+                else
+                {
+                    Console.WriteLine("GetRandomPhotoAsync() failed: " + response.Content.ReadAsStringAsync().Result);
+                	OnErrorThrown(SERVER_ERROR_MESSAGE);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"GetRandomPhotoAsync() exception: \n{e}");
+                OnErrorThrown(GENERIC_FAILURE_MESSAGE);
+            }
+
+            return null;
+        }
+        
+        /// <summary>
+        /// Retrieves a random photo from the server using a query request according to what parameter is provided.
+        /// Note that a null photo is returned if the call fails.
+        /// Format: <paramref name="queryParam"/> can take the form of a search query, such as "forests".
+        /// </summary>
+        /// <returns></returns>
+        public async Task<UnsplashImage> GetRandomQueryAsync(string queryParam)
+        {
+            try
+            {
+                var response = await m_HttpClient.GetAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape&query={queryParam}");
+				
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                    var jsonObj = LWJson.Parse(jsonResponse);
+					var image = new UnsplashImage();
+					image.FromLWJson(jsonObj);
 
                     return image;
                 }
@@ -133,8 +169,8 @@ namespace MyView.Adapters
 			
 			try
 			{
-				data = await m_WebClient.DownloadDataTaskAsync(image.links.download_location);
-				Console.WriteLine($"Photo downloaded. Size = {data.Length} bytes. Location = {image.links.download_location}");
+				data = await m_WebClient.DownloadDataTaskAsync(image.links.download);
+				Console.WriteLine($"Photo downloaded. Size = {data.Length} bytes. Location = {image.links.download}");
 			}
 			catch (Exception e)
 			{
@@ -157,6 +193,36 @@ namespace MyView.Adapters
 
 			return m_UnsplashAdapter; 
 		}
+		
+		async Task<UnsplashImage> GetRequest(string endpoint)
+        {
+            try
+            {
+                var response = await m_HttpClient.GetAsync(endpoint);
+				
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                    var jsonObj = LWJson.Parse(jsonResponse);
+					var image = new UnsplashImage();
+					image.FromLWJson(jsonObj);
+
+                    return image;
+                }
+                else
+                {
+                    Console.WriteLine("Failure: " + response.Content.ReadAsStringAsync().Result);
+                	OnErrorThrown(SERVER_ERROR_MESSAGE);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Exception: \n{e}");
+                OnErrorThrown(GENERIC_FAILURE_MESSAGE);
+            }
+
+            return null;
+        }
 		#endregion
 	}
 }

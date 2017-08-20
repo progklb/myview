@@ -152,12 +152,15 @@
     <Compile Include="Source\Views\BaseView.cs" />
     <Compile Include="Source\Adapters\SlideshowController.cs" />
     <Compile Include="Source\Adapters\UnsplashAdapter.cs" />
-    <Compile Include="Source\Additional\Colors.cs" />
     <Compile Include="Source\Additional\ApplicationModes.cs" />
     <Compile Include="Source\ExtensionMethods.cs" />
     <Compile Include="Source\Unsplash\UnsplashUser.cs" />
     <Compile Include="Source\Unsplash\UnsplashStats.cs" />
     <Compile Include="Source\Unsplash\UnsplashImage.cs" />
+    <Compile Include="Source\Additional\RandomAccessQueue.cs" />
+    <Compile Include="Source\Additional\Timer.cs" />
+    <Compile Include="Source\Views\CategorySelectView\CategorySelectSource.cs" />
+    <Compile Include="Source\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Storyboard\Main.storyboard" />
