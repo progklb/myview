@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 
 using MyView.Additional;
+using MyView.Unsplash;
 
 namespace MyView.Adapters
 {
@@ -46,9 +47,6 @@ namespace MyView.Adapters
         public int TransitionDuration { get; set; } = 2000;
         /// The interval between retrying server requests after a failure.
         public int RetryTimeout { get; set; } = 5000;
-        
-        /// A cache of previous images.
-        private RandomAccessQueue<UnsplashImage> History { get; set; } = new RandomAccessQueue<UnsplashImage>(5);
         #endregion
         
         
@@ -80,6 +78,7 @@ namespace MyView.Adapters
         public void Stop()
         {
         	UnsplashAdapter.OnErrorThrown -= RaiseOnErrorThrown;
+        	
             IsRunning = false;
         }
         
@@ -99,11 +98,6 @@ namespace MyView.Adapters
         	
         	OnModeChanged(CurrentMode == SlideshowModes.Random ? Constants.SlideshowModes.Random : m_RandomQueryParam);
         }
-        
-        // TODO:
-        // Next image, previous image.
-        // Pause functionality (for when changing to previous image) - return slideshow task and wait until bool is flipped.
-        // When mode is changed, stop current slideshow and reinitiate so that we get an immediate photo change ( or soon as possible )
         #endregion
 
 
@@ -114,6 +108,13 @@ namespace MyView.Adapters
         async Task StartService()
         {
             IsRunning = true;
+
+// Provide an override for DEBUG mode to save bandwidth. Because developers have Internet limits too!            
+#if DEBUG
+			var customSize = UnsplashImage.UnsplashImageSizes.Small;
+#else
+			var customSize = UnsplashImage.UnsplashImageSizes.Default;
+#endif
         	
         	bool firstRun = true;
         	
@@ -127,7 +128,7 @@ namespace MyView.Adapters
 				var unsplashImage = await RequestImage();
 				if (unsplashImage != null)
 				{
-                	unsplashImage.custom.imageData = await UnsplashAdapter.DownloadPhotoAsync(unsplashImage);
+					unsplashImage.custom.imageData = await UnsplashAdapter.DownloadPhotoAsync(unsplashImage, customSize);
 					m_Timer.Stop();
                 	
                 	// For the start we want to display the image as soon as it is downloaded.
@@ -135,7 +136,6 @@ namespace MyView.Adapters
                 	if (firstRun)
                 	{
 	                	UpdateImage(unsplashImage);
-	                	await Task.Delay(CycleTime + TransitionDuration);
 	                	firstRun = false;
                 	}
                 	else
@@ -176,7 +176,6 @@ namespace MyView.Adapters
         void UpdateImage(UnsplashImage image)
         {
         	CurrentImage = image;
-            History.Enqueue(CurrentImage, true);
 	        OnImageCycled(CurrentImage);
         }
         #endregion

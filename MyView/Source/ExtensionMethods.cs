@@ -19,6 +19,18 @@ namespace MyView
 			image.user.name = json["user"]["name"].AsString();
 			image.user.username = json["user"]["username"].AsString();
 			
+			image.urls.raw = json["urls"]["raw"].AsString();
+			image.urls.full = json["urls"]["full"].AsString();
+			image.urls.regular = json["urls"]["regular"].AsString();
+			image.urls.small = json["urls"]["small"].AsString();
+			image.urls.thumb = json["urls"]["thumb"].AsString();
+			
+			// Check that this field exists as it will only be present if a custom size was requested.
+			if (json["urls"].AsObject().ContainsKey("custom"))
+			{
+				image.urls.custom = json["urls"]["custom"].AsString();		
+			}
+			
 			image.links.html = json["links"]["html"].AsString();
 			image.links.download = json["links"]["download"].AsString();
 			image.links.download_location = json["links"]["download_location"].AsString();

@@ -7,6 +7,7 @@ using UIKit;
 using MyView.Adapters;
 using MyView.Additional;
 using MyView.Views;
+using MyView.Unsplash;
 
 namespace MyView.Screens
 {
@@ -40,6 +41,9 @@ namespace MyView.Screens
 		private UIImageView[] m_ImageViews;
 		/// The index of the currently display image view.
 		private int m_CurrentImageIdx;
+		
+		/// A reference to an active alert controller. This prevents multiple errors trying to create multiple controllers.
+		private UIAlertController m_AlertController;
 		#endregion
 
 
@@ -60,23 +64,7 @@ namespace MyView.Screens
 			ShowImageInterface(true);
 
 			m_Slideshow = new SlideshowController();
-			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.Random);
 			
-			CycleModes().ConfigureAwait(false);
-		}
-		
-		async Task CycleModes()
-		{
-			await Task.Delay(10000);
-			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.RandomQuery, "Trees");
-			await Task.Delay(10000);
-			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.RandomQuery, "Girls");
-			await Task.Delay(10000);
-			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.RandomQuery, "Space");
-			await Task.Delay(10000);
-			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.RandomQuery, "Travel");
-			await Task.Delay(10000);
-			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.Random);
 		}
 		
 		public override void ViewWillAppear(bool animated)
@@ -89,6 +77,8 @@ namespace MyView.Screens
             m_Slideshow.OnImageCycled += SetFooter;
             m_Slideshow.OnModeChanged += SetHeader;
             m_Slideshow.OnErrorThrown += ShowAlert;
+            
+			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.Random);
 		}
 		
 		public override void ViewWillDisappear(bool animated)
@@ -201,11 +191,14 @@ namespace MyView.Screens
 		/// <summary>
 		/// Presents an alert to the user, indicating that something went wrong.
 		/// </summary>
-		/// <param name="message">Message.</param>
+		/// <param name="message">Alert message to display.</param>
 		void ShowAlert(string message)
 		{
-			var alert = UIAlertController.Create(ALERT_HEADER, message, UIAlertControllerStyle.Alert);
-			PresentViewController(alert, true, completionHandler: null);
+			if (m_AlertController == null)
+			{
+				m_AlertController = UIAlertController.Create(ALERT_HEADER, message, UIAlertControllerStyle.Alert);
+				PresentViewController(m_AlertController, true, completionHandler: () => { m_AlertController = null; });
+			}
 		}
 		#endregion
 		

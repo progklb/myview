@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MyView.Adapters
+namespace MyView.Unsplash
 {
     /// <summary>
     /// Represents a deserialised response from Unsplash, along with associated logic.
@@ -20,6 +20,7 @@ namespace MyView.Adapters
         public int height { get; set; }
         /// A description of the photograph.
         public string description { get; set; }
+        /// The predominant color of this image. ??
         public string color { get; set; }
 
         /// Camera exif information for this image.
@@ -35,6 +36,8 @@ namespace MyView.Adapters
         /// Information pertaining to the author of this image.
         public UnsplashUser user { get; set; } = new UnsplashUser();
         
+        /// Store of MyView-specific data. This has nothing to do with Unsplash API, but is here as convenience
+        /// in order to keep the image object a singular package.
         public UnsplashCustomValues custom { get; set; } = new UnsplashCustomValues();
     }
 
@@ -51,6 +54,9 @@ namespace MyView.Adapters
         	public byte[] imageData { get; set; }
     	}
     	
+    	/// <summary>
+    	/// Endpoints of various image sizes.
+    	/// </summary>
         public class UnsplashImageURLS
         {
             public string raw { get; set; }
@@ -58,6 +64,8 @@ namespace MyView.Adapters
             public string regular { get; set; }
             public string small { get; set; }
             public string thumb { get; set; }
+            /// Note that this property is only returned when specifying a custom size in the Unspash query.
+            public string custom { get; set; }
         }
 
         public class UnsplashImageLinks
@@ -67,6 +75,9 @@ namespace MyView.Adapters
             public string download_location { get; set; }
         }
 
+		/// <summary>
+		/// Camera data related to this image.
+		/// </summary>
         public class UnsplashImageEXIF
         {
             public string make { get; set; }
@@ -77,12 +88,15 @@ namespace MyView.Adapters
             public int iso { get; set; }
         }
 
+		/// <summary>
+		/// The location at which this image was captured.
+		/// </summary>
         public class UnsplashImageLocation
         {
             public string city { get; set; }
             public string country { get; set; }
         }
-
+	
         public class UnsplashImageCategories
         {
             public class UnsplashImageCategoriesLinks
@@ -95,6 +109,21 @@ namespace MyView.Adapters
             public string title { get; set; }
             public int photo_count { get; set; }
             public UnsplashImageCategoriesLinks links { get; set; } = new UnsplashImageCategoriesLinks();
+        }
+        
+        /// <summary>
+        /// Unsplash image sizes that can be specified.
+        /// These correspond to the endpoints contained in <see cref="UnsplashImageURLS"/>
+        /// </summary>
+        public enum UnsplashImageSizes
+        {
+        	Default,
+        	
+        	Full,
+        	Regular,
+        	Small,
+        	Thumb,
+        	Custom
         }
     }
 }

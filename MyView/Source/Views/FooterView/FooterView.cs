@@ -14,6 +14,11 @@ namespace MyView.Views
 	/// </summary>
     public partial class FooterView : BaseView
     {
+    	#region CONSTRUCTOR
+    	private const string AUTHOR_HANDLE_FORMAT = "@{0}";
+    	#endregion
+    	
+    	
     	#region CONSTTRUCTOR
         public FooterView(IntPtr handle) : base (handle) { }
         #endregion
@@ -53,7 +58,7 @@ namespace MyView.Views
 			await Task.Delay((int)(ChangeAnimDuration * 1000));
 			
 			UILabelAuthorName.Text = authorName;
-        	UILabelAuthorHandle.Text = authorHandle;
+        	UILabelAuthorHandle.Text = string.Format(AUTHOR_HANDLE_FORMAT, authorHandle);
 			FadeAuthor(ChangeAnimDuration, 1f);
         }
         

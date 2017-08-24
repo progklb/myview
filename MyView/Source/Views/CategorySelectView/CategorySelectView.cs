@@ -16,13 +16,13 @@ namespace MyView.Views
         
         
         #region INHERITED METHODS
-        public override void AwakeFromNib()
-		{
-			base.AwakeFromNib();
+        //public override void AwakeFromNib()
+		//{
+		//	base.AwakeFromNib();
 			
 			//UICollectionCategories.RegisterClassForCell(typeof(ImageCell), new NSString(ImageCell.CellIdentifier));
 			//UICollectionCategories.Source = new UICollectionViewSource();
-		}
+		//}
         #endregion
     }
 }

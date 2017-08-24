@@ -15,7 +15,7 @@ namespace MyView.Views
     public partial class HeaderView : BaseView
     {
     	#region CONSTANTS
-    	public const string CATEGORY_FORMAT = "• {0}";
+    	public const string CATEGORY_FORMAT = "•  {0}";
     	#endregion
     	
     	

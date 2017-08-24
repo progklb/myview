@@ -1,4 +1,4 @@
-﻿namespace MyView.Adapters
+﻿namespace MyView.Unsplash
 {
     public partial class UnsplashUser
     {
