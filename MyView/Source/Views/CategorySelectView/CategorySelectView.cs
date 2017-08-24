@@ -1,5 +1,7 @@
-using Foundation;
 using System;
+using System.Collections.Generic;
+
+using Foundation;
 using UIKit;
 
 namespace MyView.Views
@@ -16,13 +18,17 @@ namespace MyView.Views
         
         
         #region INHERITED METHODS
-        //public override void AwakeFromNib()
-		//{
-		//	base.AwakeFromNib();
+        public override void AwakeFromNib()
+		{
+			base.AwakeFromNib();
 			
-			//UICollectionCategories.RegisterClassForCell(typeof(ImageCell), new NSString(ImageCell.CellIdentifier));
-			//UICollectionCategories.Source = new UICollectionViewSource();
-		//}
+			var categoriesList = new List<string>();
+			categoriesList.AddRange(Constants.Slideshow.Categories);
+			categoriesList.Add(Constants.Slideshow.Random);
+			
+			UICollectionCategories.RegisterClassForCell(typeof(ImageCell), new NSString(ImageCell.CellIdentifier));
+			UICollectionCategories.Source = new CategorySelectSource(categoriesList);
+		}
         #endregion
     }
 }

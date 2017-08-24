@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Foundation;
 using UIKit;
@@ -12,6 +13,26 @@ namespace MyView.Views
 	/// </summary>
 	public class CategorySelectSource : UICollectionViewSource
 	{
+		#region VARIABLES
+		List<string> m_Items;
+		#endregion
+		
+		
+		#region CONSTRUCTOR
+		public CategorySelectSource(List<string> items = null)
+		{
+			if (items != null)
+			{
+				m_Items = items;
+			}
+			else
+			{
+				m_Items = new List<string>();
+			}
+		}
+		#endregion
+		
+		
 		#region INHERITED METHODS
 		public override nint NumberOfSections(UICollectionView collectionView)
 		{
@@ -20,15 +41,19 @@ namespace MyView.Views
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section)
 		{
-			return 1;//Constants.Categories.List.Length;
+			return m_Items.Count;
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var imageCell = (ImageCell)collectionView.DequeueReusableCell(ImageCell.CellIdentifier, indexPath);
-			//imageCell.SetCell(Constants.Categories.List[indexPath.Row]);
+			imageCell.SetCell(m_Items[indexPath.Row]);
 			
 			return imageCell;
+		}
+		
+		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
+		{
 		}
 		#endregion
 	}

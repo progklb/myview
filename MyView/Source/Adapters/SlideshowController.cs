@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
 using MyView.Additional;
@@ -83,7 +83,7 @@ namespace MyView.Adapters
         }
         
         /// <summary>
-		/// Sets the behaviour of this slideshow controller. The value used is any value in <see cref="Constants.SlideshowModes"/>.
+		/// Sets the behaviour of this slideshow controller. The value used is any value in <see cref="Constants.Slideshow"/>.
 		/// </summary>
         public void SetSlideshowMode(SlideshowModes mode, string queryParameter = null)
         {
@@ -96,7 +96,7 @@ namespace MyView.Adapters
         	CurrentMode = mode;
         	m_RandomQueryParam = queryParameter;
         	
-        	OnModeChanged(CurrentMode == SlideshowModes.Random ? Constants.SlideshowModes.Random : m_RandomQueryParam);
+        	OnModeChanged(CurrentMode == SlideshowModes.Random ? Constants.Slideshow.Random : m_RandomQueryParam);
         }
         #endregion
 

@@ -60,8 +60,8 @@ namespace MyView.Screens
 			InitialiseInterface();
 			
 			// TODO Show selection first.
-			//ShowSelectionInterface(true);
-			ShowImageInterface(true);
+			ShowSelectionInterface(true);
+			//ShowImageInterface(true);
 
 			m_Slideshow = new SlideshowController();
 			
@@ -96,7 +96,7 @@ namespace MyView.Screens
 		/// </summary>
 		void InitialiseInterface()
 		{			
-			m_Select = BaseView.CreateView<CategorySelectView>(this.View);
+			m_Select = BaseView.CreateView<CategorySelectView>(this.View, null, false);
 			m_Header = BaseView.CreateView<HeaderView>(this.View);
 			m_Footer = BaseView.CreateView<FooterView>(this.View);
 			
@@ -116,12 +116,12 @@ namespace MyView.Screens
 			{
 				m_Header.ShowBackingGradient = false;
 				m_Header.AnimateIn();
-				m_Select.AnimateIn();
+				//m_Select.AnimateIn();
 			}
 			else
 			{
 				m_Header.AnimateOut();
-				m_Select.AnimateOut();
+				//m_Select.AnimateOut();
 			}
 		}
 

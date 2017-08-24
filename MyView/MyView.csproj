@@ -186,6 +186,7 @@
     <BundleResource Include="Resources\Fonts\ZonaPro-Bold.otf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
+    <BundleResource Include="Resources\PlaceholderPhoto.png" />
   </ItemGroup>
   <Import Project="..\LightWeightJsonParser\LightWeightJsonParser.projitems" Label="Shared" Condition="Exists('..\LightWeightJsonParser\LightWeightJsonParser.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.CSharp.targets" />

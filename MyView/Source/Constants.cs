@@ -12,7 +12,15 @@ namespace MyView
 			#endregion
 		}
 		
-		public static class SlideshowModes
+		public static class Images
+		{
+			#region PROPERTIES
+			public static string PlaceholderPhoto { get { return "PlaceholderPhoto.png"; } }
+			#endregion
+		}
+		
+		
+		public static class Slideshow
 		{
 			#region PROPERTIES
 			public static string[] Categories { get; set; } = { "Mountains", "Horses", "Cars", "Forests", "Food", "Space", "People" };
