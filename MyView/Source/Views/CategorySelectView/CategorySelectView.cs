@@ -28,6 +28,9 @@ namespace MyView.Views
 			
 			UICollectionCategories.RegisterClassForCell(typeof(ImageCell), new NSString(ImageCell.CellIdentifier));
 			UICollectionCategories.Source = new CategorySelectSource(categoriesList);
+			
+	        // TODO Set the first cell as the focused cell when launching the View.
+			// view.PreferredFocusedView = true;
 		}
         #endregion
     }

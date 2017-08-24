@@ -42,6 +42,9 @@ namespace MyView.Views
 			m_UIImageViewImage.Frame = new CGRect(cornerX, cornerY, width, height);
 			m_UIImageViewImage.ContentMode = UIViewContentMode.ScaleAspectFill;
 			
+			// Allow Focus engine to display focused affects.
+			m_UIImageViewImage.AdjustsImageWhenAncestorFocused = true;
+			
 			ContentView.AddSubview(m_UIImageViewImage);
 		}
         #endregion

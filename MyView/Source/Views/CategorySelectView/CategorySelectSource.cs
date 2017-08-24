@@ -14,7 +14,8 @@ namespace MyView.Views
 	public class CategorySelectSource : UICollectionViewSource
 	{
 		#region VARIABLES
-		List<string> m_Items;
+		/// Holds the data to display.
+		private List<string> m_Items;
 		#endregion
 		
 		
