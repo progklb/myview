@@ -56,15 +56,14 @@ namespace MyView.Screens
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			
+
+			m_Slideshow = new SlideshowController();
+						
 			InitialiseInterface();
 			
 			// TODO Show selection first.
 			ShowSelectionInterface(true);
 			//ShowImageInterface(true);
-
-			m_Slideshow = new SlideshowController();
-			
 		}
 		
 		public override void ViewWillAppear(bool animated)
@@ -97,6 +96,8 @@ namespace MyView.Screens
 		void InitialiseInterface()
 		{			
 			m_Select = BaseView.CreateView<CategorySelectView>(this.View, null, false);
+			m_Select.Slideshow = m_Slideshow;
+			
 			m_Header = BaseView.CreateView<HeaderView>(this.View);
 			m_Footer = BaseView.CreateView<FooterView>(this.View);
 			

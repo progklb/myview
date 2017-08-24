@@ -16,6 +16,11 @@ namespace MyView.Views
 		#region VARIABLES
 		/// Holds the data to display.
 		private List<string> m_Items;
+
+		/// The callback raised when an item is focused.		
+		private Action<string> m_ItemFocusedCallback;
+		/// The callback raised when an item is selected.		
+		private Action<string> m_ItemSelectedCallback;
 		#endregion
 		
 		
@@ -55,6 +60,25 @@ namespace MyView.Views
 		
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
+			m_ItemSelectedCallback(m_Items[indexPath.Row]);
+		}
+		
+		public override void DidUpdateFocus(UICollectionView collectionView, UICollectionViewFocusUpdateContext context, UIFocusAnimationCoordinator coordinator)
+		{
+			m_ItemFocusedCallback(m_Items[context.NextFocusedIndexPath.Row]);
+		}
+		#endregion
+		
+		
+		#region PUBLIC API
+		public void SetItemSelectedCallback(Action<string> callback)
+		{
+			m_ItemSelectedCallback = callback;
+		}
+		
+		public void SetItemFocusedCallback(Action<string> callback)
+		{
+			m_ItemFocusedCallback = callback;
 		}
 		#endregion
 	}
