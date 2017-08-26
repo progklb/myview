@@ -16,6 +16,7 @@ namespace MyView.Views
     {
     	#region CONSTANTS
     	public const string CATEGORY_FORMAT = "•  {0}";
+    	public const int ANIMATION_Y_MOVEMENT = 20;
     	#endregion
     	
     	
@@ -42,6 +43,21 @@ namespace MyView.Views
 		public override void AnimateIn()
 		{
 			UIViewGradient.Hidden = !ShowBackingGradient;
+			
+			// Add an "ease-in" animation. Offset the view by the animation Y change, and then set the target position in the animation.
+			var currentFrame = Frame;
+			currentFrame.Y -= ANIMATION_Y_MOVEMENT;
+			Frame = currentFrame;
+			
+			Animate(
+				AnimateInDuration,
+				() => {
+						var targetFrame = Frame;
+						targetFrame.Y += ANIMATION_Y_MOVEMENT;
+						Frame = targetFrame;
+				}
+			);
+			
 			base.AnimateIn();
 		}
         #endregion
