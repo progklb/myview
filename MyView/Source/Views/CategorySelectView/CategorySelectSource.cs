@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Foundation;
 using UIKit;
 
-using MyView;
+using MyView.Additional;
 
 namespace MyView.Views
 {
@@ -15,17 +15,17 @@ namespace MyView.Views
 	{
 		#region VARIABLES
 		/// Holds the data to display.
-		private List<string> m_Items;
+		private List<Category> m_Items;
 
 		/// The callback raised when an item is focused.		
-		private Action<string> m_ItemFocusedCallback;
+		private Action<Category> m_ItemFocusedCallback;
 		/// The callback raised when an item is selected.		
-		private Action<string> m_ItemSelectedCallback;
+		private Action<Category> m_ItemSelectedCallback;
 		#endregion
 		
 		
 		#region CONSTRUCTOR
-		public CategorySelectSource(List<string> items = null)
+		public CategorySelectSource(List<Category> items = null)
 		{
 			if (items != null)
 			{
@@ -33,7 +33,7 @@ namespace MyView.Views
 			}
 			else
 			{
-				m_Items = new List<string>();
+				m_Items = new List<Category>();
 			}
 		}
 		#endregion
@@ -65,18 +65,30 @@ namespace MyView.Views
 		
 		public override void DidUpdateFocus(UICollectionView collectionView, UICollectionViewFocusUpdateContext context, UIFocusAnimationCoordinator coordinator)
 		{
-			m_ItemFocusedCallback(m_Items[context.NextFocusedIndexPath.Row]);
+			// Ensure that the item is not null. This can happen if this view recieves a focus update but is not currently in focus itself. (?)
+			if (context.NextFocusedIndexPath != null)
+			{
+				m_ItemFocusedCallback(m_Items[context.NextFocusedIndexPath.Row]);
+			}
 		}
 		#endregion
 		
 		
 		#region PUBLIC API
-		public void SetItemSelectedCallback(Action<string> callback)
+		/// <summary>
+		/// Sets a callback that will be invoked when a <see cref="Category"/> item is selected.
+		/// </summary>
+		/// <param name="callback">Callback to invoke.</param>
+		public void SetItemSelectedCallback(Action<Category> callback)
 		{
 			m_ItemSelectedCallback = callback;
 		}
 		
-		public void SetItemFocusedCallback(Action<string> callback)
+		/// <summary>
+		/// Sets a callback that will be invoked when a <see cref="Category"/> item is focused on.
+		/// </summary>
+		/// <param name="callback">Callback to invoke.</param>
+		public void SetItemFocusedCallback(Action<Category> callback)
 		{
 			m_ItemFocusedCallback = callback;
 		}

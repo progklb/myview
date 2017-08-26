@@ -19,6 +19,8 @@ namespace MyView.Screens
 		#region CONSTANTS
 		/// The text displayed as the header of the alert screen.
 		private const string ALERT_HEADER = "Oh no!";
+		/// The amount of time in milliseconds before automatically hiding the image interface.
+		private const int IMAGE_INTERFACE_TIMEOUT = 5000;
 		#endregion
 		
 		
@@ -60,10 +62,7 @@ namespace MyView.Screens
 			m_Slideshow = new SlideshowController();
 						
 			InitialiseInterface();
-			
-			// TODO Show selection first.
-			ShowSelectionInterface(true);
-			//ShowImageInterface(true);
+			InitialiseControls();
 		}
 		
 		public override void ViewWillAppear(bool animated)
@@ -87,15 +86,18 @@ namespace MyView.Screens
 			m_Slideshow.Stop();
 		}
 		#endregion
-
-
-		#region USER INTERFACE
+		
+		
+		#region SETUP
 		/// <summary>
 		/// Initialises the interface for the first time.
 		/// </summary>
 		void InitialiseInterface()
-		{			
+		{	
+			CurrentMode = ApplicationModes.CategorySelect;
+			
 			m_Select = BaseView.CreateView<CategorySelectView>(this.View, null, false);
+			m_Select.SetItemSelectedCallback(OnCategoryItemSelected);
 			m_Select.Slideshow = m_Slideshow;
 			
 			m_Header = BaseView.CreateView<HeaderView>(this.View);
@@ -106,45 +108,89 @@ namespace MyView.Screens
 			UIImageBackground1.Alpha = 0f;
 			UIImageBackground2.Alpha = 0f;
 		}
-
+		
 		/// <summary>
-		/// Shows or hides the category selection interface.
+		/// Initialises gesture recognizers for capturing input.
 		/// </summary>
-		/// <param name="show">If set to <c>true</c> show.</param>
-		void ShowSelectionInterface(bool show)
-		{
-			if (show)
-			{
-				m_Header.ShowBackingGradient = false;
-				m_Header.AnimateIn();
-				//m_Select.AnimateIn();
-			}
-			else
-			{
-				m_Header.AnimateOut();
-				//m_Select.AnimateOut();
-			}
+		void InitialiseControls()
+		{	
+			var menuRecognizer = new UITapGestureRecognizer(OnRemoteMenuClicked);
+			menuRecognizer.AllowedPressTypes = new NSNumber[] { NSNumber.FromInt64((Int64)UIPressType.Menu) };
+			View.AddGestureRecognizer(menuRecognizer);
+			
+			var selectRecognizer = new UITapGestureRecognizer(OnRemoteSelectClicked);
+			selectRecognizer.AllowedPressTypes = new NSNumber[] { NSNumber.FromInt64((Int64)UIPressType.Select) };
+			View.AddGestureRecognizer(selectRecognizer);
 		}
-
-		/// <summary>
-		/// Shows or hides the image view interface.
-		/// </summary>
-		/// <param name="show">If set to <c>true</c> show.</param>
-		void ShowImageInterface(bool show)
+		#endregion
+		
+		
+		#region EVENT HANDLERS
+		void OnRemoteMenuClicked()
 		{
-			if (show)
+			var old = CurrentMode;
+			
+			if (CurrentMode == ApplicationModes.ImageView)
 			{
-				m_Header.ShowBackingGradient = true;
+				CurrentMode = ApplicationModes.CategorySelect;
+				m_Footer.AnimateOut();
 				m_Header.AnimateIn();
-				m_Footer.AnimateIn();
+				m_Select.AnimateIn();
 			}
-			else
+			else if (CurrentMode == ApplicationModes.ImageDetails)
 			{
-				m_Header.AnimateOut();
+				CurrentMode = ApplicationModes.CategorySelect;
+				m_Select.AnimateIn();
 				m_Footer.AnimateOut();
 			}
+			else if (CurrentMode == ApplicationModes.CategorySelect)
+			{
+				CurrentMode = ApplicationModes.ImageDetails;
+				m_Select.AnimateOut();
+				m_Footer.AnimateIn();
+				// TODO Start timeout
+			}
 		}
+		
+		void OnRemoteSelectClicked()
+		{
+			var old = CurrentMode;
+			
+			if (CurrentMode == ApplicationModes.ImageView)
+			{
+				CurrentMode = ApplicationModes.ImageDetails;
+				//m_Header.ShowBackingGradient = true;
+				m_Header.AnimateIn();
+				m_Footer.AnimateIn();
+				// TODO Start timeout
+			}
+			else if (CurrentMode == ApplicationModes.ImageDetails)
+			{
+				CurrentMode = ApplicationModes.ImageView;
+				m_Header.AnimateOut();
+				m_Footer.AnimateDim();
+				// TODO Stop timeout
+			}
+		}
+		
+		void OnCategoryItemSelected()
+		{
+			m_Select.AnimateOut();
+			m_Footer.AnimateIn();
+			// TODO Start timeout
+			
+			Console.WriteLine("CatItemSelected");
+		}
+		
+		async Task StartImageInterfaceTimeout()
+		{	
+			await Task.Delay(IMAGE_INTERFACE_TIMEOUT);
+			// TODO Check if still valid + Hide elements
+		}
+		#endregion
 
+
+		#region USER INTERFACE
 		/// <summary>
 		/// Sets the provided image as the displayed image. This intiates a transition from the current image to the new image.
 		/// </summary>
@@ -199,35 +245,6 @@ namespace MyView.Screens
 			{
 				m_AlertController = UIAlertController.Create(ALERT_HEADER, message, UIAlertControllerStyle.Alert);
 				PresentViewController(m_AlertController, true, completionHandler: () => { m_AlertController = null; });
-			}
-		}
-		#endregion
-		
-		
-		#region APPLICATION MODE
-		/// <summary>
-		/// Sets the viewing mode of the app.
-		/// </summary>
-		/// <param name="mode">Mode.</param>
-		public void SetMode(ApplicationModes mode)
-		{
-			// Sanity check to ensure that our transition makes sense.
-			if 	(CurrentMode == mode || 
-				(CurrentMode == ApplicationModes.CategorySelect && mode == ApplicationModes.ImageDetails) ||
-				(CurrentMode == ApplicationModes.ImageDetails && mode == ApplicationModes.CategorySelect))
-			{
-				Console.WriteLine($"Illegal mode selection. Cannot transition directly from {CurrentMode} to {mode}");
-				return;
-			}
-			
-			var oldMode = mode;
-			CurrentMode = mode;
-			
-			switch (CurrentMode)
-			{
-				case ApplicationModes.CategorySelect:
-					ShowSelectionInterface(false);
-					break;
 			}
 		}
 		#endregion

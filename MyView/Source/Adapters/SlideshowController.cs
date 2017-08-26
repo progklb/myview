@@ -96,7 +96,7 @@ namespace MyView.Adapters
         	CurrentMode = mode;
         	m_RandomQueryParam = queryParameter;
         	
-        	OnModeChanged(CurrentMode == SlideshowModes.Random ? Constants.Slideshow.Random : m_RandomQueryParam);
+        	OnModeChanged(CurrentMode == SlideshowModes.Random ? Constants.Slideshow.Random.DisplayName : m_RandomQueryParam);
         }
         #endregion
 
@@ -164,8 +164,8 @@ namespace MyView.Adapters
         		case SlideshowModes.RandomQuery:
         			return await UnsplashAdapter.Instance.GetRandomQueryAsync(m_RandomQueryParam);
         			
-        			default:
-        				throw new NotImplementedException($"There is currently no support for the selected slideshow mode: {CurrentMode}.");
+    			default:
+    				throw new NotImplementedException($"There is currently no support for the selected slideshow mode: {CurrentMode}.");
         	}
         }
         

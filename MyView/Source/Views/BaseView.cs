@@ -14,8 +14,8 @@ namespace MyView.Views
 	public class BaseView : UIView
 	{
 		#region PROPERTIES
-		public nfloat FadeInDuration { get; set; } = 0.25f;
-		public nfloat FadeOutDuration { get; set; } = 0.5f;
+		public nfloat AnimateInDuration { get; set; } = 0.25f;
+		public nfloat AnimateOutDuration { get; set; } = 0.5f;
 		
 		/// The length in seconds of a UI value change animation.
     	public nfloat ChangeAnimDuration = 1f;
@@ -86,10 +86,10 @@ namespace MyView.Views
 		{
 			Hidden = false;
 			nfloat targetAlpha = 1f;
-			Alpha = 0f;
+			//Alpha = 0f;
 			
 			Animate(
-				FadeInDuration,
+				AnimateInDuration,
 				() => { Alpha = targetAlpha; }
 			);
 		}
@@ -100,7 +100,7 @@ namespace MyView.Views
 		public virtual void AnimateOut()
 		{
 			Animate(
-				FadeOutDuration,
+				AnimateOutDuration,
 				() => { Alpha = 0; },
 				() => { Hidden = true; }
 			);

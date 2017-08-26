@@ -47,6 +47,20 @@ namespace MyView.Views
         {
         	AnimateAuthorChange(authorName, authorHandle).ConfigureAwait(false);
         }
+        
+        /// <summary>
+		/// Fades this view to a semi-transparent state.
+		/// </summary>
+		public virtual void AnimateDim()
+		{
+			Hidden = false;
+			nfloat targetAlpha = 0.5f;
+			
+			Animate(
+				AnimateOutDuration,
+				() => { Alpha = targetAlpha; }
+			);
+		}
         #endregion
         
         

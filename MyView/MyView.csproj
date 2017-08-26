@@ -121,6 +121,7 @@
     <Folder Include="Source\Views\HeaderView\" />
     <Folder Include="Source\Additional\" />
     <Folder Include="Source\Unsplash\" />
+    <Folder Include="Resources\CategoryPlaceholder\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -161,6 +162,7 @@
     <Compile Include="Source\Additional\Timer.cs" />
     <Compile Include="Source\Views\CategorySelectView\CategorySelectSource.cs" />
     <Compile Include="Source\Constants.cs" />
+    <Compile Include="Source\Additional\Category.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Storyboard\Main.storyboard" />

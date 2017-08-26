@@ -86,5 +86,6 @@
         <image name="TestImages/7.jpg" width="1920" height="1200"/>
         <image name="TestImages/8.jpg" width="1680" height="1050"/>
         <image name="TestImages/9.jpg" width="4000" height="2667"/>
+        <image name="PlaceholderPhoto.png" width="979" height="653"/>
     </resources>
 </document>

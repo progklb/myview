@@ -4,6 +4,8 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 
+using MyView.Additional;
+
 namespace MyView.Views
 {
     public partial class ImageCell : UICollectionViewCell
@@ -13,7 +15,7 @@ namespace MyView.Views
     	public static string CellIdentifier { get { return nameof(ImageCell); } }
     	
     	/// The category which this cell represents.
-    	public string Category { get; private set; }
+    	public Category Category { get; private set; }
     	#endregion
     	
     	
@@ -38,7 +40,7 @@ namespace MyView.Views
 			var height = frame.Height - (2 * cornerY);
 
 			// Set photo frame size, and load a placeholder to indicate that this cell does not yet represent a photo.
-			m_UIImageViewImage = new UIImageView(UIImage.FromFile(Constants.Images.PlaceholderPhoto));
+			m_UIImageViewImage = new UIImageView();
 			m_UIImageViewImage.Frame = new CGRect(cornerX, cornerY, width, height);
 			m_UIImageViewImage.ContentMode = UIViewContentMode.ScaleAspectFill;
 			
@@ -51,14 +53,11 @@ namespace MyView.Views
         
         
         #region PUBLIC API
-        public void SetCell(string name, UIImage image = null)
+        public void SetCell(Category category)
         {
-        	Category = name;
-        	
-        	if (image != null)
-        	{
-	        	m_UIImageViewImage.Image = image;
-        	}
+        	Category = category;
+
+	        m_UIImageViewImage.Image = UIImage.FromFile(category.PreviewPath ?? Constants.Images.PlaceholderPhoto);
         }
         #endregion
     }
