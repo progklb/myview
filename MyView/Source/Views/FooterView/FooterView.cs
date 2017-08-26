@@ -14,8 +14,14 @@ namespace MyView.Views
 	/// </summary>
     public partial class FooterView : BaseView
     {
-    	#region CONSTRUCTOR
+    	#region CONSTANTS
     	private const string AUTHOR_HANDLE_FORMAT = "@{0}";
+    	#endregion
+    	
+    	
+    	#region PROPERTIES
+    	/// The target alpha value for <see cref="AnimateDim"/>.
+    	public nfloat DimmedAlpha { get; set; } = 0.5f;
     	#endregion
     	
     	
@@ -54,7 +60,7 @@ namespace MyView.Views
 		public virtual void AnimateDim()
 		{
 			Hidden = false;
-			nfloat targetAlpha = 0.5f;
+			nfloat targetAlpha = DimmedAlpha;
 			
 			Animate(
 				AnimateOutDuration,
