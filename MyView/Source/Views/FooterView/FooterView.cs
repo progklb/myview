@@ -22,6 +22,14 @@ namespace MyView.Views
     	#region PROPERTIES
     	/// The target alpha value for <see cref="AnimateDim"/>.
     	public nfloat DimmedAlpha { get; set; } = 0.5f;
+    	/// The amount of time in seconds before automatic dimming takes place.
+    	public float DimTimeout { get; set; } = 5f;
+    	#endregion
+    	
+    	
+    	#region VARIABLE
+    	/// If true, there is currently a timeout running for automatic dimming of this view.
+    	private bool m_DimTimeoutRunning = false;
     	#endregion
     	
     	
@@ -40,6 +48,20 @@ namespace MyView.Views
 			UILabelAuthorName.Text = 
 			UILabelAuthorHandle.Text = string.Empty;
 		}
+		
+		public override void AnimateIn()
+		{
+			// Invalidate any timeout
+			base.AnimateIn();
+			m_DimTimeoutRunning = false;
+		}
+		
+		public override void AnimateOut()
+		{
+			// Invalidate any timeout
+			base.AnimateOut();
+			m_DimTimeoutRunning = false;
+		}
         #endregion
         
         
@@ -51,14 +73,14 @@ namespace MyView.Views
         /// <param name="authorHandle">Author handle.</param>
         public void SetAuthorText(string authorName, string authorHandle)
         {
-        	AnimateAuthorChange(authorName, authorHandle).ConfigureAwait(false);
+        	AnimateAuthorChangeAsync(authorName, authorHandle).ConfigureAwait(false);
         }
         
         /// <summary>
 		/// Fades this view to a semi-transparent state.
 		/// </summary>
 		public virtual void AnimateDim()
-		{
+		{			
 			Hidden = false;
 			nfloat targetAlpha = DimmedAlpha;
 			
@@ -66,12 +88,45 @@ namespace MyView.Views
 				AnimateOutDuration,
 				() => { Alpha = targetAlpha; }
 			);
+			
+			m_DimTimeoutRunning = false;
+		}
+		
+		/// <summary>
+		/// Starts a timeout of length <see cref="DimTimeout"/> before dimming this view. 
+		/// Note that this will be invalidated if any other animation is called on this object.
+		/// </summary>
+		public void StartDimTimeout()
+		{
+			StartDimTimeoutAsync(DimTimeout).ConfigureAwait(false);
 		}
         #endregion
         
         
         #region HELPERS
-        async Task AnimateAuthorChange(string authorName, string authorHandle)
+        async Task StartDimTimeoutAsync(nfloat timeout)
+        {	
+        	// IMPROVE
+        	// We enter into a loop here because its the easiest way of being able to 
+        	// invalidate a timeout without have cancellation tokens or some other form of tracking task validity.
+        	
+        	m_DimTimeoutRunning = true;
+        	var start = DateTime.Now.Ticks;
+        	
+        	do
+        	{
+        		await Task.Delay(50);
+        	}
+        	while (m_DimTimeoutRunning && (DateTime.Now.Ticks - start < DimTimeout * TimeSpan.TicksPerSecond));
+        	
+        	// Check that the dim task is still valid.
+        	if (m_DimTimeoutRunning)
+        	{
+        		AnimateDim();
+        	}
+        }
+        
+        async Task AnimateAuthorChangeAsync(string authorName, string authorHandle)
         {
 			FadeAuthor(ChangeAnimDuration, 0f);
 			
@@ -84,7 +139,9 @@ namespace MyView.Views
         
         void FadeAuthor(nfloat duration, nfloat targetAlpha)
         {
-        	Animate(duration, () => { 
+        	Animate(
+				duration, 
+				() => { 
 					UILabelAuthorName.Alpha = targetAlpha;
 					UILabelAuthorHandle.Alpha = targetAlpha;
 				}

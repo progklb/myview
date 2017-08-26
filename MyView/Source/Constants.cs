@@ -1,4 +1,6 @@
-﻿using UIKit;
+﻿using System.IO;
+
+using UIKit;
 
 using MyView.Additional;
 
@@ -17,7 +19,9 @@ namespace MyView
 		public static class Images
 		{
 			#region PROPERTIES
-			public static string PlaceholderPhoto { get { return "PlaceholderPhoto.png"; } }
+			public static string PlaceholderPhoto { get { return Path.Combine(PlaceholderPhotoPath, "PlaceholderPhoto.png"); } }
+			
+			public static string PlaceholderPhotoPath { get { return "CategoryPlaceholder"; } }
 			#endregion
 		}
 		

@@ -69,7 +69,7 @@ namespace MyView.Adapters
             m_Timer = new Timer();
             
             IsRunning = true;
-            StartService().ConfigureAwait(false);
+            StartServiceAsync().ConfigureAwait(false);
         }
 		
 		/// <summary>
@@ -105,7 +105,7 @@ namespace MyView.Adapters
         /// <summary>
         /// A looping service that will continually download and deliver images to listeners.
         /// </summary>
-        async Task StartService()
+        async Task StartServiceAsync()
         {
             IsRunning = true;
 
@@ -125,7 +125,7 @@ namespace MyView.Adapters
             {
             	m_Timer.Start();
                 
-				var unsplashImage = await RequestImage();
+				var unsplashImage = await RequestImageAsync();
 				if (unsplashImage != null)
 				{
 					unsplashImage.custom.imageData = await UnsplashAdapter.DownloadPhotoAsync(unsplashImage, customSize);
@@ -155,7 +155,7 @@ namespace MyView.Adapters
         /// <summary>
         /// Requests an image based on the current slideshow mode.
         /// </summary>
-        async Task<UnsplashImage> RequestImage()
+        async Task<UnsplashImage> RequestImageAsync()
         {
         	switch (CurrentMode)
         	{

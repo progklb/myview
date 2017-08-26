@@ -57,7 +57,12 @@ namespace MyView.Views
         {
         	Category = category;
 
-	        m_UIImageViewImage.Image = UIImage.FromFile(category.PreviewPath ?? Constants.Images.PlaceholderPhoto);
+	        m_UIImageViewImage.Image = UIImage.FromFile(category.PreviewPath);
+	        
+	        if (m_UIImageViewImage.Image == null)
+	        {
+	        	m_UIImageViewImage.Image = UIImage.FromFile(Constants.Images.PlaceholderPhoto);
+	        }
         }
         #endregion
     }

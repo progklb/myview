@@ -70,13 +70,13 @@ namespace MyView.Views
         /// <param name="categoryText">Text to display.</param>
         public void SetCategoryText(string categoryText)
         {
-        	AnimateCategoryChange(categoryText).ConfigureAwait(false);
+        	AnimateCategoryChangeAsync(categoryText).ConfigureAwait(false);
         }
         #endregion
         
         
         #region HELPERS
-        async Task AnimateCategoryChange(string categoryText)
+        async Task AnimateCategoryChangeAsync(string categoryText)
         {
 			FadeCategory(ChangeAnimDuration, 0f);
 			
@@ -88,9 +88,9 @@ namespace MyView.Views
         
         void FadeCategory(nfloat duration, nfloat targetAlpha)
         {
-        	Animate(duration, () => { 
-					UILabelCategory.Alpha = targetAlpha;
-				}
+        	Animate(
+				duration, 
+				() => { UILabelCategory.Alpha = targetAlpha; }
 			);
         }
         #endregion

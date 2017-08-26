@@ -148,7 +148,7 @@ namespace MyView.Screens
 				CurrentMode = ApplicationModes.ImageDetails;
 				m_Select.AnimateOut();
 				m_Footer.AnimateIn();
-				// TODO Start timeout
+				m_Footer.StartDimTimeout();
 			}
 		}
 		
@@ -162,14 +162,13 @@ namespace MyView.Screens
 				//m_Header.ShowBackingGradient = true;
 				m_Header.AnimateIn();
 				m_Footer.AnimateIn();
-				// TODO Start timeout
+				m_Footer.StartDimTimeout();
 			}
 			else if (CurrentMode == ApplicationModes.ImageDetails)
 			{
 				CurrentMode = ApplicationModes.ImageView;
 				m_Header.AnimateOut();
 				m_Footer.AnimateDim();
-				// TODO Stop timeout
 			}
 		}
 		
@@ -177,15 +176,7 @@ namespace MyView.Screens
 		{
 			m_Select.AnimateOut();
 			m_Footer.AnimateIn();
-			// TODO Start timeout
-			
-			Console.WriteLine("CatItemSelected");
-		}
-		
-		async Task StartImageInterfaceTimeout()
-		{	
-			await Task.Delay(IMAGE_INTERFACE_TIMEOUT);
-			// TODO Check if still valid + Hide elements
+			m_Footer.StartDimTimeout();
 		}
 		#endregion
 

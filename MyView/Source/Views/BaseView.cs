@@ -111,7 +111,7 @@ namespace MyView.Views
 		#region PUBLIC API - HELPERS
 		/// <summary>
 		/// Inserts a vertical gradient layer on top of the provided view. The upper color is the <paramref name="startingColor"/>, 
-		/// while the lower color is the <see cref="endingColor"/>
+		/// while the lower color is the <paramref name="endingColor"/>
 		/// </summary>
 		/// <param name="view">View to apply gradient too.</param>
 		/// <param name="startingColor">Starting color.</param>

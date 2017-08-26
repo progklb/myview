@@ -1,4 +1,6 @@
-﻿namespace MyView.Additional
+﻿using System.IO;
+
+namespace MyView.Additional
 {
 	/// <summary>
 	/// Represents a category that the user can select to display.
@@ -11,7 +13,7 @@
 		/// The query parameter for the server call when requesting images.
 		public string QueryString { get; set; }
 		/// Image to display in category select.
-		public string PreviewPath { get; set; }
+		public string PreviewPath { get { return $"{Path.Combine(Constants.Images.PlaceholderPhotoPath, DisplayName)}.jpg"; } }
 		#endregion
 		
 		
