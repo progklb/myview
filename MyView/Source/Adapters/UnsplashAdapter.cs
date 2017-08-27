@@ -21,6 +21,7 @@ namespace MyView.Adapters
 		/// </summary>
 		public enum SizingParameters
 		{
+			W1280H720,
 			W1600H900,
 			W1920H1080,
 			Full
@@ -103,7 +104,7 @@ namespace MyView.Adapters
         	
             try
             {
-            	AddCustomSizing(ref request);
+            	AddCustomSizeParameter(ref request);
             	
                 var response = await m_HttpClient.GetAsync(request);
 				
@@ -141,10 +142,13 @@ namespace MyView.Adapters
         /// Applies any custom sizing parameters to the query based on <see cref="CustomSize"/>
         /// </summary>
         /// <param name="request">Request.</param>
-        void AddCustomSizing(ref string request)
+        void AddCustomSizeParameter(ref string request)
         {
         	switch (CustomSize)
         	{
+        		case SizingParameters.W1280H720:
+        			request += "&w=1280&h=720";
+        			break;
         		case SizingParameters.W1600H900:
         			request += "&w=1600&h=900";
         			break;
