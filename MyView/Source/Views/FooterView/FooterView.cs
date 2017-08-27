@@ -96,15 +96,15 @@ namespace MyView.Views
 		/// Starts a timeout of length <see cref="DimTimeout"/> before dimming this view. 
 		/// Note that this will be invalidated if any other animation is called on this object.
 		/// </summary>
-		public void StartDimTimeout()
+		public void StartDimTimeout(Action completionHandler)
 		{
-			StartDimTimeoutAsync(DimTimeout).ConfigureAwait(false);
+			StartDimTimeoutAsync(DimTimeout, completionHandler).ConfigureAwait(false);
 		}
         #endregion
         
         
         #region HELPERS
-        async Task StartDimTimeoutAsync(nfloat timeout)
+        async Task StartDimTimeoutAsync(nfloat timeout, Action completionHandler = null)
         {	
         	// IMPROVE
         	// We enter into a loop here because its the easiest way of being able to 
@@ -117,12 +117,17 @@ namespace MyView.Views
         	{
         		await Task.Delay(50);
         	}
-        	while (m_DimTimeoutRunning && (DateTime.Now.Ticks - start < DimTimeout * TimeSpan.TicksPerSecond));
+        	while (m_DimTimeoutRunning && (DateTime.Now.Ticks - start < timeout * TimeSpan.TicksPerSecond));
         	
         	// Check that the dim task is still valid.
         	if (m_DimTimeoutRunning)
         	{
         		AnimateDim();
+        		
+        		if (completionHandler != null)
+        		{
+        			completionHandler();
+        		}
         	}
         }
         

@@ -9,7 +9,7 @@ namespace MyView.Adapters
     /// <summary>
     /// Provides images at fixed intervals and defines parameters for display.
     /// </summary>
-    public class SlideshowController
+    public class SlideshowAdapter
     {
     	#region TYPES
     	/// <summary>
@@ -18,7 +18,7 @@ namespace MyView.Adapters
     	public enum SlideshowModes
     	{
     		Random,
-    		RandomQuery
+    		Query
     	}
     	#endregion
     	
@@ -34,8 +34,8 @@ namespace MyView.Adapters
 
 
         #region PROPERTIES
-        /// The current slideshow mode.
-        public SlideshowModes CurrentMode { get; private set; }
+        /// The currently active slideshow category.
+        public SlideshowCategory CurrentCategory { get; private set; } = null;
 		/// The latest image to display.
         public UnsplashImage CurrentImage  { get; private set; }
         
@@ -53,14 +53,12 @@ namespace MyView.Adapters
         #region VARIABLES
         /// Timer used to track cycle time.
         private Timer m_Timer;
-        /// The parameter used when <see cref="CurrentMode"/> is <see cref="SlideshowModes.RandomQuery"/>
-        private string m_RandomQueryParam;
         #endregion
 
 
         #region PUBLIC API
         /// <summary>
-        /// Starts the slideshow service. This requests images based on the current <see cref="CurrentMode"/>, delivery new images via <see cref="OnImageCycled"/>.
+        /// Starts the slideshow service. This requests images based on the current <see cref="CurrentCategory"/>, delivering new images via <see cref="OnImageCycled"/>.
         /// </summary>
         public void Start()
         {
@@ -85,18 +83,10 @@ namespace MyView.Adapters
         /// <summary>
 		/// Sets the behaviour of this slideshow controller. The value used is any value in <see cref="Constants.Slideshow"/>.
 		/// </summary>
-        public void SetSlideshowMode(SlideshowModes mode, string queryParameter = null)
+        public void SetSlideshowCategory(SlideshowCategory category)
         {
-        	if (mode == SlideshowModes.RandomQuery && queryParameter == null)
-        	{
-        		Console.WriteLine($"Cannot change mode to {SlideshowModes.RandomQuery} without providing a query parameter!");
-        		return;
-        	}
-        	
-        	CurrentMode = mode;
-        	m_RandomQueryParam = queryParameter;
-        	
-        	OnModeChanged(CurrentMode == SlideshowModes.Random ? Constants.Slideshow.Random.DisplayName : m_RandomQueryParam);
+        	CurrentCategory = category;
+        	OnModeChanged(CurrentCategory.DisplayName);
         }
         #endregion
 
@@ -124,7 +114,7 @@ namespace MyView.Adapters
             do
             {
             	m_Timer.Start();
-                
+            	
 				var unsplashImage = await RequestImageAsync();
 				if (unsplashImage != null)
 				{
@@ -157,15 +147,21 @@ namespace MyView.Adapters
         /// </summary>
         async Task<UnsplashImage> RequestImageAsync()
         {
-        	switch (CurrentMode)
+        	if (CurrentCategory == null)
+        	{	
+        		Console.WriteLine("No category has been assigned. Defaulting to Random.");
+        		return await UnsplashAdapter.Instance.GetRandomPhotoAsync();
+        	}
+        	
+        	switch (CurrentCategory.SlideshowMode)
         	{
         		case SlideshowModes.Random:
         			return await UnsplashAdapter.Instance.GetRandomPhotoAsync();
-        		case SlideshowModes.RandomQuery:
-        			return await UnsplashAdapter.Instance.GetRandomQueryAsync(m_RandomQueryParam);
+        		case SlideshowModes.Query:
+        			return await UnsplashAdapter.Instance.GetRandomQueryAsync(CurrentCategory.QueryString);
         			
     			default:
-    				throw new NotImplementedException($"There is currently no support for the selected slideshow mode: {CurrentMode}.");
+    				throw new NotImplementedException($"There is currently no support for the selected slideshow mode: {CurrentCategory.SlideshowMode}.");
         	}
         }
         

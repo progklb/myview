@@ -73,7 +73,7 @@ namespace MyView.Adapters
         /// <returns>The parsed server response.</returns>
         public async Task<UnsplashImage> GetRandomPhotoAsync()
         {
-            return await RequestImageAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape&w=1920&h=1080");
+            return await RequestImageAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape");
         }
         
         /// <summary>
@@ -91,10 +91,16 @@ namespace MyView.Adapters
 		/// parsed to produce an <see cref="UnsplashImage"/> that is returned to the calling function. If there is an error,
 		/// null is returned.
 		/// </summary>
-		/// <returns>The .</returns>
+		/// <returns>The response represented as an <see cref="UnsplashImage"/>.</returns>
 		/// <param name="request">Endpoint.</param>
 		async Task<UnsplashImage> RequestImageAsync(string request)
         {
+        	// TODO Remove this debug
+        	string jsonResponse = "";
+        	string parsing = "";
+        	
+        	LWJson.OnItemParsed += (msg) => { parsing += msg; };
+        	
             try
             {
             	AddCustomSizing(ref request);
@@ -103,7 +109,7 @@ namespace MyView.Adapters
 				
                 if (response.IsSuccessStatusCode)
                 {
-                    var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                    jsonResponse = response.Content.ReadAsStringAsync().Result;
                     var jsonObj = LWJson.Parse(jsonResponse);
 					var image = new UnsplashImage();
 					image.FromLWJson(jsonObj);
@@ -120,7 +126,13 @@ namespace MyView.Adapters
             {
                 Console.WriteLine($"Exception: \n{e}");
                 OnErrorThrown(GENERIC_FAILURE_MESSAGE);
+                
+                // TODO Remove this debug
+                var msg = jsonResponse + "\n\n\nEXCEPTION:\n" + e + "\n\n\nPARSE PROGRESSION:" + parsing;
+                Console.WriteLine($"---------------------------------------------------------------------------\n\n{msg}\n\n---------------------------------------------------------------------------");
             }
+            
+            LWJson.OnItemParsed = delegate { };
 
             return null;
         }
@@ -159,6 +171,7 @@ namespace MyView.Adapters
 			{
 				var endpoint = GetSizeEndpoint(image, customSizeOverride);
 				data = await m_WebClient.DownloadDataTaskAsync(endpoint);
+				
 				Console.WriteLine($"Photo downloaded. Size = {data.Length} bytes. Location = {endpoint}");
 			}
 			catch (Exception e)

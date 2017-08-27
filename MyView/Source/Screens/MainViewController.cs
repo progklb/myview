@@ -37,7 +37,7 @@ namespace MyView.Screens
 		private FooterView m_Footer;
 		
 		/// Provides images for display on this page
-        private SlideshowController m_Slideshow;
+        private SlideshowAdapter m_Slideshow;
 
 		/// A cache of the two image views for displaying images to the user
 		private UIImageView[] m_ImageViews;
@@ -59,10 +59,15 @@ namespace MyView.Screens
 		{
 			base.ViewDidLoad();
 
-			m_Slideshow = new SlideshowController();
+			m_Slideshow = new SlideshowAdapter();
 						
 			InitialiseInterface();
 			InitialiseControls();
+			
+			CurrentMode = ApplicationModes.CategorySelect;
+			SetSelectRecognizerEnabled(false);
+			m_Select.AnimateIn();
+			m_Header.AnimateIn();
 		}
 		
 		public override void ViewWillAppear(bool animated)
@@ -75,8 +80,6 @@ namespace MyView.Screens
             m_Slideshow.OnImageCycled += SetFooter;
             m_Slideshow.OnModeChanged += SetHeader;
             m_Slideshow.OnErrorThrown += ShowAlert;
-            
-			m_Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.Random);
 		}
 		
 		public override void ViewWillDisappear(bool animated)
@@ -93,14 +96,14 @@ namespace MyView.Screens
 		/// Initialises the interface for the first time.
 		/// </summary>
 		void InitialiseInterface()
-		{	
-			CurrentMode = ApplicationModes.CategorySelect;
-			
-			m_Select = BaseView.CreateView<CategorySelectView>(this.View, null, false);
+		{				
+			m_Select = BaseView.CreateView<CategorySelectView>(this.View);
 			m_Select.SetItemSelectedCallback(OnCategoryItemSelected);
 			m_Select.Slideshow = m_Slideshow;
 			
 			m_Header = BaseView.CreateView<HeaderView>(this.View);
+			m_Header.ShowBackingGradient = true;
+			
 			m_Footer = BaseView.CreateView<FooterView>(this.View);
 			
 			m_ImageViews = new UIImageView[] { UIImageBackground1, UIImageBackground2 };
@@ -128,11 +131,10 @@ namespace MyView.Screens
 		#region EVENT HANDLERS
 		void OnRemoteMenuClicked()
 		{
-			var old = CurrentMode;
-			
 			if (CurrentMode == ApplicationModes.ImageView)
 			{
 				CurrentMode = ApplicationModes.CategorySelect;
+				SetSelectRecognizerEnabled(false);
 				m_Footer.AnimateOut();
 				m_Header.AnimateIn();
 				m_Select.AnimateIn();
@@ -140,29 +142,29 @@ namespace MyView.Screens
 			else if (CurrentMode == ApplicationModes.ImageDetails)
 			{
 				CurrentMode = ApplicationModes.CategorySelect;
+				SetSelectRecognizerEnabled(false);
 				m_Select.AnimateIn();
+				m_Header.AnimateIn();
 				m_Footer.AnimateOut();
 			}
 			else if (CurrentMode == ApplicationModes.CategorySelect)
 			{
 				CurrentMode = ApplicationModes.ImageDetails;
+				SetSelectRecognizerEnabled(true);
 				m_Select.AnimateOut();
 				m_Footer.AnimateIn();
-				m_Footer.StartDimTimeout();
+				m_Footer.StartDimTimeout(m_Header.AnimateOut);
 			}
 		}
 		
 		void OnRemoteSelectClicked()
 		{
-			var old = CurrentMode;
-			
 			if (CurrentMode == ApplicationModes.ImageView)
 			{
 				CurrentMode = ApplicationModes.ImageDetails;
-				//m_Header.ShowBackingGradient = true;
 				m_Header.AnimateIn();
 				m_Footer.AnimateIn();
-				m_Footer.StartDimTimeout();
+				m_Footer.StartDimTimeout(m_Header.AnimateOut);
 			}
 			else if (CurrentMode == ApplicationModes.ImageDetails)
 			{
@@ -174,9 +176,23 @@ namespace MyView.Screens
 		
 		void OnCategoryItemSelected()
 		{
+			CurrentMode = ApplicationModes.ImageDetails;
+			SetSelectRecognizerEnabled(true);
 			m_Select.AnimateOut();
 			m_Footer.AnimateIn();
-			m_Footer.StartDimTimeout();
+			m_Footer.StartDimTimeout(m_Header.AnimateOut);
+		}
+		#endregion
+		
+		
+		#region CONTROLS
+		/// <summary>
+		/// Sets the enabled state of the gesture recognizer for the remote's select button.
+		/// </summary>
+		/// <param name="enabled">If set to <c>true</c> enabled.</param>
+		void SetSelectRecognizerEnabled(bool enabled)
+		{
+			View.GestureRecognizers[1].Enabled = enabled;
 		}
 		#endregion
 

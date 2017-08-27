@@ -151,7 +151,7 @@
       <DependentUpon>ImageCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\Views\BaseView.cs" />
-    <Compile Include="Source\Adapters\SlideshowController.cs" />
+    <Compile Include="Source\Adapters\SlideshowAdapter.cs" />
     <Compile Include="Source\Adapters\UnsplashAdapter.cs" />
     <Compile Include="Source\Additional\ApplicationModes.cs" />
     <Compile Include="Source\ExtensionMethods.cs" />
@@ -162,7 +162,7 @@
     <Compile Include="Source\Additional\Timer.cs" />
     <Compile Include="Source\Views\CategorySelectView\CategorySelectSource.cs" />
     <Compile Include="Source\Constants.cs" />
-    <Compile Include="Source\Additional\Category.cs" />
+    <Compile Include="Source\Additional\SlideshowCategory.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Storyboard\Main.storyboard" />
@@ -185,6 +185,7 @@
     <BundleResource Include="Resources\CategoryPlaceholder\People.jpg" />
     <BundleResource Include="Resources\CategoryPlaceholder\Space.jpg" />
     <BundleResource Include="Resources\CategoryPlaceholder\PlaceholderPhoto.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Random.jpg" />
   </ItemGroup>
   <Import Project="..\LightWeightJsonParser\LightWeightJsonParser.projitems" Label="Shared" Condition="Exists('..\LightWeightJsonParser\LightWeightJsonParser.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.CSharp.targets" />

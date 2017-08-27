@@ -15,17 +15,17 @@ namespace MyView.Views
 	{
 		#region VARIABLES
 		/// Holds the data to display.
-		private List<Category> m_Items;
+		private List<SlideshowCategory> m_Items;
 
 		/// The callback raised when an item is focused.		
-		private Action<Category> m_ItemFocusedCallback;
+		private Action<SlideshowCategory> m_ItemFocusedCallback;
 		/// The callback raised when an item is selected.		
-		private Action<Category> m_ItemSelectedCallback;
+		private Action<SlideshowCategory> m_ItemSelectedCallback;
 		#endregion
 		
 		
 		#region CONSTRUCTOR
-		public CategorySelectSource(List<Category> items = null)
+		public CategorySelectSource(List<SlideshowCategory> items = null)
 		{
 			if (items != null)
 			{
@@ -33,7 +33,7 @@ namespace MyView.Views
 			}
 			else
 			{
-				m_Items = new List<Category>();
+				m_Items = new List<SlideshowCategory>();
 			}
 		}
 		#endregion
@@ -76,19 +76,19 @@ namespace MyView.Views
 		
 		#region PUBLIC API
 		/// <summary>
-		/// Sets a callback that will be invoked when a <see cref="Category"/> item is selected.
+		/// Sets a callback that will be invoked when a <see cref="SlideshowCategory"/> item is selected.
 		/// </summary>
 		/// <param name="callback">Callback to invoke.</param>
-		public void SetItemSelectedCallback(Action<Category> callback)
+		public void SetItemSelectedCallback(Action<SlideshowCategory> callback)
 		{
 			m_ItemSelectedCallback = callback;
 		}
 		
 		/// <summary>
-		/// Sets a callback that will be invoked when a <see cref="Category"/> item is focused on.
+		/// Sets a callback that will be invoked when a <see cref="SlideshowCategory"/> item is focused on.
 		/// </summary>
 		/// <param name="callback">Callback to invoke.</param>
-		public void SetItemFocusedCallback(Action<Category> callback)
+		public void SetItemFocusedCallback(Action<SlideshowCategory> callback)
 		{
 			m_ItemFocusedCallback = callback;
 		}

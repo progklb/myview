@@ -15,7 +15,7 @@ namespace MyView.Views
     	public static string CellIdentifier { get { return nameof(ImageCell); } }
     	
     	/// The category which this cell represents.
-    	public Category Category { get; private set; }
+    	public SlideshowCategory Category { get; private set; }
     	#endregion
     	
     	
@@ -53,7 +53,7 @@ namespace MyView.Views
         
         
         #region PUBLIC API
-        public void SetCell(Category category)
+        public void SetCell(SlideshowCategory category)
         {
         	Category = category;
 

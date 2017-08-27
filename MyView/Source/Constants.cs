@@ -1,8 +1,11 @@
-﻿using System.IO;
+using System.IO;
 
 using UIKit;
 
+using MyView.Adapters;
 using MyView.Additional;
+
+using Mode = MyView.Adapters.SlideshowAdapter.SlideshowModes;
 
 namespace MyView
 {
@@ -29,17 +32,17 @@ namespace MyView
 		public static class Slideshow
 		{
 			#region PROPERTIES
-			public static Category Random { get; set; } = new Category { DisplayName = "Random" };
+			public static SlideshowCategory Random { get; set; } = new SlideshowCategory { SlideshowMode = Mode.Random, DisplayName = "Random" };
 			
-			public static Category[] Categories { get; set; } = { 
+			public static SlideshowCategory[] Categories { get; set; } = { 
 
-				new Category { DisplayName = "Mountains", 	QueryString = "mountains" },
-				new Category { DisplayName = "Horses", 		QueryString = "horses" },
-				new Category { DisplayName = "Cars", 		QueryString = "cars" },
-				new Category { DisplayName = "Forests", 	QueryString = "forests" },
-				new Category { DisplayName = "Food", 		QueryString = "food" },
-				new Category { DisplayName = "Space", 		QueryString = "space" },
-				new Category { DisplayName = "People", 		QueryString = "people" }
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Mountains", 	QueryString = "mountains" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Horses", 	QueryString = "horses" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Cars", 		QueryString = "cars" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Forests", 	QueryString = "forests" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Food", 		QueryString = "food" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Space", 		QueryString = "space" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "People", 	QueryString = "people" }
 				
 			};
 			#endregion

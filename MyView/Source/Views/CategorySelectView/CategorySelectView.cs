@@ -17,7 +17,7 @@ namespace MyView.Views
     {
     	#region PROPERTIES
     	/// The slideshow that this select view will manipulate.
-    	public SlideshowController Slideshow { get; set; }
+    	public SlideshowAdapter Slideshow { get; set; }
     	#endregion
     	
     	
@@ -40,9 +40,9 @@ namespace MyView.Views
 		{
 			base.AwakeFromNib();
 			
-			var categoriesList = new List<Category>();
-			categoriesList.AddRange(Constants.Slideshow.Categories);
+			var categoriesList = new List<SlideshowCategory>();
 			categoriesList.Add(Constants.Slideshow.Random);
+			categoriesList.AddRange(Constants.Slideshow.Categories);
 			
 			UICollectionCategories.RegisterClassForCell(typeof(ImageCell), new NSString(ImageCell.CellIdentifier));
 			UICollectionCategories.Source = new CategorySelectSource(categoriesList);
@@ -80,7 +80,7 @@ namespace MyView.Views
         
         
         #region HELPERS
-        void OnItemSelected(Category category)
+        void OnItemSelected(SlideshowCategory category)
         {
         	OnCategorySelect(category);
         	
@@ -90,7 +90,7 @@ namespace MyView.Views
         	}
         }
         
-        void OnItemFocused(Category category)
+        void OnItemFocused(SlideshowCategory category)
         {
         	OnCategorySelect(category);
         	
@@ -102,18 +102,9 @@ namespace MyView.Views
         	UILabelCategory.Text = category.DisplayName;
         }
         
-        void OnCategorySelect(Category category)
+        void OnCategorySelect(SlideshowCategory category)
         {
-        	if (category == Constants.Slideshow.Random)
-        	{
-        		Console.WriteLine("Slideshow mode changed: Random");
-	        	Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.Random);
-        	}
-        	else
-        	{
-        		Console.WriteLine($"Slideshow mode changed: Query:{category}");
-	        	Slideshow.SetSlideshowMode(SlideshowController.SlideshowModes.RandomQuery, category.QueryString);
-        	}
+	        Slideshow.SetSlideshowCategory(category);
         }
         #endregion
     }
