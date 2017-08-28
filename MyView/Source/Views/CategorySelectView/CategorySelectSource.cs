@@ -21,6 +21,10 @@ namespace MyView.Views
 		private Action<SlideshowCategory> m_ItemFocusedCallback;
 		/// The callback raised when an item is selected.		
 		private Action<SlideshowCategory> m_ItemSelectedCallback;
+		
+		/// Indicates whether or not the first-ever focus has taken place.
+		/// This allows us to direct the focus to the first item of the list at the start (instead of the last, as it does by default).
+		private bool m_InitialFocusComplete;
 		#endregion
 		
 		
@@ -55,6 +59,11 @@ namespace MyView.Views
 			var imageCell = (ImageCell)collectionView.DequeueReusableCell(ImageCell.CellIdentifier, indexPath);
 			imageCell.SetCell(m_Items[indexPath.Row]);
 			
+			if (!m_InitialFocusComplete && indexPath.Row == 0)
+			{
+				imageCell.SetWillOverrideFocus();
+			}
+			
 			return imageCell;
 		}
 		
@@ -64,12 +73,15 @@ namespace MyView.Views
 		}
 		
 		public override void DidUpdateFocus(UICollectionView collectionView, UICollectionViewFocusUpdateContext context, UIFocusAnimationCoordinator coordinator)
-		{
+		{	
 			// Ensure that the item is not null. This can happen if this view recieves a focus update but is not currently in focus itself. (?)
 			if (context.NextFocusedIndexPath != null)
 			{
 				m_ItemFocusedCallback(m_Items[context.NextFocusedIndexPath.Row]);
 			}
+			
+			m_InitialFocusComplete = true;
+			ImageCell.UnsetWillOverrideFocus();
 		}
 		#endregion
 		

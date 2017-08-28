@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using Foundation;
-using UIKit;
 
-using MyView.Adapters;
 using MyView.Additional;
 
 namespace MyView.Views
@@ -42,9 +40,6 @@ namespace MyView.Views
 			
 			(UICollectionCategories.Source as CategorySelectSource).SetItemSelectedCallback(OnItemSelected);
 			(UICollectionCategories.Source as CategorySelectSource).SetItemFocusedCallback(OnItemFocused);
-			
-	        // TODO Set the first cell as the focused cell when launching the View.
-			// For reference: view.PreferredFocusedView = true;
 		}
         #endregion
         

@@ -16,10 +16,29 @@ namespace MyView.Views
     	
     	/// The category which this cell represents.
     	public SlideshowCategory Category { get; private set; }
+    	
+    	/// This returns the override if one has been assigned, otherwise returns the natural behaviour.
+    	public override UIView PreferredFocusedView
+		{
+			get
+			{
+				if (g_FocusOverride != null)
+				{
+					return g_FocusOverride;
+				}
+				else
+				{
+					return base.PreferredFocusedView;
+				}
+			}
+		}
     	#endregion
     	
     	
     	#region VARIABLES
+    	/// Points to the cell that should be focused upon.
+		private static ImageCell g_FocusOverride;
+    	
     	/// The view that will display the image of this category.
         private UIImageView m_UIImageViewImage { get; set; }
     	#endregion
@@ -51,7 +70,7 @@ namespace MyView.Views
 		}
         #endregion
         
-        
+
         #region PUBLIC API
         public void SetCell(SlideshowCategory category)
         {
@@ -63,6 +82,24 @@ namespace MyView.Views
 	        {
 	        	m_UIImageViewImage.Image = UIImage.FromFile(Constants.Images.PlaceholderPhoto);
 	        }
+        }
+        
+        /// <summary>
+        /// Sets this cell to take precedence when the focus engine attempts to update focus.
+        /// This cell will be returned instead of the next natural selection.
+        /// </summary>
+        public void SetWillOverrideFocus()
+        {
+        	g_FocusOverride = this;
+        }
+        
+        /// <summary>
+        /// Unsets any focus override that has been set.
+        /// Note that this can be called on any cell - calling this on the original overriden cell is not necessary.
+        /// </summary>
+        public static void UnsetWillOverrideFocus()
+        {
+        	g_FocusOverride = null;
         }
         #endregion
     }
