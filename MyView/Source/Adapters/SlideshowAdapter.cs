@@ -118,6 +118,12 @@ namespace MyView.Adapters
             // raising the cycle event. In this manner, download time does not affect the cycling time (unless the download exceeds the cycle time,
             // in which case we immediately cycle to the downloaded image as soon as it is available).
             
+            // IMPROVE
+            // Note that breaks have been added should the mode be changed mid-cycle.
+            // This breaks out of this service and starts a new one, causing a soon-as-possible cleanup and display of the new category.
+            // Note that we don't cancel mid-download because this causes an exception when using "await" (the awaiting is waiting for a finished Task from the downloader)
+            // and changing this to a non-Task-based approach requires quite a bit of rework.
+            
             IsRunning = true;
         	bool firstRun = true;
             
