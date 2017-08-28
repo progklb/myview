@@ -38,6 +38,7 @@ namespace MyView.Views
 			base.AwakeFromNib();
 			
 			InsertGradient(UIViewGradient, Constants.Colors.Black.CGColor, Constants.Colors.BlackTransparent.CGColor);
+			UILabelCategory.Text = string.Empty;
 		}
 		
 		public override void AnimateIn()

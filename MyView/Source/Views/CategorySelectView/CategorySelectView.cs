@@ -15,18 +15,11 @@ namespace MyView.Views
 	/// </summary>
     public partial class CategorySelectView : BaseView
     {
-    	#region PROPERTIES
-    	/// The slideshow that this select view will manipulate.
-    	public SlideshowAdapter Slideshow { get; set; }
-    	#endregion
-    	
-    	
     	#region VARIABLES
     	/// Callback to invoke when a category item is selected.
-    	private Action m_OnItemSelectedCallback;
-    	
+    	private List<Action<SlideshowCategory>> m_OnItemSelectedCallback = new List<Action<SlideshowCategory>>();
     	/// Callback to invoke when a category item is focused on.
-    	private Action m_OnItemFocusCallback;
+    	private List<Action<SlideshowCategory>> m_OnItemFocusCallback = new List<Action<SlideshowCategory>>();
     	#endregion
     	
     	
@@ -59,52 +52,49 @@ namespace MyView.Views
         #region PUBLIC API
         /// <summary>
         /// Sets a callback to be invoked when the a category is selected.
-        /// To unset, provide a null callback.
         /// </summary>
         /// <param name="callback">Callback to invoke.</param>
-        public void SetItemSelectedCallback(Action callback)
+        public void AddItemSelectedCallback(Action<SlideshowCategory> callback)
         {
-        	m_OnItemSelectedCallback = callback;
+        	m_OnItemSelectedCallback.Add(callback);
         }
         
         /// <summary>
         /// Sets a callback to be invoked when the a category is focused on.
-        /// To unset, provide a null callback.
         /// </summary>
         /// <param name="callback">Callback to invoke.</param>
-        public void SetItemFocusedCallback(Action callback)
+        public void AddItemFocusedCallback(Action<SlideshowCategory> callback)
         {
-        	m_OnItemFocusCallback = callback;
+        	m_OnItemFocusCallback.Add(callback);
         }
         #endregion
         
         
         #region HELPERS
+       /// <summary>
+       /// Is called when a category item is selected.
+       /// </summary>
+       /// <param name="category">Category selected.</param>
         void OnItemSelected(SlideshowCategory category)
         {
-        	OnCategorySelect(category);
-        	
-        	if (m_OnItemSelectedCallback != null)
+        	foreach (var callback in m_OnItemSelectedCallback)
         	{
-        		m_OnItemSelectedCallback();
+        		callback(category);
         	}
         }
         
+        /// <summary>
+        /// Is called when a category item is focused on.
+        /// </summary>
+        /// <param name="category">Category focused on.</param>
         void OnItemFocused(SlideshowCategory category)
         {
-        	OnCategorySelect(category);
-        	
-        	if (m_OnItemFocusCallback != null)
+        	foreach (var callback in m_OnItemFocusCallback)
         	{
-        		m_OnItemFocusCallback();
+        		callback(category);
         	}
         	
         	UILabelCategory.Text = category.DisplayName;
-        }
-        
-        void OnCategorySelect(SlideshowCategory category)
-        {
-	        Slideshow.SetSlideshowCategory(category);
         }
         #endregion
     }

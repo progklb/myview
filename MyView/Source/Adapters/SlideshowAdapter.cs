@@ -27,13 +27,15 @@ namespace MyView.Adapters
         /// Is raised when an image cycle expires. The parameter carries the new image to display.
         public event Action<UnsplashImage> OnImageCycled = delegate { };
         /// Is raised when the slideshow mode is changed. The parameter carries the new mode's display name.
-        public event Action<string> OnModeChanged = delegate { };
+        public event Action<string> OnCategoryChanged = delegate { };
         /// Is raised when an error occurs. The provided string paramter passes a message that describes the error.
         public event Action<string> OnErrorThrown = delegate { };
         #endregion
 
 
         #region PROPERTIES
+        /// The default slideshow category if there is no <see cref="CurrentCategory"/> assigned.
+        public SlideshowCategory DefaultCategory { get; private set; } = Constants.Slideshow.Random;
         /// The currently active slideshow category.
         public SlideshowCategory CurrentCategory { get; private set; } = null;
 		/// The latest image to display.
@@ -53,6 +55,8 @@ namespace MyView.Adapters
         #region VARIABLES
         /// Timer used to track cycle time.
         private Timer m_Timer;
+        /// Indicates that the slideshow category was changed.
+        private bool m_CategoryChanged;
         #endregion
 
 
@@ -85,42 +89,51 @@ namespace MyView.Adapters
 		/// </summary>
         public void SetSlideshowCategory(SlideshowCategory category)
         {
+	        m_CategoryChanged = category != CurrentCategory;
         	CurrentCategory = category;
-        	OnModeChanged(CurrentCategory.DisplayName);
+        	OnCategoryChanged(CurrentCategory.DisplayName);
         }
         #endregion
 
 
         #region SLIDESHOW
+        void HandleCategoryChanged()
+        {
+        	Stop();
+        	Start();
+        }
+        
         /// <summary>
         /// A looping service that will continually download and deliver images to listeners.
         /// </summary>
         async Task StartServiceAsync()
         {
-            IsRunning = true;
-
 // Provide an override for DEBUG mode to save bandwidth. Because developers have Internet limits too!            
-#if DEBUG
+#if !DEBUG
 			var customSize = UnsplashImage.UnsplashImageSizes.Small;
 #else
 			var customSize = UnsplashImage.UnsplashImageSizes.Default;
 #endif
-        	
-        	bool firstRun = true;
-        	
             // Download the next image. Note that we take the current time, initiate image download, and then wait the remaining time until
             // raising the cycle event. In this manner, download time does not affect the cycling time (unless the download exceeds the cycle time,
             // in which case we immediately cycle to the downloaded image as soon as it is available).
+            
+            IsRunning = true;
+        	bool firstRun = true;
+            
             do
             {
-            	m_Timer.Start();
+            	m_CategoryChanged = false;
             	
+            	m_Timer.Start();
 				var unsplashImage = await RequestImageAsync();
+				
+				if (m_CategoryChanged) { break; }
+					
 				if (unsplashImage != null)
 				{
 					unsplashImage.custom.imageData = await UnsplashAdapter.DownloadPhotoAsync(unsplashImage, customSize);
-					m_Timer.Stop();
-                	
+					                	
                 	// For the start we want to display the image as soon as it is downloaded.
                 	// Thereafter, we will download the next image but wait for the cycle timeout before displaying it.
                 	if (firstRun)
@@ -129,8 +142,15 @@ namespace MyView.Adapters
 	                	firstRun = false;
                 	}
                 	else
-                	{
-	                	await Task.Delay(CycleTime + TransitionDuration - m_Timer.GetElapsedTime());
+                	{             		
+                		while (CycleTime + TransitionDuration - m_Timer.GetElapsedTime() > 0)
+                		{	
+							if (m_CategoryChanged) { break; }
+                			await Task.Delay(100);
+                		}
+                		
+						if (m_CategoryChanged) { break; }
+                	
 	                	UpdateImage(unsplashImage);
                 	}
                 }
@@ -140,6 +160,11 @@ namespace MyView.Adapters
                 }
             }
             while (IsRunning);
+            
+            if (m_CategoryChanged)
+            {
+            	HandleCategoryChanged();
+            }
         }
         
         /// <summary>
@@ -147,13 +172,14 @@ namespace MyView.Adapters
         /// </summary>
         async Task<UnsplashImage> RequestImageAsync()
         {
-        	if (CurrentCategory == null)
-        	{	
+        	var category = CurrentCategory;
+        	if (category == null)
+        	{
         		Console.WriteLine("No category has been assigned. Defaulting to Random.");
-        		return await UnsplashAdapter.Instance.GetRandomPhotoAsync();
+        		category = DefaultCategory;
         	}
         	
-        	switch (CurrentCategory.SlideshowMode)
+        	switch (category.SlideshowMode)
         	{
         		case SlideshowModes.Random:
         			return await UnsplashAdapter.Instance.GetRandomPhotoAsync();

@@ -38,6 +38,8 @@ namespace MyView.Screens
 		
 		/// Provides images for display on this page
         private SlideshowAdapter m_Slideshow;
+        /// Keeps track of our last selected category.
+        private SlideshowCategory m_LastSelectedCategory;
 
 		/// A cache of the two image views for displaying images to the user
 		private UIImageView[] m_ImageViews;
@@ -60,10 +62,13 @@ namespace MyView.Screens
 			base.ViewDidLoad();
 
 			m_Slideshow = new SlideshowAdapter();
-						
+			m_LastSelectedCategory = m_Slideshow.DefaultCategory;
+			
 			InitialiseInterface();
 			InitialiseControls();
 			
+			// We start at the category select screen. Note that we disable the
+			// select recognizer so that it does not steal input from the category select view.
 			CurrentMode = ApplicationModes.CategorySelect;
 			SetSelectRecognizerEnabled(false);
 			m_Select.AnimateIn();
@@ -75,10 +80,10 @@ namespace MyView.Screens
 			base.ViewDidAppear(animated);
 			
 			// Start image provider
-            m_Slideshow.Start();
+			m_Slideshow.Start();
+            
             m_Slideshow.OnImageCycled += SetBackground;
             m_Slideshow.OnImageCycled += SetFooter;
-            m_Slideshow.OnModeChanged += SetHeader;
             m_Slideshow.OnErrorThrown += ShowAlert;
 		}
 		
@@ -98,8 +103,8 @@ namespace MyView.Screens
 		void InitialiseInterface()
 		{				
 			m_Select = BaseView.CreateView<CategorySelectView>(this.View);
-			m_Select.SetItemSelectedCallback(OnCategoryItemSelected);
-			m_Select.Slideshow = m_Slideshow;
+			m_Select.AddItemSelectedCallback(OnCategoryItemSelected);
+            m_Select.AddItemFocusedCallback(OnCategoryItemFocused);
 			
 			m_Header = BaseView.CreateView<HeaderView>(this.View);
 			m_Header.ShowBackingGradient = true;
@@ -149,8 +154,11 @@ namespace MyView.Screens
 			}
 			else if (CurrentMode == ApplicationModes.CategorySelect)
 			{
+				m_Slideshow.SetSlideshowCategory(m_LastSelectedCategory);
+			
 				CurrentMode = ApplicationModes.ImageDetails;
 				SetSelectRecognizerEnabled(true);
+				SetHeader(m_Slideshow.CurrentCategory);
 				m_Select.AnimateOut();
 				m_Footer.AnimateIn();
 				m_Footer.StartDimTimeout(m_Header.AnimateOut);
@@ -174,13 +182,23 @@ namespace MyView.Screens
 			}
 		}
 		
-		void OnCategoryItemSelected()
+		void OnCategoryItemSelected(SlideshowCategory category)
 		{
+			m_Slideshow.SetSlideshowCategory(category);
+			m_LastSelectedCategory = category;
+			
 			CurrentMode = ApplicationModes.ImageDetails;
 			SetSelectRecognizerEnabled(true);
+			SetHeader(m_Slideshow.CurrentCategory);
 			m_Select.AnimateOut();
 			m_Footer.AnimateIn();
 			m_Footer.StartDimTimeout(m_Header.AnimateOut);
+		}
+		
+		void OnCategoryItemFocused(SlideshowCategory category)
+		{
+			CurrentMode = ApplicationModes.ImageDetails;
+			m_Slideshow.SetSlideshowCategory(category);
 		}
 		#endregion
 		
@@ -236,10 +254,10 @@ namespace MyView.Screens
 		/// <summary>
 		/// Sets the items to display on the header view.
 		/// </summary>
-		/// <param name="categoryText">The text that should be displayed in the header.</param>
-		void SetHeader(string categoryText)
+		/// <param name="category">The category that has been selected.</param>
+		void SetHeader(SlideshowCategory category)
 		{
-			m_Header.SetCategoryText(categoryText);
+			m_Header.SetCategoryText(category.DisplayName);
 		}
 		
 		/// <summary>
