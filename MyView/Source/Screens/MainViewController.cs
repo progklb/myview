@@ -161,7 +161,7 @@ namespace MyView.Screens
 				SetHeader(m_Slideshow.CurrentCategory);
 				m_Select.AnimateOut();
 				m_Footer.AnimateIn();
-				m_Footer.StartDimTimeout(m_Header.AnimateOut);
+				m_Footer.StartDimTimeout(OnFooterDim);
 			}
 		}
 		
@@ -172,7 +172,7 @@ namespace MyView.Screens
 				CurrentMode = ApplicationModes.ImageDetails;
 				m_Header.AnimateIn();
 				m_Footer.AnimateIn();
-				m_Footer.StartDimTimeout(m_Header.AnimateOut);
+				m_Footer.StartDimTimeout(OnFooterDim);
 			}
 			else if (CurrentMode == ApplicationModes.ImageDetails)
 			{
@@ -192,13 +192,22 @@ namespace MyView.Screens
 			SetHeader(m_Slideshow.CurrentCategory);
 			m_Select.AnimateOut();
 			m_Footer.AnimateIn();
-			m_Footer.StartDimTimeout(m_Header.AnimateOut);
+			m_Footer.StartDimTimeout(OnFooterDim);
 		}
 		
 		void OnCategoryItemFocused(SlideshowCategory category)
 		{
 			CurrentMode = ApplicationModes.ImageDetails;
 			m_Slideshow.SetSlideshowCategory(category);
+		}
+		
+		void OnFooterDim()
+		{
+			if (CurrentMode != ApplicationModes.CategorySelect)
+			{
+				m_Header.AnimateOut();
+				CurrentMode = ApplicationModes.ImageView;
+			}
 		}
 		#endregion
 		
