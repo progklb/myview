@@ -62,6 +62,16 @@ namespace MyView.Views
         {
         	m_OnItemFocusCallback.Add(callback);
         }
+        
+        /// <summary>
+        /// Sets the category text that will be displayed. 
+		/// Note that this text will be replaced on item focus/select to the newly focused/selected item.
+        /// </summary>
+        /// <param name="text">Text to display.</param>
+        public void SetCategoryText(string text)
+        {
+       		UILabelCategory.Text = text;
+        }
         #endregion
         
         
@@ -89,7 +99,7 @@ namespace MyView.Views
         		callback(category);
         	}
         	
-        	UILabelCategory.Text = category.DisplayName;
+        	SetCategoryText(category.DisplayName);
         }
         #endregion
     }

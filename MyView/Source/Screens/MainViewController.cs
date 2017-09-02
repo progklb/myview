@@ -61,11 +61,12 @@ namespace MyView.Screens
 		{
 			base.ViewDidLoad();
 
-			m_Slideshow = new SlideshowAdapter();
-			m_LastSelectedCategory = m_Slideshow.DefaultCategory;
-			
 			InitialiseInterface();
 			InitialiseControls();
+			
+			m_Slideshow = new SlideshowAdapter();
+			m_LastSelectedCategory = m_Slideshow.DefaultCategory;
+			m_Select.SetCategoryText(m_Slideshow.DefaultCategory.DisplayName);
 			
 			// We start at the category select screen. Note that we disable the
 			// select recognizer so that it does not steal input from the category select view.

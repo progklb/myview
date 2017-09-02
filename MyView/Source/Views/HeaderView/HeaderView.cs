@@ -45,20 +45,6 @@ namespace MyView.Views
 		{
 			UIViewGradient.Hidden = !ShowBackingGradient;
 			
-			// Add an "ease-in" animation. Offset the view by the animation Y change, and then set the target position in the animation.
-			var currentFrame = Frame;
-			currentFrame.Y -= ANIMATION_Y_MOVEMENT;
-			Frame = currentFrame;
-			
-			Animate(
-				AnimateInDuration,
-				() => {
-						var targetFrame = Frame;
-						targetFrame.Y += ANIMATION_Y_MOVEMENT;
-						Frame = targetFrame;
-				}
-			);
-			
 			base.AnimateIn();
 		}
         #endregion
@@ -92,6 +78,25 @@ namespace MyView.Views
         	Animate(
 				duration, 
 				() => { UILabelCategory.Alpha = targetAlpha; }
+			);
+        }
+        
+        /// <summary>
+        /// Triggers an "ease-in" animation. Offsets the view by the animation Y change, and then set the target position in the animation.
+        /// </summary>
+        void AnimateEaseIn()
+        {
+			var currentFrame = Frame;
+			currentFrame.Y -= ANIMATION_Y_MOVEMENT;
+			Frame = currentFrame;
+			
+			Animate(
+				AnimateInDuration,
+				() => {
+						var targetFrame = Frame;
+						targetFrame.Y += ANIMATION_Y_MOVEMENT;
+						Frame = targetFrame;
+				}
 			);
         }
         #endregion

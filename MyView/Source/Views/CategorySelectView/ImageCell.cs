@@ -53,8 +53,8 @@ namespace MyView.Views
 			// Bug: Storyboard design doesn't get loaded. Let's do this the old-fashioned way.
 			
 			// Calculate image constraints slightly smaller than the cell.
-			var cornerX = frame.Width / 8;
-			var cornerY = frame.Height / 8;
+			var cornerX = frame.Width / 16;
+			var cornerY = frame.Height / 16;
 			var width = frame.Width - (2 * cornerX);
 			var height = frame.Height - (2 * cornerY);
 
@@ -62,6 +62,10 @@ namespace MyView.Views
 			m_UIImageViewImage = new UIImageView();
 			m_UIImageViewImage.Frame = new CGRect(cornerX, cornerY, width, height);
 			m_UIImageViewImage.ContentMode = UIViewContentMode.ScaleAspectFill;
+
+			// Add corner radii to images. This doesn't work as expected with tvOS.
+			//m_UIImageViewImage.Layer.CornerRadius = 10f;
+			//m_UIImageViewImage.Layer.MasksToBounds = true;
 			
 			// Allow Focus engine to display focused affects.
 			m_UIImageViewImage.AdjustsImageWhenAncestorFocused = true;
