@@ -35,6 +35,7 @@ namespace MyView.Screens
 		private CategorySelectView m_Select;
 		private HeaderView m_Header;
 		private FooterView m_Footer;
+		private AlertView m_Alert;
 		
 		/// Provides images for display on this page
         private SlideshowAdapter m_Slideshow;
@@ -111,6 +112,8 @@ namespace MyView.Screens
 			m_Header.ShowBackingGradient = true;
 			
 			m_Footer = BaseView.CreateView<FooterView>(this.View);
+			
+			m_Alert = BaseView.CreateView<AlertView>(this.View);
 			
 			m_ImageViews = new UIImageView[] { UIImageBackground1, UIImageBackground2 };
 			
@@ -276,11 +279,14 @@ namespace MyView.Screens
 		/// <param name="message">Alert message to display.</param>
 		void ShowAlert(string message)
 		{
-			if (m_AlertController == null)
-			{
-				m_AlertController = UIAlertController.Create(ALERT_HEADER, message, UIAlertControllerStyle.Alert);
-				PresentViewController(m_AlertController, true, completionHandler: () => { m_AlertController = null; });
-			}
+			//if (m_AlertController == null)
+			//{
+			//	m_AlertController = UIAlertController.Create(ALERT_HEADER, message, UIAlertControllerStyle.Alert);
+			//	PresentViewController(m_AlertController, true, completionHandler: () => { m_AlertController = null; });
+			//}
+			
+			m_Alert.SetText(ALERT_HEADER, message);
+			m_Alert.AnimateIn();
 		}
 		#endregion
 	}
