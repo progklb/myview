@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using MyView.Additional;
@@ -38,8 +39,11 @@ namespace MyView.Adapters
         public SlideshowCategory DefaultCategory { get; private set; } = Constants.Slideshow.Random;
         /// The currently active slideshow category.
         public SlideshowCategory CurrentCategory { get; private set; } = null;
+        
+		/// The current list of images returned by the server.
+        public List<UnsplashImage> CurrentList { get; private set; }
 		/// The latest image to display.
-        public UnsplashImage CurrentImage  { get; private set; }
+        public UnsplashImage CurrentImage { get; private set; }
         
         /// Whether the slideshow is active.
         public bool IsRunning { get; private set; }
@@ -57,6 +61,8 @@ namespace MyView.Adapters
         private Timer m_Timer;
         /// Indicates that the slideshow category was changed.
         private bool m_CategoryChanged;
+		/// The index of the <see cref="CurrentImage"/> from <see cref="CurrentList"/>
+        private int m_CurrentImageIndex;
         #endregion
 
 
@@ -66,6 +72,7 @@ namespace MyView.Adapters
         /// </summary>
         public void Start()
         {
+        	UnsplashAdapter.CustomSize = UnsplashAdapter.SizingParameters.W1920H1080;
         	UnsplashAdapter.OnErrorThrown += RaiseOnErrorThrown;
         	
             m_Timer = new Timer();
@@ -109,7 +116,7 @@ namespace MyView.Adapters
         async Task StartServiceAsync()
         {
 // Provide an override for DEBUG mode to save bandwidth. Because developers have Internet limits too!            
-#if !DEBUG
+#if DEBUG
 			var customSize = UnsplashImage.UnsplashImageSizes.Small;
 #else
 			var customSize = UnsplashImage.UnsplashImageSizes.Default;
@@ -126,18 +133,30 @@ namespace MyView.Adapters
             
             IsRunning = true;
         	bool firstRun = true;
-            
+            m_CategoryChanged = false;
+        	
+        	UnsplashImage unsplashImage;
+        	            
             do
             {
-            	m_CategoryChanged = false;
+            	// Pull new list of images from serve if we are starting a new slideshow or if we have displayed all.
+            	if (firstRun || (m_CurrentImageIndex == CurrentList.Count - 1))
+            	{
+		            m_CurrentImageIndex = 0;
+        			CurrentList = await RequestImagesAsync();        			
+            	}
+            	else
+				{
+					m_CurrentImageIndex++;
+				}
+				
+				if (m_CategoryChanged) { break; } // Break out incase of category change
             	
             	m_Timer.Start();
-				var unsplashImage = await RequestImageAsync();
-				
-				if (m_CategoryChanged) { break; }
 					
-				if (unsplashImage != null)
+				if (CurrentList != null && CurrentList.Count != 0)
 				{
+					unsplashImage = CurrentList[m_CurrentImageIndex];
 					unsplashImage.custom.imageData = await UnsplashAdapter.DownloadPhotoAsync(unsplashImage, customSize);
 					                	
                 	// For the start we want to display the image as soon as it is downloaded.
@@ -148,14 +167,14 @@ namespace MyView.Adapters
 	                	firstRun = false;
                 	}
                 	else
-                	{             		
+                	{   
                 		while (CycleTime + TransitionDuration - m_Timer.GetElapsedTime() > 0)
                 		{	
-							if (m_CategoryChanged) { break; }
+							if (m_CategoryChanged) { break; } // Break out of inner loop incase of category change
                 			await Task.Delay(100);
                 		}
                 		
-						if (m_CategoryChanged) { break; }
+						if (m_CategoryChanged) { break; } // Break out of outer loop incase of category change (after breaking out of inner loop above)
                 	
 	                	UpdateImage(unsplashImage);
                 	}
@@ -167,10 +186,35 @@ namespace MyView.Adapters
             }
             while (IsRunning);
             
-            if (m_CategoryChanged)
+            // If we have broken out due to category change, handle this appropriately.
+            if (m_CategoryChanged) 
             {
             	HandleCategoryChanged();
             }
+        }
+        
+         /// <summary>
+        /// Requests a list of images based on the current slideshow mode.
+        /// </summary>
+        async Task<List<UnsplashImage>> RequestImagesAsync()
+        {
+        	var category = CurrentCategory;
+        	if (category == null)
+        	{
+        		Console.WriteLine($"[{nameof(SlideshowAdapter)}] No category has been assigned. Defaulting to Random.");
+        		category = DefaultCategory;
+        	}
+        	
+        	switch (category.SlideshowMode)
+        	{
+        		case SlideshowModes.Random:
+        			return await UnsplashAdapter.Instance.GetRandomListAsync();
+        		case SlideshowModes.Query:
+        			return await UnsplashAdapter.Instance.GetRandomListAsync(CurrentCategory.QueryString);
+        			
+    			default:
+    				throw new NotImplementedException($"[{nameof(SlideshowAdapter)}] There is currently no support for the selected slideshow mode: {CurrentCategory.SlideshowMode}.");
+        	}
         }
         
         /// <summary>
@@ -181,7 +225,7 @@ namespace MyView.Adapters
         	var category = CurrentCategory;
         	if (category == null)
         	{
-        		Console.WriteLine("No category has been assigned. Defaulting to Random.");
+        		Console.WriteLine($"[{nameof(SlideshowAdapter)}] No category has been assigned. Defaulting to Random.");
         		category = DefaultCategory;
         	}
         	
@@ -190,10 +234,10 @@ namespace MyView.Adapters
         		case SlideshowModes.Random:
         			return await UnsplashAdapter.Instance.GetRandomPhotoAsync();
         		case SlideshowModes.Query:
-        			return await UnsplashAdapter.Instance.GetRandomQueryAsync(CurrentCategory.QueryString);
+        			return await UnsplashAdapter.Instance.GetRandomPhotoAsync(CurrentCategory.QueryString);
         			
     			default:
-    				throw new NotImplementedException($"There is currently no support for the selected slideshow mode: {CurrentCategory.SlideshowMode}.");
+    				throw new NotImplementedException($"[{nameof(SlideshowAdapter)}] There is currently no support for the selected slideshow mode: {CurrentCategory.SlideshowMode}.");
         	}
         }
         

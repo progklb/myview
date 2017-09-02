@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace MyView.Adapters
         const string PARAM_CLIENT_AUTH = "client_id=" + APP_ID;
         
         const string GENERIC_FAILURE_MESSAGE = "Unsplash could not be reached at this time.";
-        const string SERVER_ERROR_MESSAGE = "Something went wrong with Unsplash! Please try again later.";
+        const string SERVER_ERROR_MESSAGE = "Something went wrong! We'll try again shortly.";
 		#endregion
 		
 		
@@ -57,6 +58,8 @@ namespace MyView.Adapters
 		
 		/// A custom size that can be specified for image downloads. This is original (full) size by default.
 		public static SizingParameters CustomSize { get; set; } = SizingParameters.Full;
+		/// The number of items that should be returned when requesting a list of items. Minimum = 1, maximum = 30.
+		public static int ListCount { get; set; } = 30;
 		#endregion
 
 
@@ -67,41 +70,62 @@ namespace MyView.Adapters
         #endregion
 
 
-        #region UNSPLASH REQUESTS
+        #region PUBLC API - UNSPLASH REQUESTS
         /// <summary>
-        /// Retrieves a random photo from the server. Note that a null object is returned if the call fails.
-        /// </summary>
-        /// <returns>The parsed server response.</returns>
-        public async Task<UnsplashImage> GetRandomPhotoAsync()
-        {
-            return await RequestImageAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape");
-        }
-        
-        /// <summary>
-        /// Retrieves a random photo from the server using a query request according to what parameter is provided. Note that a null object is returned if the call fails.
+        /// Retrieves a random photo from the server. Query is optional. Note that a null object is returned if the call fails.
         /// Format: <paramref name="queryParam"/> can take the form of a search query, such as "forests".
         /// </summary>
-        /// <returns>The parsed server response.</returns>
-        public async Task<UnsplashImage> GetRandomQueryAsync(string queryParam)
+        /// <returns>The resulting image from the parsed server response.</returns>
+        /// <param name="queryParam">The query to add (keywords).</param>
+        public async Task<UnsplashImage> GetRandomPhotoAsync(string queryParam = null)
         {
-           	return await RequestImageAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape&query={queryParam}");
+        	var queryString = (queryParam != null ? $"&query={queryParam}" : "");
+           	var json = await RequestAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape{queryString}");
+           	
+           	Console.WriteLine($"[{nameof(UnsplashAdapter)}] Random image retrieved. Query = {queryParam}");
+           	
+            return json != null ? ToUnsplashImage(json) : null;
         }
         
+        /// <summary>
+        /// Retrieves a list of random photos from the server. A query can be optionally provided. Note that a null object is returned if the call fails.
+        /// The number of photos returned is governed by <see cref="ListCount"/>.
+        /// Query format: <paramref name="queryParam"/> can take the form of a search query, such as "forests".
+        /// </summary>
+        /// <returns>The resulting list of images from the parsed server response.</returns>
+		/// <param name="queryParam">The query to add (keywords).</param>
+        public async Task<List<UnsplashImage>> GetRandomListAsync(string queryParam = null)
+        {
+        	var queryString = (queryParam != null ? $"&query={queryParam}" : "");
+           	var json = await RequestAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape&count={ListCount}{queryString}");
+           	
+           	var list = new List<UnsplashImage>();
+           	foreach (var imgObj in json.AsArray().ArrayData)
+           	{
+           		var img = ToUnsplashImage(imgObj);
+           		if (img != null)
+           		{
+	           		list.Add(img);
+           		}
+           	}
+           	
+           	Console.WriteLine($"[{nameof(UnsplashAdapter)}] Random image list retrieved. Count = {list.Count}/{ListCount}. Query = {queryParam}");
+           	
+           	return list;
+        }
+        #endregion
+        
+        
+        #region UNSPLASH REQUESTS
 		/// <summary>
 		/// Makes the call to the server using the provided endpoint. If the response is successful, the return JSON is 
 		/// parsed to produce an <see cref="UnsplashImage"/> that is returned to the calling function. If there is an error,
 		/// null is returned.
 		/// </summary>
-		/// <returns>The response represented as an <see cref="UnsplashImage"/>.</returns>
+		/// <returns>The response represented as an <see cref="LWJson"/> object.</returns>
 		/// <param name="request">Endpoint.</param>
-		async Task<UnsplashImage> RequestImageAsync(string request)
+		async Task<LWJson> RequestAsync(string request)
         {
-        	// TODO Remove this debug
-        	string jsonResponse = "";
-        	string parsing = "";
-        	
-        	LWJson.OnItemParsed += (msg) => { parsing += msg; };
-        	
             try
             {
             	AddCustomSizeParameter(ref request);
@@ -110,32 +134,46 @@ namespace MyView.Adapters
 				
                 if (response.IsSuccessStatusCode)
                 {
-                    jsonResponse = response.Content.ReadAsStringAsync().Result;
+                    var jsonResponse = response.Content.ReadAsStringAsync().Result;
                     var jsonObj = LWJson.Parse(jsonResponse);
-					var image = new UnsplashImage();
-					image.FromLWJson(jsonObj);
 
-                    return image;
+                    return jsonObj;
                 }
                 else
                 {
-                    Console.WriteLine("Failure: " + response.Content.ReadAsStringAsync().Result);
+                    Console.WriteLine($"[{nameof(UnsplashAdapter)}] Failure: {response.Content.ReadAsStringAsync().Result}");
                 	OnErrorThrown(SERVER_ERROR_MESSAGE);
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Exception: \n{e}");
+                Console.WriteLine($"[{nameof(UnsplashAdapter)}] Exception: \n{e}");
                 OnErrorThrown(GENERIC_FAILURE_MESSAGE);
-                
-                // TODO Remove this debug
-                var msg = jsonResponse + "\n\n\nEXCEPTION:\n" + e + "\n\n\nPARSE PROGRESSION:" + parsing;
-                Console.WriteLine($"---------------------------------------------------------------------------\n\n{msg}\n\n---------------------------------------------------------------------------");
             }
-            
-            LWJson.OnItemParsed = delegate { };
 
             return null;
+        }
+        
+        /// <summary>
+        /// Converts a provided <see cref="LWJson"/> object to an <see cref="UnsplashImage"/> object.
+        /// </summary>
+        /// <param name="json">Json.</param>
+		/// <returns>The <see cref="LWJson"/> represented as an <see cref="UnsplashImage"/> object.</returns>
+        UnsplashImage ToUnsplashImage(LWJson json)
+        {
+        	try
+        	{
+        		var image = new UnsplashImage();
+				image.FromLWJson(json);
+				return image;
+        	}
+        	catch (Exception e)
+        	{
+        		Console.WriteLine($"[{nameof(UnsplashAdapter)}] Failure converting LWJson to UnsplashImage.\n{e}");
+                OnErrorThrown(SERVER_ERROR_MESSAGE);
+        	}
+        	
+        	return null;
         }
         
         /// <summary>
@@ -176,11 +214,11 @@ namespace MyView.Adapters
 				var endpoint = GetSizeEndpoint(image, customSizeOverride);
 				data = await m_WebClient.DownloadDataTaskAsync(endpoint);
 				
-				Console.WriteLine($"Photo downloaded. Size = {data.Length} bytes. Location = {endpoint}");
+				Console.WriteLine($"[{nameof(UnsplashAdapter)}] Photo downloaded. Size = {data.Length} bytes. Location = {endpoint}");
 			}
 			catch (Exception e)
 			{
-				Console.Error.WriteLine($"Downloading file failed: Exception:\n{e}");
+				Console.Error.WriteLine($"[{nameof(UnsplashAdapter)}] Downloading file failed: Exception:\n{e}");
                 OnErrorThrown(GENERIC_FAILURE_MESSAGE);
 			}
 
