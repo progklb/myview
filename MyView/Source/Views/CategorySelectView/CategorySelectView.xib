@@ -19,19 +19,19 @@
                 <view contentMode="scaleToFill" id="82" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIViewBar">
                     <rect key="frame" x="0.0" y="720" width="1920" height="275"/>
                     <subviews>
-                        <visualEffectView contentMode="scaleToFill" id="125" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIVisualEffectBlur" opaque="NO">
+                        <visualEffectView opaque="NO" contentMode="scaleToFill" id="235" translatesAutoresizingMaskIntoConstraints="NO">
                             <rect key="frame" x="0.0" y="0.0" width="1920" height="275"/>
-                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="126" fixedFrame="YES">
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="236" fixedFrame="YES">
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="275"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
+                            <blurEffect style="regular"/>
                             <constraints>
-                                <constraint id="165" firstAttribute="width" constant="1920"/>
-                                <constraint id="166" firstAttribute="height" constant="275"/>
+                                <constraint id="239" firstAttribute="width" constant="1920"/>
+                                <constraint id="240" firstAttribute="height" constant="275"/>
                             </constraints>
-                            <blurEffect style="light"/>
                         </visualEffectView>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="93" translatesAutoresizingMaskIntoConstraints="NO" showsVerticalScrollIndicator="NO" restorationIdentifier="UICollectionCategories" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO">
+                        <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="93" translatesAutoresizingMaskIntoConstraints="NO" showsVerticalScrollIndicator="NO" restorationIdentifier="UICollectionCategories" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO">
                             <rect key="frame" x="0.0" y="0.0" width="1920" height="275"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0" minimumInteritemSpacing="300" id="95" scrollDirection="horizontal">
                                 <size key="itemSize" width="444" height="250"/>
@@ -67,10 +67,10 @@
                     <constraints>
                         <constraint id="161" firstAttribute="width" constant="1920"/>
                         <constraint id="162" firstAttribute="height" constant="275"/>
-                        <constraint id="163" firstItem="82" firstAttribute="trailing" secondItem="125" secondAttribute="trailing"/>
-                        <constraint id="164" firstItem="82" firstAttribute="bottom" secondItem="125" secondAttribute="bottom"/>
                         <constraint id="167" firstItem="82" firstAttribute="trailing" secondItem="93" secondAttribute="trailing"/>
                         <constraint id="168" firstItem="82" firstAttribute="bottom" secondItem="93" secondAttribute="bottom"/>
+                        <constraint id="237" firstItem="82" firstAttribute="trailing" secondItem="235" secondAttribute="trailing"/>
+                        <constraint id="238" firstItem="82" firstAttribute="bottom" secondItem="235" secondAttribute="bottom"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" id="138" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIViewDetails">
@@ -104,7 +104,6 @@
                 <outlet property="UICollectionCategories" destination="93" id="name-outlet-93"/>
                 <outlet property="UIViewDetails" destination="138" id="name-outlet-138"/>
                 <outlet property="UILabelCategory" destination="144" id="name-outlet-144"/>
-                <outlet property="UIVisualEffectBlur" destination="125" id="name-outlet-125"/>
             </connections>
             <constraints>
                 <constraint id="76" firstItem="75" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>

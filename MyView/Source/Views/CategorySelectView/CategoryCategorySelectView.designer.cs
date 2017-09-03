@@ -34,10 +34,6 @@ namespace MyView.Views
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIView UIViewDetails { get; set; }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIVisualEffectView UIVisualEffectBlur { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
             if (UICollectionCategories != null) {
@@ -63,11 +59,6 @@ namespace MyView.Views
             if (UIViewDetails != null) {
                 UIViewDetails.Dispose ();
                 UIViewDetails = null;
-            }
-
-            if (UIVisualEffectBlur != null) {
-                UIVisualEffectBlur.Dispose ();
-                UIVisualEffectBlur = null;
             }
         }
     }

@@ -144,15 +144,7 @@ namespace MyView.Screens
 		#region EVENT HANDLERS
 		void OnRemoteMenuClicked()
 		{
-			if (CurrentMode == ApplicationModes.ImageView)
-			{
-				CurrentMode = ApplicationModes.CategorySelect;
-				SetSelectRecognizerEnabled(false);
-				m_Footer.AnimateOut();
-				m_Header.AnimateIn();
-				m_Select.AnimateIn();
-			}
-			else if (CurrentMode == ApplicationModes.ImageDetails)
+			if (CurrentMode == ApplicationModes.ImageView || CurrentMode == ApplicationModes.ImageDetails)
 			{
 				CurrentMode = ApplicationModes.CategorySelect;
 				SetSelectRecognizerEnabled(false);
@@ -162,14 +154,8 @@ namespace MyView.Screens
 			}
 			else if (CurrentMode == ApplicationModes.CategorySelect)
 			{
-				m_Slideshow.SetSlideshowCategory(m_LastSelectedCategory);
-			
-				CurrentMode = ApplicationModes.ImageDetails;
-				SetSelectRecognizerEnabled(true);
-				SetHeader(m_Slideshow.CurrentCategory);
-				m_Select.AnimateOut();
-				m_Footer.AnimateIn();
-				m_Footer.StartDimTimeout(OnFooterDim);
+				// Close menu, setting our original category.
+				OnCategoryItemSelected(m_LastSelectedCategory);
 			}
 		}
 		
@@ -205,7 +191,6 @@ namespace MyView.Screens
 		
 		void OnCategoryItemFocused(SlideshowCategory category)
 		{
-			CurrentMode = ApplicationModes.ImageDetails;
 			m_Slideshow.SetSlideshowCategory(category);
 		}
 		
