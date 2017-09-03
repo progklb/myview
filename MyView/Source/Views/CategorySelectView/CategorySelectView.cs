@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using Foundation;
+using CoreGraphics;
 
 using MyView.Additional;
 
@@ -13,6 +14,13 @@ namespace MyView.Views
 	/// </summary>
     public partial class CategorySelectView : BaseView
     {
+    	#region CONSTANTS
+    	private nfloat ANIM_IN_DURATION = 0.25f;
+    	private nfloat ANIM_OUT_DURATION = 0.25f;
+    	private nfloat ANIM_SCALE_TARGET = 1.1f;
+    	#endregion
+    	
+    	
     	#region VARIABLES
     	/// Callback to invoke when a category item is selected.
     	private List<Action<SlideshowCategory>> m_OnItemSelectedCallback = new List<Action<SlideshowCategory>>();
@@ -29,6 +37,10 @@ namespace MyView.Views
         #region INHERITED METHODS
         public override void AwakeFromNib()
 		{
+			// Override the base class animation durations
+			AnimateInDuration = ANIM_IN_DURATION;
+			AnimateOutDuration = ANIM_OUT_DURATION;
+			
 			base.AwakeFromNib();
 			
 			var categoriesList = new List<SlideshowCategory>();
@@ -40,6 +52,30 @@ namespace MyView.Views
 			
 			(UICollectionCategories.Source as CategorySelectSource).SetItemSelectedCallback(OnItemSelected);
 			(UICollectionCategories.Source as CategorySelectSource).SetItemFocusedCallback(OnItemFocused);
+		}
+		
+		public override void AnimateIn()
+		{
+			base.AnimateIn();
+			
+			// Scale downward
+			Transform = CGAffineTransform.MakeScale(ANIM_SCALE_TARGET, ANIM_SCALE_TARGET);
+			Animate(
+				AnimateInDuration,
+				() => Transform = CGAffineTransform.MakeIdentity()
+			);
+		}
+		
+		public override void AnimateOut()
+		{
+			base.AnimateOut();
+			
+			// Scale upward
+			Transform = CGAffineTransform.MakeIdentity();
+			Animate(
+				AnimateOutDuration,
+				() => Transform = CGAffineTransform.MakeScale(ANIM_SCALE_TARGET, ANIM_SCALE_TARGET)
+			);
 		}
         #endregion
         

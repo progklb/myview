@@ -82,7 +82,7 @@ namespace MyView.Adapters
         	var queryString = (queryParam != null ? $"&query={queryParam}" : "");
            	var json = await RequestAsync($"{BASE_API}/photos/random/?{PARAM_CLIENT_AUTH}&orientation=landscape{queryString}");
            	
-           	Console.WriteLine($"[{nameof(UnsplashAdapter)}] Random image retrieved. Query = {queryParam}");
+           	Console.WriteLine($"[{nameof(UnsplashAdapter)}] Random image retrieved. Query = \'{queryParam}\'");
            	
             return json != null ? ToUnsplashImage(json) : null;
         }
@@ -109,7 +109,7 @@ namespace MyView.Adapters
            		}
            	}
            	
-           	Console.WriteLine($"[{nameof(UnsplashAdapter)}] Random image list retrieved. Count = {list.Count}/{ListCount}. Query = {queryParam}");
+           	Console.WriteLine($"[{nameof(UnsplashAdapter)}] Random image list retrieved. Count = {list.Count}/{ListCount}. Query = \'{queryParam}\'");
            	
            	return list;
         }

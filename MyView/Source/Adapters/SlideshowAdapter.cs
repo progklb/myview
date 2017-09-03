@@ -116,7 +116,7 @@ namespace MyView.Adapters
         async Task StartServiceAsync()
         {
 // Provide an override for DEBUG mode to save bandwidth. Because developers have Internet limits too!            
-#if DEBUG
+#if !DEBUG
 			var customSize = UnsplashImage.UnsplashImageSizes.Small;
 #else
 			var customSize = UnsplashImage.UnsplashImageSizes.Default;

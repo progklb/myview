@@ -2,7 +2,6 @@ using System.IO;
 
 using UIKit;
 
-using MyView.Adapters;
 using MyView.Additional;
 
 using Mode = MyView.Adapters.SlideshowAdapter.SlideshowModes;
@@ -23,8 +22,11 @@ namespace MyView
 		{
 			#region PROPERTIES
 			public static string PlaceholderPhoto { get { return Path.Combine(PlaceholderPhotoPath, "PlaceholderPhoto.png"); } }
+			public static string StartUpPhoto { get { return Path.Combine(StartUpPath, "StartUp.jpg"); } }
+			
 			
 			public static string PlaceholderPhotoPath { get { return "CategoryPlaceholder"; } }
+			public static string StartUpPath { get { return "StartUp"; } }
 			#endregion
 		}
 		

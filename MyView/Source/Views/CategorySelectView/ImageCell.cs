@@ -67,6 +67,10 @@ namespace MyView.Views
 			//m_UIImageViewImage.Layer.CornerRadius = 10f;
 			//m_UIImageViewImage.Layer.MasksToBounds = true;
 			
+			m_UIImageViewImage.Layer.ShadowOpacity = 0.5f;
+			m_UIImageViewImage.Layer.ShadowRadius = 15f;
+			m_UIImageViewImage.Layer.ShadowOffset = new CGSize(10f, 20f);
+			
 			// Allow Focus engine to display focused affects.
 			m_UIImageViewImage.AdjustsImageWhenAncestorFocused = true;
 			

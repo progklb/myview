@@ -81,5 +81,6 @@
         <image name="CategoryPlaceholder/Space.jpg" width="889" height="500"/>
         <image name="CategoryPlaceholder/PlaceholderPhoto.png" width="979" height="653"/>
         <image name="CategoryPlaceholder/Random.jpg" width="750" height="500"/>
+        <image name="StartUp/StartUp.jpg" width="4896" height="3264"/>
     </resources>
 </document>

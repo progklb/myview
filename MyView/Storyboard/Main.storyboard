@@ -18,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="80" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIImageBackground1" image="TestImages/7.jpg" alpha="0.5">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="80" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIImageBackground1" alpha="0.5">
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="81" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIImageBackground2" alpha="0.5" image="TestImages/0.jpg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="81" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIImageBackground2" alpha="0.5">
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                             </imageView>
                         </subviews>
@@ -51,15 +51,14 @@
         <image name="FavouriteFull.png" width="54" height="52"/>
         <image name="LogoMadeWithUnsplash.png" width="297" height="27"/>
         <image name="LogoMyView.png" width="209" height="40"/>
-        <image name="TestImages/0.jpg" width="1920" height="1080"/>
-        <image name="TestImages/1.jpg" width="5472" height="3648"/>
-        <image name="TestImages/2.jpg" width="1800" height="1069"/>
-        <image name="TestImages/3.jpg" width="1920" height="1080"/>
-        <image name="TestImages/4.jpg" width="4928" height="2946"/>
-        <image name="TestImages/5.jpg" width="6000" height="4000"/>
-        <image name="TestImages/6.jpg" width="5426" height="3617"/>
-        <image name="TestImages/7.jpg" width="1920" height="1200"/>
-        <image name="TestImages/8.jpg" width="1680" height="1050"/>
-        <image name="TestImages/9.jpg" width="4000" height="2667"/>
+        <image name="CategoryPlaceholder/Cars.jpg" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Food.jpg" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Forests.jpg" width="749" height="500"/>
+        <image name="CategoryPlaceholder/Mountains.jpg" width="889" height="500"/>
+        <image name="CategoryPlaceholder/People.jpg" width="749" height="500"/>
+        <image name="CategoryPlaceholder/Space.jpg" width="889" height="500"/>
+        <image name="CategoryPlaceholder/PlaceholderPhoto.png" width="979" height="653"/>
+        <image name="CategoryPlaceholder/Random.jpg" width="750" height="500"/>
+        <image name="StartUp/StartUp.jpg" width="4896" height="3264"/>
     </resources>
 </document>

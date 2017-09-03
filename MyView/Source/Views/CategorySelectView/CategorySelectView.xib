@@ -25,13 +25,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="275"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
-                            <blurEffect style="light"/>
                             <constraints>
                                 <constraint id="165" firstAttribute="width" constant="1920"/>
                                 <constraint id="166" firstAttribute="height" constant="275"/>
                             </constraints>
+                            <blurEffect style="light"/>
                         </visualEffectView>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="93" translatesAutoresizingMaskIntoConstraints="NO" showsVerticalScrollIndicator="NO" restorationIdentifier="UICollectionCategories" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" alpha="0.5">
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="93" translatesAutoresizingMaskIntoConstraints="NO" showsVerticalScrollIndicator="NO" restorationIdentifier="UICollectionCategories" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO">
                             <rect key="frame" x="0.0" y="0.0" width="1920" height="275"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0" minimumInteritemSpacing="300" id="95" scrollDirection="horizontal">
                                 <size key="itemSize" width="444" height="250"/>
@@ -132,5 +132,6 @@
         <image name="CategoryPlaceholder/Space.jpg" width="889" height="500"/>
         <image name="CategoryPlaceholder/PlaceholderPhoto.png" width="979" height="653"/>
         <image name="CategoryPlaceholder/Random.jpg" width="750" height="500"/>
+        <image name="StartUp/StartUp.jpg" width="4896" height="3264"/>
     </resources>
 </document>

@@ -36,6 +36,7 @@ namespace MyView.Screens
 		private HeaderView m_Header;
 		private FooterView m_Footer;
 		private AlertView m_Alert;
+		private LogoView m_Logo;
 		
 		/// Provides images for display on this page
         private SlideshowAdapter m_Slideshow;
@@ -74,7 +75,6 @@ namespace MyView.Screens
 			CurrentMode = ApplicationModes.CategorySelect;
 			SetSelectRecognizerEnabled(false);
 			m_Select.AnimateIn();
-			m_Header.AnimateIn();
 		}
 		
 		public override void ViewWillAppear(bool animated)
@@ -87,6 +87,10 @@ namespace MyView.Screens
             m_Slideshow.OnImageCycled += SetBackground;
             m_Slideshow.OnImageCycled += SetFooter;
             m_Slideshow.OnErrorThrown += ShowAlert;
+                        
+            // Start up logic
+            m_Slideshow.OnImageCycled += HideStartUpLogo;
+            SetBackground(new UnsplashImage(UIImage.FromFile(Constants.Images.StartUpPhoto).AsJPEG().ToArray()));
 		}
 		
 		public override void ViewWillDisappear(bool animated)
@@ -112,8 +116,8 @@ namespace MyView.Screens
 			m_Header.ShowBackingGradient = true;
 			
 			m_Footer = BaseView.CreateView<FooterView>(this.View);
-			
 			m_Alert = BaseView.CreateView<AlertView>(this.View);
+			m_Logo = BaseView.CreateView<LogoView>(this.View, null, false);
 			
 			m_ImageViews = new UIImageView[] { UIImageBackground1, UIImageBackground2 };
 			
@@ -287,6 +291,22 @@ namespace MyView.Screens
 			
 			m_Alert.SetText(ALERT_HEADER, message);
 			m_Alert.AnimateIn();
+		}
+		
+		/// <summary>
+		/// Animates out the starting logo.
+		/// </summary>
+		void HideStartUpLogo(UnsplashImage image)
+		{
+			m_Slideshow.OnImageCycled -= HideStartUpLogo;
+			
+			m_Logo.AnimateOutAndRemove();
+			
+			// Only tell the header to display if we are in the correct mode to do so.
+			if (CurrentMode == ApplicationModes.CategorySelect || CurrentMode == ApplicationModes.ImageDetails)
+			{
+				m_Header.AnimateIn();
+			}
 		}
 		#endregion
 	}

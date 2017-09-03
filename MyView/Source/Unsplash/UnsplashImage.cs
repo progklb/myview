@@ -8,6 +8,7 @@ namespace MyView.Unsplash
     /// </summary>
     public partial class UnsplashImage
     {
+    	#region PROPERTIES
     	/// Unique ID of this image.
         public string id { get; set; }
         /// The date and time at which this image was created.
@@ -39,6 +40,20 @@ namespace MyView.Unsplash
         /// Store of MyView-specific data. This has nothing to do with Unsplash API, but is here as convenience
         /// in order to keep the image object a singular package.
         public UnsplashCustomValues custom { get; set; } = new UnsplashCustomValues();
+        #endregion
+        
+        
+        #region CONSTRUCTORS
+        public UnsplashImage()
+        {
+        }
+        
+        public UnsplashImage(byte[] imageData, string filepath = "")
+        {
+        	custom.imagePath = filepath;
+        	custom.imageData = imageData;
+        }
+        #endregion
     }
 
     public partial class UnsplashImage

@@ -63,6 +63,11 @@ namespace MyView.Views
         
         
         #region HELPERS
+        /// <summary>
+        /// Fades out the category text, changes it, and fades it back in.
+        /// </summary>
+        /// <returns>The category change async.</returns>
+        /// <param name="categoryText">Category text to set.</param>
         async Task AnimateCategoryChangeAsync(string categoryText)
         {
 			FadeCategory(ChangeAnimDuration, 0f);
@@ -73,6 +78,11 @@ namespace MyView.Views
 			FadeCategory(ChangeAnimDuration, 1f);
         }
         
+        /// <summary>
+        /// Fades the category text to the alpha specified.
+        /// </summary>
+        /// <param name="duration">Duration.</param>
+        /// <param name="targetAlpha">Target alpha.</param>
         void FadeCategory(nfloat duration, nfloat targetAlpha)
         {
         	Animate(

@@ -123,6 +123,8 @@
     <Folder Include="Source\Unsplash\" />
     <Folder Include="Resources\CategoryPlaceholder\" />
     <Folder Include="Source\Views\AlertView\" />
+    <Folder Include="Resources\StartUp\" />
+    <Folder Include="Source\Views\LogoView\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -168,6 +170,10 @@
     <Compile Include="Source\Views\AlertView\AlertView.designer.cs">
       <DependentUpon>AlertView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\Views\LogoView\LogoView.cs" />
+    <Compile Include="Source\Views\LogoView\LogoView.designer.cs">
+      <DependentUpon>LogoView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Storyboard\Main.storyboard" />
@@ -175,6 +181,7 @@
     <InterfaceDefinition Include="Source\Views\FooterView\FooterView.xib" />
     <InterfaceDefinition Include="Source\Views\HeaderView\HeaderView.xib" />
     <InterfaceDefinition Include="Source\Views\AlertView\AlertView.xib" />
+    <InterfaceDefinition Include="Source\Views\LogoView\LogoView.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\LogoMadeWithUnsplash.png" />
@@ -192,6 +199,7 @@
     <BundleResource Include="Resources\CategoryPlaceholder\Space.jpg" />
     <BundleResource Include="Resources\CategoryPlaceholder\PlaceholderPhoto.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Random.jpg" />
+    <BundleResource Include="Resources\StartUp\StartUp.jpg" />
   </ItemGroup>
   <Import Project="..\LightWeightJsonParser\LightWeightJsonParser.projitems" Label="Shared" Condition="Exists('..\LightWeightJsonParser\LightWeightJsonParser.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.CSharp.targets" />
