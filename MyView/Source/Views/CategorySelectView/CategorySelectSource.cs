@@ -12,7 +12,7 @@ namespace MyView.Views
 	/// The source for the <see cref="CategorySelectView"/>, providing data to display.
 	/// </summary>
 	public class CategorySelectSource : UICollectionViewSource
-	{
+	{		
 		#region VARIABLES
 		/// Holds the data to display.
 		private List<SlideshowCategory> m_Items;
@@ -59,9 +59,10 @@ namespace MyView.Views
 			var imageCell = (ImageCell)collectionView.DequeueReusableCell(ImageCell.CellIdentifier, indexPath);
 			imageCell.SetCell(m_Items[indexPath.Row]);
 			
+			// Set index 0 to be the first item we focus on when this category select opens.
 			if (!m_InitialFocusComplete && indexPath.Row == 0)
 			{
-				imageCell.SetWillOverrideFocus();
+				FocusTarget.SetFocusTarget(imageCell);
 			}
 			
 			return imageCell;
@@ -80,8 +81,9 @@ namespace MyView.Views
 				m_ItemFocusedCallback(m_Items[context.NextFocusedIndexPath.Row]);
 			}
 			
+			// Unset our focus override as the user has now manually changed focus.
 			m_InitialFocusComplete = true;
-			ImageCell.UnsetWillOverrideFocus();
+			FocusTarget.UnsetFocusTarget();
 		}
 		#endregion
 		

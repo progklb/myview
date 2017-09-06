@@ -27,6 +27,9 @@ namespace MyView.Screens
 		#region PROPERTIES
 		/// The current mode that we are viewing the app in.
 		public ApplicationModes CurrentMode { get; private set; }
+		
+		/// Returns an explicit focus target if one has been set. To trigger a focus on this target, first set it and then call <see cref="UpdateFocusIfNeeded"/>
+		public override UIView PreferredFocusedView { get { return FocusTarget.TargetView ?? base.PreferredFocusedView; } }
 		#endregion
         
         
@@ -47,9 +50,6 @@ namespace MyView.Screens
 		private UIImageView[] m_ImageViews;
 		/// The index of the currently display image view.
 		private int m_CurrentImageIdx;
-		
-		/// A reference to an active alert controller. This prevents multiple errors trying to create multiple controllers.
-		private UIAlertController m_AlertController;
 		#endregion
 
 
@@ -86,7 +86,10 @@ namespace MyView.Screens
             
             m_Slideshow.OnImageCycled += SetBackground;
             m_Slideshow.OnImageCycled += SetFooter;
+            
+            // Display alert on error. Successful downloads hide the alert.
             m_Slideshow.OnErrorThrown += ShowAlert;
+            m_Slideshow.OnImageCycled += HideAlert;
                         
             // Start up logic
             m_Slideshow.OnImageCycled += HideStartUpLogo;
@@ -116,7 +119,6 @@ namespace MyView.Screens
 			m_Header.ShowBackingGradient = true;
 			
 			m_Footer = BaseView.CreateView<FooterView>(this.View);
-			m_Alert = BaseView.CreateView<AlertView>(this.View);
 			m_Logo = BaseView.CreateView<LogoView>(this.View, null, false);
 			
 			m_ImageViews = new UIImageView[] { UIImageBackground1, UIImageBackground2 };
@@ -268,14 +270,26 @@ namespace MyView.Screens
 		/// <param name="message">Alert message to display.</param>
 		void ShowAlert(string message)
 		{
-			//if (m_AlertController == null)
-			//{
-			//	m_AlertController = UIAlertController.Create(ALERT_HEADER, message, UIAlertControllerStyle.Alert);
-			//	PresentViewController(m_AlertController, true, completionHandler: () => { m_AlertController = null; });
-			//}
+			if (m_Alert == null)
+			{
+				m_Alert = BaseView.CreateView<AlertView>(this.View);
+				m_Alert.AnimateIn();
+			}
 			
 			m_Alert.SetText(ALERT_HEADER, message);
-			m_Alert.AnimateIn();
+		}
+		
+		/// <summary>
+		/// Removes the alert from view and destroys it.
+		/// </summary>
+		/// <param name="image">Image.</param>
+		void HideAlert(UnsplashImage image)
+		{
+			if (m_Alert != null)
+			{
+				m_Alert.AnimateOutAndRemove();
+				m_Alert = null;
+			}
 		}
 		
 		/// <summary>

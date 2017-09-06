@@ -23,6 +23,15 @@ namespace MyView.Views
         
         
         #region PUBLIC API
+        public void AnimateOutAndRemove()
+		{
+			Animate(
+				AnimateOutDuration,
+				() => { Alpha = 0f; },
+				() => { RemoveFromSuperview(); }
+			);
+		}
+		
         /// <summary>
         /// Assigns the provided parameters to the fields on the alert view.
         /// </summary>

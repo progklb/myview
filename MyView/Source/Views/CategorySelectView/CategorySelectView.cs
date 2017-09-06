@@ -21,6 +21,16 @@ namespace MyView.Views
     	#endregion
     	
     	
+    	#region PROPERTIES
+    	public CategorySelectSource Source { get { return UICollectionCategories.Source as CategorySelectSource; } }
+    	
+    	/// The last item selected by the user.
+		public SlideshowCategory LastSelectedItem { get; private set; }
+		/// The last item focused on by the user.
+		public SlideshowCategory LastFocusedItem { get; private set; }
+    	#endregion
+    	
+    	
     	#region VARIABLES
     	/// Callback to invoke when a category item is selected.
     	private List<Action<SlideshowCategory>> m_OnItemSelectedCallback = new List<Action<SlideshowCategory>>();
@@ -50,8 +60,8 @@ namespace MyView.Views
 			UICollectionCategories.RegisterClassForCell(typeof(ImageCell), new NSString(ImageCell.CellIdentifier));
 			UICollectionCategories.Source = new CategorySelectSource(categoriesList);
 			
-			(UICollectionCategories.Source as CategorySelectSource).SetItemSelectedCallback(OnItemSelected);
-			(UICollectionCategories.Source as CategorySelectSource).SetItemFocusedCallback(OnItemFocused);
+			Source.SetItemSelectedCallback(OnItemSelected);
+			Source.SetItemFocusedCallback(OnItemFocused);
 		}
 		
 		public override void AnimateIn()
@@ -62,7 +72,14 @@ namespace MyView.Views
 			Transform = CGAffineTransform.MakeScale(ANIM_SCALE_TARGET, ANIM_SCALE_TARGET);
 			Animate(
 				AnimateInDuration,
-				() => Transform = CGAffineTransform.MakeIdentity()
+				() => Transform = CGAffineTransform.MakeIdentity(),
+				() => 
+					{	// Start displaying the last category we had selected.
+						if (LastFocusedItem != null)
+						{
+							OnItemFocused(LastFocusedItem);
+						}
+					}
 			);
 		}
 		
@@ -122,6 +139,8 @@ namespace MyView.Views
         	{
         		callback(category);
         	}
+        	
+        	LastSelectedItem = category;
         }
         
         /// <summary>
@@ -136,6 +155,7 @@ namespace MyView.Views
         	}
         	
         	SetCategoryText(category.DisplayName);
+        	LastFocusedItem = category;
         }
         #endregion
     }

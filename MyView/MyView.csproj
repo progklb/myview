@@ -174,6 +174,7 @@
     <Compile Include="Source\Views\LogoView\LogoView.designer.cs">
       <DependentUpon>LogoView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\FocusTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Storyboard\Main.storyboard" />

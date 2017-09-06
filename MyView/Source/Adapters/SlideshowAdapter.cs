@@ -158,26 +158,33 @@ namespace MyView.Adapters
 				{
 					unsplashImage = CurrentList[m_CurrentImageIndex];
 					unsplashImage.custom.imageData = await UnsplashAdapter.DownloadPhotoAsync(unsplashImage, customSize);
-					                	
-                	// For the start we want to display the image as soon as it is downloaded.
-                	// Thereafter, we will download the next image but wait for the cycle timeout before displaying it.
-                	if (firstRun)
-                	{
-	                	UpdateImage(unsplashImage);
-	                	firstRun = false;
-                	}
-                	else
-                	{   
-                		while (CycleTime + TransitionDuration - m_Timer.GetElapsedTime() > 0)
-                		{	
-							if (m_CategoryChanged) { break; } // Break out of inner loop incase of category change
-                			await Task.Delay(100);
-                		}
-                		
-						if (m_CategoryChanged) { break; } // Break out of outer loop incase of category change (after breaking out of inner loop above)
-                	
-	                	UpdateImage(unsplashImage);
-                	}
+					
+					if (unsplashImage.custom.imageData != null)
+					{
+						// For the start we want to display the image as soon as it is downloaded.
+	                	// Thereafter, we will download the next image but wait for the cycle timeout before displaying it.
+	                	if (firstRun)
+	                	{
+		                	UpdateImage(unsplashImage);
+		                	firstRun = false;
+	                	}
+	                	else
+	                	{   
+	                		while (CycleTime + TransitionDuration - m_Timer.GetElapsedTime() > 0)
+	                		{	
+								if (m_CategoryChanged) { break; } // Break out of inner loop incase of category change
+	                			await Task.Delay(100);
+	                		}
+	                		
+							if (m_CategoryChanged) { break; } // Break out of outer loop incase of category change (after breaking out of inner loop above)
+	                	
+		                	UpdateImage(unsplashImage);
+	                	}
+					}
+					else
+					{
+                		await Task.Delay(RetryTimeout);
+					}
                 }
                 else
                 {
