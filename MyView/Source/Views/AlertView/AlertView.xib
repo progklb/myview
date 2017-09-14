@@ -11,9 +11,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" id="4" translatesAutoresizingMaskIntoConstraints="NO" clipsSubviews="YES">
-                    <rect key="frame" x="610" y="20" width="700" height="192"/>
+                    <rect key="frame" x="610" y="20" width="700" height="160"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5">
-                        <rect key="frame" x="0.0" y="0.0" width="700" height="192"/>
+                        <rect key="frame" x="0.0" y="0.0" width="700" height="160"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
                                 <real key="value" value="15"/>
@@ -31,19 +31,24 @@
                                 </constraints>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="15" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UILabelBody">
-                                <rect key="frame" x="0.0" y="58" width="700" height="134"/>
+                                <rect key="frame" x="0.0" y="67" width="700" height="81"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
                                 <nil key="highlightedColor"/>
+                                <constraints>
+                                    <constraint id="116" firstItem="15" firstAttribute="height" constant="81"/>
+                                    <constraint id="117" firstItem="15" firstAttribute="width" constant="700"/>
+                                </constraints>
                             </label>
                         </subviews>
                         <constraints>
                             <constraint id="48" firstItem="10" firstAttribute="top" secondItem="5" secondAttribute="top" constant="18"/>
                             <constraint id="49" firstItem="10" firstAttribute="leading" secondItem="5" secondAttribute="leading"/>
-                            <constraint id="57" firstItem="15" firstAttribute="leading" secondItem="5" secondAttribute="leading"/>
-                            <constraint id="58" firstItem="15" firstAttribute="bottom" secondItem="5" secondAttribute="bottom"/>
-                            <constraint id="59" firstItem="15" firstAttribute="trailing" secondItem="5" secondAttribute="trailing"/>
-                            <constraint id="60" firstItem="10" firstAttribute="bottom" secondItem="15" secondAttribute="top" constant="10"/>
+                            <constraint id="103" firstItem="10" firstAttribute="trailing" secondItem="5" secondAttribute="trailing"/>
+                            <constraint id="112" firstItem="15" firstAttribute="trailing" secondItem="5" secondAttribute="trailing"/>
+                            <constraint id="113" firstItem="15" firstAttribute="leading" secondItem="5" secondAttribute="leading"/>
+                            <constraint id="114" firstItem="10" firstAttribute="bottom" secondItem="15" secondAttribute="top" constant="1"/>
+                            <constraint id="115" firstItem="5" firstAttribute="bottom" secondItem="15" secondAttribute="bottom" constant="12"/>
                         </constraints>
                     </view>
                     <blurEffect style="regular"/>
@@ -53,8 +58,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <constraints>
-                        <constraint id="33" firstItem="4" firstAttribute="height" constant="192"/>
-                        <constraint id="34" firstItem="4" firstAttribute="width" constant="700"/>
+                        <constraint id="99" firstItem="4" firstAttribute="width" constant="700"/>
+                        <constraint id="100" firstItem="4" firstAttribute="height" constant="160"/>
+                        <constraint id="101" firstItem="5" firstAttribute="trailing" secondItem="4" secondAttribute="trailing"/>
+                        <constraint id="102" firstItem="5" firstAttribute="bottom" secondItem="4" secondAttribute="bottom"/>
                     </constraints>
                 </visualEffectView>
             </subviews>
@@ -63,8 +70,9 @@
                 <outlet property="UILabelBody" destination="15" id="name-outlet-15"/>
             </connections>
             <constraints>
-                <constraint id="32" firstItem="4" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20"/>
-                <constraint id="35" firstItem="4" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="610"/>
+                <constraint id="96" firstItem="4" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="610"/>
+                <constraint id="97" firstItem="4" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20"/>
+                <constraint id="98" firstItem="1" firstAttribute="trailing" secondItem="4" secondAttribute="trailing" constant="610"/>
             </constraints>
         </view>
     </objects>
@@ -73,14 +81,33 @@
         <image name="FavouriteEmpty.png" width="54" height="52"/>
         <image name="FavouriteFull.png" width="54" height="52"/>
         <image name="LogoMyView.png" width="209" height="40"/>
-        <image name="CategoryPlaceholder/Cars.jpg" width="750" height="500"/>
-        <image name="CategoryPlaceholder/Food.jpg" width="750" height="500"/>
-        <image name="CategoryPlaceholder/Forests.jpg" width="749" height="500"/>
         <image name="CategoryPlaceholder/Mountains.jpg" width="889" height="500"/>
         <image name="CategoryPlaceholder/People.jpg" width="749" height="500"/>
         <image name="CategoryPlaceholder/Space.jpg" width="889" height="500"/>
         <image name="CategoryPlaceholder/PlaceholderPhoto.png" width="979" height="653"/>
         <image name="CategoryPlaceholder/Random.jpg" width="750" height="500"/>
         <image name="StartUp/StartUp.jpg" width="4896" height="3264"/>
+        <image name="CategoryPlaceholder/_PlaceholderPhoto.png" width="979" height="653"/>
+        <image name="CategoryPlaceholder/Animals.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Architecture.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Aviation.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Bokeh.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Cars.png" width="730" height="500"/>
+        <image name="CategoryPlaceholder/Cities.png" width="744" height="500"/>
+        <image name="CategoryPlaceholder/Food&amp;Drink.png" width="753" height="500"/>
+        <image name="CategoryPlaceholder/Motorcycles.png" width="753" height="442"/>
+        <image name="CategoryPlaceholder/Music.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Nature.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Objects.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Oceans.png" width="753" height="481"/>
+        <image name="CategoryPlaceholder/Office.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/People.png" width="749" height="500"/>
+        <image name="CategoryPlaceholder/Retro.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Roads.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Seasons.png" width="753" height="500"/>
+        <image name="CategoryPlaceholder/Sports.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Stars.png" width="753" height="479"/>
+        <image name="CategoryPlaceholder/Technology.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Random.png" width="750" height="500"/>
     </resources>
 </document>

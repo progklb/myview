@@ -65,12 +65,6 @@
         <image name="FavouriteFull.png" width="54" height="52"/>
         <image name="LogoMadeWithUnsplash.png" width="297" height="27"/>
         <image name="LogoMyView.png" width="209" height="40"/>
-        <image name="TestImages/1.jpg" width="5472" height="3648"/>
-        <image name="TestImages/2.jpg" width="1800" height="1069"/>
-        <image name="TestImages/3.jpg" width="1920" height="1080"/>
-        <image name="TestImages/4.jpg" width="4928" height="2946"/>
-        <image name="TestImages/5.jpg" width="6000" height="4000"/>
-        <image name="TestImages/6.jpg" width="5426" height="3617"/>
         <image name="TestImages/7.jpg" width="1920" height="1200"/>
         <image name="TestImages/8.jpg" width="1680" height="1050"/>
         <image name="TestImages/9.jpg" width="4000" height="2667"/>
@@ -82,5 +76,29 @@
         <image name="CategoryPlaceholder/Space.jpg" width="889" height="500"/>
         <image name="CategoryPlaceholder/PlaceholderPhoto.png" width="979" height="653"/>
         <image name="CategoryPlaceholder/Random.jpg" width="750" height="500"/>
+        <image name="CategoryPlaceholder/_PlaceholderPhoto.png" width="979" height="653"/>
+        <image name="StartUp/StartUp.jpg" width="4896" height="3264"/>
+        <image name="CategoryPlaceholder/Animals.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Architecture.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Aviation.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Bokeh.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Cars.png" width="730" height="500"/>
+        <image name="CategoryPlaceholder/Cities.png" width="744" height="500"/>
+        <image name="CategoryPlaceholder/Food&amp;Drink.png" width="753" height="500"/>
+        <image name="CategoryPlaceholder/Motorcycles.png" width="753" height="442"/>
+        <image name="CategoryPlaceholder/Music.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Nature.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Objects.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Oceans.png" width="753" height="481"/>
+        <image name="CategoryPlaceholder/Office.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/People.png" width="749" height="500"/>
+        <image name="CategoryPlaceholder/Retro.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Roads.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Seasons.png" width="753" height="500"/>
+        <image name="CategoryPlaceholder/Sports.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Stars.png" width="753" height="479"/>
+        <image name="CategoryPlaceholder/Technology.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Random.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Ocean.png" width="753" height="481"/>
     </resources>
 </document>

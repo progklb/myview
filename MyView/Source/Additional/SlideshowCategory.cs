@@ -19,7 +19,7 @@ namespace MyView.Additional
 		public SlideshowAdapter.SlideshowModes SlideshowMode { get; set; }
 		
 		/// Image to display in category select.
-		public string PreviewPath { get { return $"{Path.Combine(Constants.Images.PlaceholderPhotoPath, DisplayName)}.jpg"; } }
+		public string PreviewPath { get { return $"{Path.Combine(Constants.Images.PlaceholderPhotoPath, DisplayName.Replace(" ", ""))}.png"; } }
 		#endregion
 		
 		

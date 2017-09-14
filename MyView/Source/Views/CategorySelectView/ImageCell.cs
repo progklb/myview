@@ -42,7 +42,7 @@ namespace MyView.Views
 			// Set photo frame size, and load a placeholder to indicate that this cell does not yet represent a photo.
 			m_UIImageViewImage = new UIImageView();
 			m_UIImageViewImage.Frame = new CGRect(cornerX, cornerY, width, height);
-			m_UIImageViewImage.ContentMode = UIViewContentMode.ScaleAspectFill;
+			m_UIImageViewImage.ContentMode = UIViewContentMode.ScaleAspectFit;
 
 			// Add corner radii to images. This doesn't work as expected with tvOS.
 			//m_UIImageViewImage.Layer.CornerRadius = 10f;

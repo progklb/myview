@@ -192,15 +192,29 @@
     <BundleResource Include="Resources\Fonts\ZonaPro-Bold.otf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
-    <BundleResource Include="Resources\CategoryPlaceholder\Cars.jpg" />
-    <BundleResource Include="Resources\CategoryPlaceholder\Food.jpg" />
-    <BundleResource Include="Resources\CategoryPlaceholder\Forests.jpg" />
-    <BundleResource Include="Resources\CategoryPlaceholder\Mountains.jpg" />
-    <BundleResource Include="Resources\CategoryPlaceholder\People.jpg" />
-    <BundleResource Include="Resources\CategoryPlaceholder\Space.jpg" />
-    <BundleResource Include="Resources\CategoryPlaceholder\PlaceholderPhoto.png" />
-    <BundleResource Include="Resources\CategoryPlaceholder\Random.jpg" />
+    <BundleResource Include="Resources\CategoryPlaceholder\_PlaceholderPhoto.png" />
     <BundleResource Include="Resources\StartUp\StartUp.jpg" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Animals.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Architecture.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Aviation.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Bokeh.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Cars.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Cities.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Food&amp;Drink.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Motorcycles.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Music.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Nature.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Objects.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Ocean.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Office.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\People.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Retro.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Roads.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Seasons.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Sports.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Stars.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Technology.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Random.png" />
   </ItemGroup>
   <Import Project="..\LightWeightJsonParser\LightWeightJsonParser.projitems" Label="Shared" Condition="Exists('..\LightWeightJsonParser\LightWeightJsonParser.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.CSharp.targets" />

@@ -21,7 +21,7 @@ namespace MyView
 		public static class Images
 		{
 			#region PROPERTIES
-			public static string PlaceholderPhoto { get { return Path.Combine(PlaceholderPhotoPath, "PlaceholderPhoto.png"); } }
+			public static string PlaceholderPhoto { get { return Path.Combine(PlaceholderPhotoPath, "_PlaceholderPhoto.png"); } }
 			public static string StartUpPhoto { get { return Path.Combine(StartUpPath, "StartUp.jpg"); } }
 			
 			
@@ -30,22 +30,32 @@ namespace MyView
 			#endregion
 		}
 		
-		
 		public static class Slideshow
 		{
 			#region PROPERTIES
 			public static SlideshowCategory Random { get; set; } = new SlideshowCategory { SlideshowMode = Mode.Random, DisplayName = "Random" };
 			
 			public static SlideshowCategory[] Categories { get; set; } = { 
-
-				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Mountains", 	QueryString = "mountains" },
-				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Horses", 	QueryString = "horses" },
-				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Cars", 		QueryString = "cars" },
-				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Forests", 	QueryString = "forests" },
-				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Food", 		QueryString = "food" },
-				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Space", 		QueryString = "space" },
-				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "People", 	QueryString = "people" }
-				
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Animals", 		QueryString = "animals" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Architecture", 	QueryString = "architecture" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Aviation",		QueryString = "aviation-planes" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Bokeh", 			QueryString = "bokeh" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Cars", 			QueryString = "cars" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Cities", 		QueryString = "city" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Food & Drink", 	QueryString = "food-drink-coffee" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Motorcycles", 	QueryString = "motorcycles" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Music", 			QueryString = "music" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Nature", 		QueryString = "landscape-mountain-forest" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Objects", 		QueryString = "objects" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Ocean", 			QueryString = "ocean" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Office", 		QueryString = "business-office" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "People", 		QueryString = "love-people-friends" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Retro", 			QueryString = "retro" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Roads", 			QueryString = "roads" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Seasons", 		QueryString = "winter-spring-autumn" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Sports", 		QueryString = "extreme-sport" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Stars", 			QueryString = "stars" },
+				new SlideshowCategory { SlideshowMode = Mode.Query, 	DisplayName = "Technology", 	QueryString = "technology" },
 			};
 			#endregion
 		}

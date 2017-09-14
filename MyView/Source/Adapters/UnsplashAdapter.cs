@@ -111,9 +111,11 @@ namespace MyView.Adapters
 		           		list.Add(img);
 		       		}
 		       	}
-		       	
-		       	Console.WriteLine($"[{nameof(UnsplashAdapter)}] Random image list retrieved. Count = {list.Count}/{ListCount}. Query = \'{queryParam}\'");
            	}
+           	
+           	var queryInfo = queryParam != null ? $"Query = \'{queryParam}\'" : "";
+		    var countInfo = list != null ? $"Count = {list.Count}/{ListCount}." : "";
+		    Console.WriteLine($"[{nameof(UnsplashAdapter)}] Random image list retrieved. {countInfo} {queryInfo}");
            	
            	return list;
         }
