@@ -150,7 +150,7 @@ namespace MyView.Adapters
 					m_CurrentImageIndex++;
 				}
 				
-				if (m_CategoryChanged) { break; } // Break out incase of category change
+				if (m_CategoryChanged) { goto Finished; } // Break out incase of category change
             	
             	m_Timer.Start();
 					
@@ -172,11 +172,9 @@ namespace MyView.Adapters
 	                	{   
 	                		while (CycleTime + TransitionDuration - m_Timer.GetElapsedTime() > 0)
 	                		{	
-								if (m_CategoryChanged) { break; } // Break out of inner loop incase of category change
+								if (m_CategoryChanged) { goto Finished; } // Break out of inner loop incase of category change
 	                			await Task.Delay(100);
 	                		}
-	                		
-							if (m_CategoryChanged) { break; } // Break out of outer loop incase of category change (after breaking out of inner loop above)
 	                	
 		                	UpdateImage(unsplashImage);
 	                	}
@@ -193,6 +191,7 @@ namespace MyView.Adapters
             }
             while (IsRunning);
             
+Finished:
             // If we have broken out due to category change, handle this appropriately.
             if (m_CategoryChanged) 
             {

@@ -51,7 +51,7 @@
                             <constraint id="115" firstItem="5" firstAttribute="bottom" secondItem="15" secondAttribute="bottom" constant="12"/>
                         </constraints>
                     </view>
-                    <blurEffect style="regular"/>
+                    <blurEffect style="dark"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
                             <real key="value" value="15"/>
@@ -81,13 +81,10 @@
         <image name="FavouriteEmpty.png" width="54" height="52"/>
         <image name="FavouriteFull.png" width="54" height="52"/>
         <image name="LogoMyView.png" width="209" height="40"/>
-        <image name="CategoryPlaceholder/Mountains.jpg" width="889" height="500"/>
-        <image name="CategoryPlaceholder/People.jpg" width="749" height="500"/>
-        <image name="CategoryPlaceholder/Space.jpg" width="889" height="500"/>
         <image name="CategoryPlaceholder/PlaceholderPhoto.png" width="979" height="653"/>
         <image name="CategoryPlaceholder/Random.jpg" width="750" height="500"/>
         <image name="StartUp/StartUp.jpg" width="4896" height="3264"/>
-        <image name="CategoryPlaceholder/_PlaceholderPhoto.png" width="979" height="653"/>
+        <image name="CategoryPlaceholder/_PlaceholderPhoto.png" width="750" height="400"/>
         <image name="CategoryPlaceholder/Animals.png" width="750" height="500"/>
         <image name="CategoryPlaceholder/Architecture.png" width="750" height="500"/>
         <image name="CategoryPlaceholder/Aviation.png" width="750" height="500"/>
@@ -108,6 +105,7 @@
         <image name="CategoryPlaceholder/Sports.png" width="750" height="500"/>
         <image name="CategoryPlaceholder/Stars.png" width="753" height="479"/>
         <image name="CategoryPlaceholder/Technology.png" width="750" height="500"/>
-        <image name="CategoryPlaceholder/Random.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Random.png" width="850" height="567"/>
+        <image name="CategoryPlaceholder/Ocean.png" width="753" height="481"/>
     </resources>
 </document>
