@@ -19,7 +19,7 @@ namespace MyView.Screens
 		/// The text displayed as the header of the alert screen.
 		private const string ALERT_HEADER = "Oh no!";
 		/// The amount of time in milliseconds before automatically hiding the image interface.
-		private const int IMAGE_INTERFACE_TIMEOUT = 5000;
+		private const int IMAGE_INTERFACE_TIMEOUT = 3000;
 		#endregion
 		
 		
@@ -64,10 +64,7 @@ namespace MyView.Screens
 
 			InitialiseInterface();
 			InitialiseControls();
-			
-			m_Slideshow = new SlideshowAdapter();
-			m_LastSelectedCategory = m_Slideshow.DefaultCategory;
-			m_Select.SetCategoryText(m_Slideshow.DefaultCategory.DisplayName);
+			InitialiseSlideshow();
 			
 			// We start at the category select screen. Note that we disable the
 			// select recognizer so that it does not steal input from the category select view.
@@ -82,16 +79,12 @@ namespace MyView.Screens
 			
 			// Start image provider
 			m_Slideshow.Start();
+			
+			// Set up the UI to correspond to our current state
+			m_LastSelectedCategory = m_Slideshow.CurrentCategory;
+			//m_Select.SetCategoryText(m_Slideshow.CurrentCategory.DisplayName);
+			SetHeader(m_Slideshow.CurrentCategory);
             
-            m_Slideshow.OnImageCycled += SetBackground;
-            m_Slideshow.OnImageCycled += SetFooter;
-            
-            // Display alert on error. Successful downloads hide the alert.
-            m_Slideshow.OnErrorThrown += ShowAlert;
-            m_Slideshow.OnImageCycled += HideAlert;
-                        
-            // Start up logic
-            m_Slideshow.OnImageCycled += HideStartUpLogo;
             SetBackground(new UnsplashImage(UIImage.FromFile(Constants.Images.StartUpPhoto).AsJPEG().ToArray()));
 		}
 		
@@ -139,6 +132,26 @@ namespace MyView.Screens
 			selectRecognizer.AllowedPressTypes = new NSNumber[] { NSNumber.FromInt64((Int64)UIPressType.Select) };
 			View.AddGestureRecognizer(selectRecognizer);
 		}
+		
+		/// <summary>
+		/// Initialises the slideshow adapter and subscribes this instance to its events.
+		/// </summary>
+		void InitialiseSlideshow()
+		{
+			m_Slideshow = new SlideshowAdapter();
+			
+			m_Slideshow.OnImageCycled += SetBackground;
+            m_Slideshow.OnImageCycled += SetFooter;
+            
+            // Display alert on error. Successful downloads hide the alert.
+            m_Slideshow.OnErrorThrown += ShowAlert;
+            m_Slideshow.OnImageCycled += HideAlert;
+                        
+            // Start up logic
+            m_Slideshow.OnImageCycled += HideStartUpLogo;
+            
+			m_Slideshow.SetSlideshowCategory(m_Slideshow.DefaultCategory);
+		}
 		#endregion
 		
 		
@@ -149,6 +162,7 @@ namespace MyView.Screens
 			{
 				CurrentMode = ApplicationModes.CategorySelect;
 				SetSelectRecognizerEnabled(false);
+				SetHeader(null);
 				m_Select.AnimateIn();
 				m_Header.AnimateIn();
 				m_Footer.AnimateOut();
@@ -260,7 +274,7 @@ namespace MyView.Screens
 		/// <param name="category">The category that has been selected.</param>
 		void SetHeader(SlideshowCategory category)
 		{
-			m_Header.SetCategoryText(category.DisplayName);
+			m_Header.SetCategoryText(category?.DisplayName);
 		}
 		
 		/// <summary>

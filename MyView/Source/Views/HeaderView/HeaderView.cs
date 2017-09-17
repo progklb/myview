@@ -1,12 +1,6 @@
 using System;
 using System.Threading.Tasks;
 
-using Foundation;
-using UIKit;
-using CoreGraphics;
-
-using MyView.Additional;
-
 namespace MyView.Views
 {
 	/// <summary>
@@ -39,6 +33,8 @@ namespace MyView.Views
 			
 			InsertGradient(UIViewGradient, Constants.Colors.Black.CGColor, Constants.Colors.BlackTransparent.CGColor);
 			UILabelCategory.Text = string.Empty;
+			UILabelCategory.Alpha = 0f;
+        	UILabelCategory.Hidden = true;
 		}
 		
 		public override void AnimateIn()
@@ -53,11 +49,19 @@ namespace MyView.Views
         #region PUBLIC API
         /// <summary>
         /// Assigns the provided parameter to the category field on the header.
+        /// If a null parameter is provided, the category label will be hidden.
         /// </summary>
         /// <param name="categoryText">Text to display.</param>
         public void SetCategoryText(string categoryText)
         {
-        	AnimateCategoryChangeAsync(categoryText).ConfigureAwait(false);
+        	if (categoryText != null)
+        	{
+	        	AnimateCategoryChangeAsync(categoryText).ConfigureAwait(false);
+        	}
+        	else
+        	{
+        		HideCategoryLabel();
+        	}
         }
         #endregion
         
@@ -65,17 +69,30 @@ namespace MyView.Views
         #region HELPERS
         /// <summary>
         /// Fades out the category text, changes it, and fades it back in.
+        /// If
         /// </summary>
         /// <returns>The category change async.</returns>
         /// <param name="categoryText">Category text to set.</param>
         async Task AnimateCategoryChangeAsync(string categoryText)
         {
-			FadeCategory(ChangeAnimDuration, 0f);
+        	if (!UILabelCategory.Hidden)
+        	{
+				FadeCategoryLabel(ChangeAnimDuration, 0f);
+				await Task.Delay((int)(ChangeAnimDuration * 1000));
+        	}
 			
-			await Task.Delay((int)(ChangeAnimDuration * 1000));
-			
+			UILabelCategory.Hidden = false;
         	UILabelCategory.Text = string.Format(CATEGORY_FORMAT, categoryText);
-			FadeCategory(ChangeAnimDuration, 1f);
+			FadeCategoryLabel(ChangeAnimDuration, 1f);
+        }
+        
+        /// <summary>
+        /// Immediately hides the category label and sets the hidden flag so that we know it is hidden.
+        /// </summary>
+        void HideCategoryLabel()
+        {
+        	UILabelCategory.Alpha = 0f;
+        	UILabelCategory.Hidden = true;
         }
         
         /// <summary>
@@ -83,7 +100,7 @@ namespace MyView.Views
         /// </summary>
         /// <param name="duration">Duration.</param>
         /// <param name="targetAlpha">Target alpha.</param>
-        void FadeCategory(nfloat duration, nfloat targetAlpha)
+        void FadeCategoryLabel(nfloat duration, nfloat targetAlpha)
         {
         	Animate(
 				duration, 

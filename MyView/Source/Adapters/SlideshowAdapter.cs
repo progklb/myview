@@ -7,6 +7,9 @@ using MyView.Unsplash;
 
 namespace MyView.Adapters
 {
+	// TODO The handling of category changes is very tacked-on here.
+	// If we ever get work on an update, refactor this class to be more elegant.
+	
     /// <summary>
     /// Provides images at fixed intervals and defines parameters for display.
     /// </summary>
@@ -72,13 +75,20 @@ namespace MyView.Adapters
         /// </summary>
         public void Start()
         {
-        	UnsplashAdapter.CustomSize = UnsplashAdapter.SizingParameters.W1920H1080;
-        	UnsplashAdapter.OnErrorThrown += RaiseOnErrorThrown;
-        	
-            m_Timer = new Timer();
-            
-            IsRunning = true;
-            StartServiceAsync().ConfigureAwait(false);
+        	if (!IsRunning)
+        	{
+	        	UnsplashAdapter.CustomSize = UnsplashAdapter.SizingParameters.W1920H1080;
+	        	UnsplashAdapter.OnErrorThrown += RaiseOnErrorThrown;
+	        	
+	            m_Timer = new Timer();
+	            
+	            IsRunning = true;
+	            StartServiceAsync().ConfigureAwait(false);
+			}
+			else
+			{
+        		Console.WriteLine($"[{nameof(SlideshowAdapter)}] Cannot start the slideshow as there is already a slideshow running.");
+			}
         }
 		
 		/// <summary>
@@ -86,9 +96,16 @@ namespace MyView.Adapters
 		/// </summary>
         public void Stop()
         {
-        	UnsplashAdapter.OnErrorThrown -= RaiseOnErrorThrown;
-        	
-            IsRunning = false;
+        	if (IsRunning)
+        	{
+	        	UnsplashAdapter.OnErrorThrown -= RaiseOnErrorThrown;
+	        	
+	            IsRunning = false;
+        	}
+        	else
+        	{
+        		Console.WriteLine($"[{nameof(SlideshowAdapter)}] Cannot stop slideshow as it is not currently running.");
+        	}
         }
         
         /// <summary>
