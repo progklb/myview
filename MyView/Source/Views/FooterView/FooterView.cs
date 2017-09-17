@@ -1,11 +1,6 @@
 using System;
 using System.Threading.Tasks;
 
-using Foundation;
-using UIKit;
-
-using MyView.Additional;
-
 namespace MyView.Views
 {
 	/// <summary>
@@ -14,12 +9,28 @@ namespace MyView.Views
 	/// </summary>
     public partial class FooterView : BaseView
     {
+    	#region TYPES
+    	public enum LocationVisibilityMode
+    	{
+    		/// Location will never be displayed
+    		Never,
+    		/// Location will only be displayed when the footer is at full opacity (after animating in).
+    		Selected,
+    		/// Location will always be displayed.
+    		Always
+    	}
+    	#endregion
+    	
+    	
     	#region CONSTANTS
     	private const string AUTHOR_HANDLE_FORMAT = "@{0}";
     	#endregion
     	
     	
     	#region PROPERTIES
+    	/// Whether and how we should display the location text.
+    	public LocationVisibilityMode LocationVisibility { get; set; } = LocationVisibilityMode.Selected;
+    	
     	/// The target alpha value for <see cref="AnimateDim"/>.
     	public nfloat DimmedAlpha { get; set; } = 0.5f;
     	/// The amount of time in seconds before automatic dimming takes place.
@@ -30,6 +41,9 @@ namespace MyView.Views
     	#region VARIABLE
     	/// If true, there is currently a timeout running for automatic dimming of this view.
     	private bool m_DimTimeoutRunning = false;
+    	
+    	/// True if the UI is currently in a dimmed state. False if fully transparent or opaque.
+    	private bool m_Dimmed = false;
     	#endregion
     	
     	
@@ -46,7 +60,9 @@ namespace MyView.Views
 			InsertGradient(UIViewGradient, Constants.Colors.BlackTransparent.CGColor, Constants.Colors.Black.CGColor);
 			
 			UILabelAuthorName.Text = 
-			UILabelAuthorHandle.Text = string.Empty;
+			UILabelAuthorHandle.Text = 
+			UILabelLocationCity.Text =
+			UILabelLocationCountry.Text = string.Empty;
 		}
 		
 		public override void AnimateIn()
@@ -54,6 +70,10 @@ namespace MyView.Views
 			// Invalidate any timeout
 			base.AnimateIn();
 			m_DimTimeoutRunning = false;
+			m_Dimmed = false;
+			
+			// Location fades differently to the rest of the UI.
+			FadeLocation(AnimateOutDuration, 1f);
 		}
 		
 		public override void AnimateOut()
@@ -61,6 +81,7 @@ namespace MyView.Views
 			// Invalidate any timeout
 			base.AnimateOut();
 			m_DimTimeoutRunning = false;
+			m_Dimmed = false;
 		}
         #endregion
         
@@ -77,6 +98,38 @@ namespace MyView.Views
         }
         
         /// <summary>
+        /// Assigns the provided parameters to the display on the footer.
+        /// </summary>
+        /// <param name="city">Name of the city.</param>
+        /// <param name="country">Name of the country.</param>
+        public void SetLocationText(string city, string country)
+        {
+        	/*
+        		Location fades are different to the rest of the UI:
+        		When the footer goes into a dimmed state, the location should not be visible. In such cases we simply assign the text, not animating it because
+        		we don't want it to appear. If not dimmed however, we should animate the change normally.
+        	*/
+        	
+        	if (LocationVisibility == LocationVisibilityMode.Never)
+        	{
+        		return;
+        	}
+        	
+        	var cityName = city ?? string.Empty;
+        	var countryName = country ?? string.Empty;
+        	
+        	if (LocationVisibility == LocationVisibilityMode.Always || (LocationVisibility == LocationVisibilityMode.Selected && !m_Dimmed))
+        	{
+        		AnimateLocationChangeAsync(cityName, countryName).ConfigureAwait(false);
+        	}
+        	else
+        	{
+        		UILabelLocationCity.Text = city;
+        		UILabelLocationCountry.Text = country;
+        	}
+        }
+        
+        /// <summary>
 		/// Fades this view to a semi-transparent state.
 		/// </summary>
 		public virtual void AnimateDim()
@@ -84,10 +137,18 @@ namespace MyView.Views
 			Hidden = false;
 			nfloat targetAlpha = DimmedAlpha;
 			
+			m_Dimmed = true;
+			
 			Animate(
 				AnimateOutDuration,
 				() => { Alpha = targetAlpha; }
 			);
+			
+			// Fully fade out the location
+			if (LocationVisibility == LocationVisibilityMode.Selected)
+			{
+				FadeLocation(AnimateOutDuration, 0f);
+			}
 			
 			m_DimTimeoutRunning = false;
 		}
@@ -130,7 +191,10 @@ namespace MyView.Views
         		}
         	}
         }
+        #endregion
         
+        
+        #region HELPERS - AUTHOR
         async Task AnimateAuthorChangeAsync(string authorName, string authorHandle)
         {
 			FadeAuthor(ChangeAnimDuration, 0f);
@@ -149,6 +213,31 @@ namespace MyView.Views
 				() => { 
 					UILabelAuthorName.Alpha = targetAlpha;
 					UILabelAuthorHandle.Alpha = targetAlpha;
+				}
+			);
+        }
+        #endregion
+        
+        
+        #region HELPERS - LOCATION
+        async Task AnimateLocationChangeAsync(string city, string country)
+        {
+			FadeLocation(ChangeAnimDuration, 0f);
+			
+			await Task.Delay((int)(ChangeAnimDuration * 1000));
+			
+			UILabelLocationCity.Text = city;
+        	UILabelLocationCountry.Text = country;
+			FadeLocation(ChangeAnimDuration, 1f);
+        }
+        
+        void FadeLocation(nfloat duration, nfloat targetAlpha)
+        {
+        	Animate(
+				duration, 
+				() => { 
+					UILabelLocationCity.Alpha = targetAlpha;
+					UILabelLocationCountry.Alpha = targetAlpha;
 				}
 			);
         }

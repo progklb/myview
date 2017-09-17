@@ -266,6 +266,7 @@ namespace MyView.Screens
 		void SetFooter(UnsplashImage image)
 		{
 			m_Footer.SetAuthorText(image.user.name, image.user.username);
+			m_Footer.SetLocationText(image.location.city, image.location.country);
 		}
 		
 		/// <summary>

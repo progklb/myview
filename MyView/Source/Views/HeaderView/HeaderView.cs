@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
 
+using UIKit;
+
 namespace MyView.Views
 {
 	/// <summary>
@@ -32,6 +34,10 @@ namespace MyView.Views
 			base.AwakeFromNib();
 			
 			InsertGradient(UIViewGradient, Constants.Colors.Black.CGColor, Constants.Colors.BlackTransparent.CGColor);
+			
+			// Manually assign the font here because it is not available (for this screen only!?) in the interface builder.
+			UILabelCategory.Font = UIFont.FromName("Zona Pro", 33);
+			
 			UILabelCategory.Text = string.Empty;
 			UILabelCategory.Alpha = 0f;
         	UILabelCategory.Hidden = true;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Foundation;
 using UIKit;
@@ -62,7 +62,14 @@ namespace MyView.Views
 
 			var array = NSBundle.MainBundle.LoadNib(viewID, null, null);
 			var view = Runtime.GetNSObject<T>(array.ValueAt(0));
+			
 			view.Hidden = initiallyHidden;
+			
+			// If the view is initially hidden, set the alpha value to 0 so that fade in will occur when we show the view.
+			if (initiallyHidden)
+			{
+				view.Alpha = 0f;
+			}
 			
 			return view;
 		}

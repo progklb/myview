@@ -28,6 +28,14 @@ namespace MyView.Views
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel UILabelLocationCity { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel UILabelLocationCountry { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIView UIViewGradient { get; set; }
 
         void ReleaseDesignerOutlets ()
@@ -45,6 +53,16 @@ namespace MyView.Views
             if (UILabelAuthorName != null) {
                 UILabelAuthorName.Dispose ();
                 UILabelAuthorName = null;
+            }
+
+            if (UILabelLocationCity != null) {
+                UILabelLocationCity.Dispose ();
+                UILabelLocationCity = null;
+            }
+
+            if (UILabelLocationCountry != null) {
+                UILabelLocationCountry.Dispose ();
+                UILabelLocationCountry = null;
             }
 
             if (UIViewGradient != null) {

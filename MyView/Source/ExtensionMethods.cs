@@ -19,6 +19,20 @@ namespace MyView
 			image.user.name = json["user"]["name"].AsString();
 			image.user.username = json["user"]["username"].AsString();
 			
+			// Location data is not mandatory, so sanity check.
+			if (json.AsObject().ContainsKey("location") && json["location"] != null)
+			{
+				if (json["location"].AsObject().ContainsKey("city") && json["location"]["city"] != null)
+				{
+					image.location.city = json["location"]["city"].AsString();		
+				}
+				
+				if (json["location"].AsObject().ContainsKey("country") && json["location"]["country"] != null)
+				{
+					image.location.country = json["location"]["country"].AsString();		
+				}
+			}
+			
 			image.urls.raw = json["urls"]["raw"].AsString();
 			image.urls.full = json["urls"]["full"].AsString();
 			image.urls.regular = json["urls"]["regular"].AsString();

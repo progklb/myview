@@ -215,6 +215,7 @@
     <BundleResource Include="Resources\CategoryPlaceholder\Stars.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Technology.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Random.png" />
+    <BundleResource Include="Resources\Fonts\ZonaPro-Bold.ttf" />
   </ItemGroup>
   <Import Project="..\LightWeightJsonParser\LightWeightJsonParser.projitems" Label="Shared" Condition="Exists('..\LightWeightJsonParser\LightWeightJsonParser.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.CSharp.targets" />
