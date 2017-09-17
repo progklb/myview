@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 
 using Foundation;
 using UIKit;
@@ -72,9 +71,9 @@ namespace MyView.Screens
 			
 			// We start at the category select screen. Note that we disable the
 			// select recognizer so that it does not steal input from the category select view.
-			CurrentMode = ApplicationModes.CategorySelect;
-			SetSelectRecognizerEnabled(false);
-			m_Select.AnimateIn();
+			CurrentMode = ApplicationModes.ImageView;
+			SetSelectRecognizerEnabled(true);
+			m_Footer.AnimateDim();
 		}
 		
 		public override void ViewWillAppear(bool animated)
