@@ -62,8 +62,6 @@ namespace MyView.Adapters
         #region VARIABLES
         /// Timer used to track cycle time.
         private Timer m_Timer;
-        /// Indicates that the slideshow category was changed.
-        private bool m_CategoryChanged;
 		/// The index of the <see cref="CurrentImage"/> from <see cref="CurrentList"/>
         private int m_CurrentImageIndex;
         #endregion
@@ -113,9 +111,10 @@ namespace MyView.Adapters
 		/// </summary>
         public void SetSlideshowCategory(SlideshowCategory category)
         {
-	        m_CategoryChanged = category != CurrentCategory;
         	CurrentCategory = category;
         	OnCategoryChanged(CurrentCategory.DisplayName);
+        	
+        	Console.WriteLine("Set slideshow category : {0}", category.DisplayName);
         }
         #endregion
 
@@ -147,10 +146,16 @@ namespace MyView.Adapters
             // This breaks out of this service and starts a new one, causing a soon-as-possible cleanup and display of the new category.
             // Note that we don't cancel mid-download because this causes an exception when using "await" (the awaiting is waiting for a finished Task from the downloader)
             // and changing this to a non-Task-based approach requires quite a bit of rework.
-            
+                        
             IsRunning = true;
         	bool firstRun = true;
-            m_CategoryChanged = false;
+        	
+        	// Cache the current category for comparison to check that the current category has not changed.
+            var category = CurrentCategory;
+            bool HasCategoryChanged()
+            {
+            	return category != CurrentCategory;
+            }
         	
         	UnsplashImage unsplashImage;
         	            
@@ -167,7 +172,7 @@ namespace MyView.Adapters
 					m_CurrentImageIndex++;
 				}
 				
-				if (m_CategoryChanged) { goto Finished; } // Break out incase of category change
+				if (HasCategoryChanged()) { goto Finished; } // Break out incase of category change
             	
             	m_Timer.Start();
 					
@@ -189,7 +194,7 @@ namespace MyView.Adapters
 	                	{   
 	                		while (CycleTime + TransitionDuration - m_Timer.GetElapsedTime() > 0)
 	                		{	
-								if (m_CategoryChanged) { goto Finished; } // Break out of inner loop incase of category change
+								if (HasCategoryChanged()) { goto Finished; } // Break out of inner loop incase of category change
 	                			await Task.Delay(100);
 	                		}
 	                	
@@ -210,7 +215,7 @@ namespace MyView.Adapters
             
 Finished:
             // If we have broken out due to category change, handle this appropriately.
-            if (m_CategoryChanged) 
+            if (HasCategoryChanged()) 
             {
             	HandleCategoryChanged();
             }
