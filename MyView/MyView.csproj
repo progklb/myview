@@ -206,7 +206,7 @@
     <BundleResource Include="Resources\CategoryPlaceholder\Nature.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Objects.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Ocean.png" />
-    <BundleResource Include="Resources\CategoryPlaceholder\Office.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Business.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\People.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Retro.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Roads.png" />
