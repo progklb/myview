@@ -141,6 +141,8 @@ namespace MyView.Views
         	}
         	
         	LastSelectedItem = category;
+        	
+        	Console.WriteLine("SELECTED : {0}", category.DisplayName);
         }
         
         /// <summary>
@@ -156,6 +158,8 @@ namespace MyView.Views
         	
         	SetCategoryText(category.DisplayName);
         	LastFocusedItem = category;
+        	
+        	Console.WriteLine("FOCUSED : {0}", category.DisplayName);
         }
         #endregion
     }
