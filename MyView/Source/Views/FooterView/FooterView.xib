@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="11762" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="13196" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,106 +11,100 @@
             <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="25" translatesAutoresizingMaskIntoConstraints="NO">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="25">
                     <rect key="frame" x="0.0" y="830" width="1920" height="250"/>
                     <subviews>
-                        <view contentMode="scaleToFill" id="100" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIViewGradient" alpha="0.5">
+                        <view alpha="0.5" contentMode="scaleToFill" restorationIdentifier="UIViewGradient" translatesAutoresizingMaskIntoConstraints="NO" id="100">
                             <rect key="frame" x="0.0" y="0.0" width="1920" height="250"/>
-                            <subviews/>
                             <constraints>
-                                <constraint id="132" firstItem="100" firstAttribute="height" constant="250"/>
+                                <constraint firstAttribute="height" constant="250" id="132"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="9" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIImageFavourite" image="FavouriteEmpty.png" misplaced="YES" hidden="YES">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" restorationIdentifier="UIImageFavourite" image="FavouriteEmpty.png" translatesAutoresizingMaskIntoConstraints="NO" id="9">
                             <rect key="frame" x="1810" y="140" width="60" height="60"/>
                             <constraints>
-                                <constraint id="51" firstItem="9" firstAttribute="width" constant="60"/>
-                                <constraint id="52" firstItem="9" firstAttribute="height" constant="60"/>
+                                <constraint firstAttribute="width" constant="60" id="51"/>
+                                <constraint firstAttribute="height" constant="60" id="52"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="19" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UILabelAuthorName" text="Author Name">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="UILabelAuthorName" text="Author Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19">
                             <rect key="frame" x="50" y="135" width="1000" height="40"/>
-                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
-                            <nil key="highlightedColor"/>
                             <constraints>
-                                <constraint id="59" firstItem="19" firstAttribute="width" constant="1000"/>
-                                <constraint id="60" firstItem="19" firstAttribute="height" constant="40"/>
+                                <constraint firstAttribute="width" constant="1000" id="59"/>
+                                <constraint firstAttribute="height" constant="40" id="60"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="30"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@authorHandle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="36" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UILabelAuthorHandle">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="UILabelAuthorHandle" text="@authorHandle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36">
                             <rect key="frame" x="50" y="170" width="1000" height="30"/>
-                            <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="21"/>
-                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
-                            <nil key="highlightedColor"/>
                             <constraints>
-                                <constraint id="55" firstItem="36" firstAttribute="width" constant="1000"/>
-                                <constraint id="56" firstItem="36" firstAttribute="height" constant="30"/>
+                                <constraint firstAttribute="width" constant="1000" id="55"/>
+                                <constraint firstAttribute="height" constant="30" id="56"/>
                             </constraints>
+                            <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="21"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="106" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UILabelLocationCity" text="City">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="UILabelLocationCity" text="City" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="106">
                             <rect key="frame" x="870" y="135" width="1000" height="40"/>
-                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
-                            <nil key="highlightedColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="156"/>
+                                <constraint firstAttribute="width" constant="1000" id="157"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="30"/>
-                            <constraints>
-                                <constraint id="156" firstItem="106" firstAttribute="height" constant="40"/>
-                                <constraint id="157" firstItem="106" firstAttribute="width" constant="1000"/>
-                            </constraints>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="103" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UILabelLocationCountry">
-                            <rect key="frame" x="870" y="170" width="1000" height="30"/>
-                            <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="21"/>
-                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="UILabelLocationCountry" text="Country" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="103">
+                            <rect key="frame" x="870" y="170" width="1000" height="30"/>
                             <constraints>
-                                <constraint id="135" firstItem="103" firstAttribute="width" constant="1000"/>
-                                <constraint id="136" firstItem="103" firstAttribute="height" constant="30"/>
+                                <constraint firstAttribute="width" constant="1000" id="135"/>
+                                <constraint firstAttribute="height" constant="30" id="136"/>
                             </constraints>
+                            <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="21"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint id="49" firstItem="25" firstAttribute="trailing" secondItem="9" secondAttribute="trailing" constant="50"/>
-                        <constraint id="50" firstItem="25" firstAttribute="bottom" secondItem="9" secondAttribute="bottom" constant="80"/>
-                        <constraint id="53" firstItem="36" firstAttribute="leading" secondItem="25" secondAttribute="leading" constant="50"/>
-                        <constraint id="54" firstItem="25" firstAttribute="bottom" secondItem="36" secondAttribute="bottom" constant="50"/>
-                        <constraint id="57" firstItem="36" firstAttribute="centerY" secondItem="19" secondAttribute="centerY" constant="30"/>
-                        <constraint id="58" firstItem="19" firstAttribute="leading" secondItem="25" secondAttribute="leading" constant="50"/>
-                        <constraint id="129" firstItem="100" firstAttribute="trailing" secondItem="25" secondAttribute="trailing"/>
-                        <constraint id="130" firstItem="100" firstAttribute="leading" secondItem="25" secondAttribute="leading"/>
-                        <constraint id="131" firstItem="100" firstAttribute="bottom" secondItem="25" secondAttribute="bottom"/>
-                        <constraint id="153" firstItem="100" firstAttribute="trailing" secondItem="103" secondAttribute="trailing" constant="50"/>
-                        <constraint id="154" firstItem="100" firstAttribute="bottom" secondItem="103" secondAttribute="bottom" constant="50"/>
-                        <constraint id="158" firstItem="100" firstAttribute="bottom" secondItem="106" secondAttribute="bottom" constant="75"/>
-                        <constraint id="159" firstItem="100" firstAttribute="trailing" secondItem="106" secondAttribute="trailing" constant="50"/>
+                        <constraint firstAttribute="trailing" secondItem="9" secondAttribute="trailing" constant="50" id="49"/>
+                        <constraint firstAttribute="bottom" secondItem="9" secondAttribute="bottom" constant="80" id="50"/>
+                        <constraint firstItem="36" firstAttribute="leading" secondItem="25" secondAttribute="leading" constant="50" id="53"/>
+                        <constraint firstAttribute="bottom" secondItem="36" secondAttribute="bottom" constant="50" id="54"/>
+                        <constraint firstItem="36" firstAttribute="centerY" secondItem="19" secondAttribute="centerY" constant="30" id="57"/>
+                        <constraint firstItem="19" firstAttribute="leading" secondItem="25" secondAttribute="leading" constant="50" id="58"/>
+                        <constraint firstItem="100" firstAttribute="trailing" secondItem="25" secondAttribute="trailing" id="129"/>
+                        <constraint firstItem="100" firstAttribute="leading" secondItem="25" secondAttribute="leading" id="130"/>
+                        <constraint firstItem="100" firstAttribute="bottom" secondItem="25" secondAttribute="bottom" id="131"/>
+                        <constraint firstItem="100" firstAttribute="trailing" secondItem="103" secondAttribute="trailing" constant="50" id="153"/>
+                        <constraint firstItem="100" firstAttribute="bottom" secondItem="103" secondAttribute="bottom" constant="50" id="154"/>
+                        <constraint firstItem="100" firstAttribute="bottom" secondItem="106" secondAttribute="bottom" constant="75" id="158"/>
+                        <constraint firstItem="100" firstAttribute="trailing" secondItem="106" secondAttribute="trailing" constant="50" id="159"/>
                     </constraints>
                 </view>
             </subviews>
-            <point key="canvasLocation" x="1" y="-3"/>
+            <constraints>
+                <constraint firstItem="25" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="32"/>
+                <constraint firstItem="25" firstAttribute="bottom" secondItem="1" secondAttribute="bottom" id="33"/>
+                <constraint firstItem="25" firstAttribute="top" secondItem="1" secondAttribute="top" constant="830" id="34"/>
+                <constraint firstItem="25" firstAttribute="trailing" secondItem="1" secondAttribute="trailing" id="35"/>
+            </constraints>
             <connections>
                 <outlet property="UIImageFavourite" destination="9" id="name-outlet-9"/>
-                <outlet property="UILabelAuthorName" destination="19" id="name-outlet-19"/>
                 <outlet property="UILabelAuthorHandle" destination="36" id="name-outlet-36"/>
-                <outlet property="UIViewGradient" destination="100" id="name-outlet-100"/>
+                <outlet property="UILabelAuthorName" destination="19" id="name-outlet-19"/>
                 <outlet property="UILabelLocationCity" destination="106" id="name-outlet-106"/>
                 <outlet property="UILabelLocationCountry" destination="103" id="name-outlet-103"/>
+                <outlet property="UIViewGradient" destination="100" id="name-outlet-100"/>
             </connections>
-            <constraints>
-                <constraint id="32" firstItem="25" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>
-                <constraint id="33" firstItem="25" firstAttribute="bottom" secondItem="1" secondAttribute="bottom"/>
-                <constraint id="34" firstItem="25" firstAttribute="top" secondItem="1" secondAttribute="top" constant="830"/>
-                <constraint id="35" firstItem="25" firstAttribute="trailing" secondItem="1" secondAttribute="trailing"/>
-            </constraints>
+            <point key="canvasLocation" x="1" y="-3"/>
         </view>
     </objects>
     <resources>
         <image name="FavouriteEmpty.png" width="54" height="52"/>
         <image name="FavouriteFull.png" width="54" height="52"/>
-        <image name="LogoMadeWithUnsplash.png" width="297" height="27"/>
-        <image name="LogoMyView.png" width="209" height="40"/>
-        <image name="TestImages/8.jpg" width="1680" height="1050"/>
-        <image name="TestImages/9.jpg" width="4000" height="2667"/>
-        <image name="PlaceholderPhoto.png" width="979" height="653"/>
         <image name="CategoryPlaceholder/_PlaceholderPhoto.png" width="750" height="400"/>
         <image name="StartUp/StartUp.jpg" width="4896" height="3264"/>
         <image name="CategoryPlaceholder/Animals.png" width="750" height="500"/>
@@ -125,7 +119,7 @@
         <image name="CategoryPlaceholder/Nature.png" width="750" height="500"/>
         <image name="CategoryPlaceholder/Objects.png" width="750" height="500"/>
         <image name="CategoryPlaceholder/Ocean.png" width="753" height="481"/>
-        <image name="CategoryPlaceholder/Office.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Business.png" width="750" height="500"/>
         <image name="CategoryPlaceholder/People.png" width="749" height="500"/>
         <image name="CategoryPlaceholder/Retro.png" width="750" height="500"/>
         <image name="CategoryPlaceholder/Roads.png" width="750" height="500"/>
@@ -134,5 +128,7 @@
         <image name="CategoryPlaceholder/Stars.png" width="753" height="479"/>
         <image name="CategoryPlaceholder/Technology.png" width="750" height="500"/>
         <image name="CategoryPlaceholder/Random.png" width="750" height="500"/>
+        <image name="LogoMyView_Full.png" width="209" height="40"/>
+        <image name="LogoMyView.png" width="256" height="256"/>
     </resources>
 </document>

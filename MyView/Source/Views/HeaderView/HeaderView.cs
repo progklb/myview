@@ -11,7 +11,7 @@ namespace MyView.Views
     public partial class HeaderView : BaseView
     {
     	#region CONSTANTS
-    	public const string CATEGORY_FORMAT = "•  {0}";
+    	public const string CATEGORY_FORMAT = "• {0}";
     	public const int ANIMATION_Y_MOVEMENT = 20;
     	#endregion
     	
@@ -34,9 +34,6 @@ namespace MyView.Views
 			base.AwakeFromNib();
 			
 			InsertGradient(UIViewGradient, Constants.Colors.Black.CGColor, Constants.Colors.BlackTransparent.CGColor);
-			
-			// Manually assign the font here because it is not available (for this screen only!?) in the interface builder.
-			UILabelCategory.Font = UIFont.FromName("Zona Pro", 33);
 			
 			UILabelCategory.Text = string.Empty;
 			UILabelCategory.Alpha = 0f;

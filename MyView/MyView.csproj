@@ -185,10 +185,8 @@
     <InterfaceDefinition Include="Source\Views\LogoView\LogoView.xib" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\LogoMadeWithUnsplash.png" />
     <BundleResource Include="Resources\FavouriteEmpty.png" />
     <BundleResource Include="Resources\FavouriteFull.png" />
-    <BundleResource Include="Resources\LogoMyView.png" />
     <BundleResource Include="Resources\Fonts\ZonaPro-Bold.otf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
@@ -216,6 +214,7 @@
     <BundleResource Include="Resources\CategoryPlaceholder\Technology.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Random.png" />
     <BundleResource Include="Resources\Fonts\ZonaPro-Bold.ttf" />
+    <BundleResource Include="Resources\LogoMyView.png" />
   </ItemGroup>
   <Import Project="..\LightWeightJsonParser\LightWeightJsonParser.projitems" Label="Shared" Condition="Exists('..\LightWeightJsonParser\LightWeightJsonParser.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\TVOS\Xamarin.TVOS.CSharp.targets" />

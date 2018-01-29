@@ -16,10 +16,6 @@ namespace MyView.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView UIImageCredit { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView UIImageLogo { get; set; }
 
         [Outlet]
@@ -32,11 +28,6 @@ namespace MyView.Views
 
         void ReleaseDesignerOutlets ()
         {
-            if (UIImageCredit != null) {
-                UIImageCredit.Dispose ();
-                UIImageCredit = null;
-            }
-
             if (UIImageLogo != null) {
                 UIImageLogo.Dispose ();
                 UIImageLogo = null;
