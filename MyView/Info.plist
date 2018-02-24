@@ -5,15 +5,11 @@
 	<key>CFBundleDisplayName</key>
 	<string>MyView</string>
 	<key>CFBundleName</key>
-	<string>MyView</string>
-	<key>CFBundleIdentifier</key>
-	<string>coza.iamindiegames.myview</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>My View</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>MinimumOSVersion</key>
-	<string>9.0</string>
+	<string>10.0</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>3</integer>
@@ -26,12 +22,16 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/App Icon &amp; Top Shelf Image.brandassets</string>
-	<key>XSLaunchImageAssets</key>
-	<string>Assets.xcassets/LaunchImages.launchimage</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Fonts/ZonaPro-Bold.otf</string>
 		<string>Fonts/ZonaPro-Bold.ttf</string>
 	</array>
+	<key>CFBundleIdentifier</key>
+	<string>coza.kevinbaynham.myview</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1</string>
+	<key>XSLaunchImageAssets</key>
+	<string>Assets.xcassets/LaunchImages.launchimage</string>
 </dict>
 </plist>

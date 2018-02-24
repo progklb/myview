@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="13196" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="13771" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,34 +13,33 @@
             <subviews>
                 <view alpha="0.5" contentMode="scaleToFill" restorationIdentifier="UIViewGradient" translatesAutoresizingMaskIntoConstraints="NO" id="25">
                     <rect key="frame" x="0.0" y="0.0" width="1920" height="250"/>
-                    <subviews/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="UILabelCategory" text="• Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8900">
                     <rect key="frame" x="253" y="60" width="1000" height="40"/>
-                    <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="33"/>
-                    <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
-                    <nil key="highlightedColor"/>
                     <constraints>
-                        <constraint id="19058" firstItem="8900" firstAttribute="width" constant="1000"/>
-                        <constraint id="19104" firstItem="8900" firstAttribute="height" constant="40"/>
+                        <constraint firstAttribute="width" constant="1000" id="19058"/>
+                        <constraint firstAttribute="height" constant="40" id="19104"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="33"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoMyView.png" translatesAutoresizingMaskIntoConstraints="NO" id="15041">
                     <rect key="frame" x="48" y="61" width="38" height="38"/>
                     <constraints>
-                        <constraint id="18690" firstItem="15041" firstAttribute="width" constant="38"/>
-                        <constraint id="18736" firstItem="15041" firstAttribute="height" constant="38"/>
+                        <constraint firstAttribute="width" constant="38" id="18690"/>
+                        <constraint firstAttribute="height" constant="38" id="18736"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17337" text="My View">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17337">
                     <rect key="frame" x="100" y="60" width="147" height="40"/>
-                    <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="33"/>
-                    <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
-                    <nil key="highlightedColor"/>
                     <constraints>
-                        <constraint id="18874" firstItem="17337" firstAttribute="height" constant="40"/>
-                        <constraint id="18920" firstItem="17337" firstAttribute="width" constant="147"/>
+                        <constraint firstAttribute="height" constant="40" id="18874"/>
+                        <constraint firstAttribute="width" constant="147" id="18920"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="33"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <constraints>
@@ -48,21 +47,22 @@
                 <constraint firstItem="25" firstAttribute="top" secondItem="1" secondAttribute="top" id="27"/>
                 <constraint firstItem="25" firstAttribute="trailing" secondItem="1" secondAttribute="trailing" id="28"/>
                 <constraint firstAttribute="bottom" secondItem="25" secondAttribute="bottom" constant="830" id="29"/>
-                <constraint id="18598" firstItem="15041" firstAttribute="leading" secondItem="25" secondAttribute="leading" constant="48"/>
-                <constraint id="18644" firstItem="15041" firstAttribute="top" secondItem="25" secondAttribute="top" constant="61"/>
-                <constraint id="18782" firstItem="17337" firstAttribute="leading" secondItem="15041" secondAttribute="trailing" constant="14"/>
-                <constraint id="18828" firstItem="17337" firstAttribute="centerY" secondItem="15041" secondAttribute="centerY"/>
-                <constraint id="18966" firstItem="8900" firstAttribute="leading" secondItem="17337" secondAttribute="trailing" constant="6"/>
-                <constraint id="19012" firstItem="8900" firstAttribute="centerY" secondItem="17337" secondAttribute="centerY"/>
+                <constraint firstItem="15041" firstAttribute="leading" secondItem="25" secondAttribute="leading" constant="48" id="18598"/>
+                <constraint firstItem="15041" firstAttribute="top" secondItem="25" secondAttribute="top" constant="61" id="18644"/>
+                <constraint firstItem="17337" firstAttribute="leading" secondItem="15041" secondAttribute="trailing" constant="14" id="18782"/>
+                <constraint firstItem="17337" firstAttribute="centerY" secondItem="15041" secondAttribute="centerY" id="18828"/>
+                <constraint firstItem="8900" firstAttribute="leading" secondItem="17337" secondAttribute="trailing" constant="6" id="18966"/>
+                <constraint firstItem="8900" firstAttribute="centerY" secondItem="17337" secondAttribute="centerY" id="19012"/>
             </constraints>
             <connections>
-                <outlet property="UIViewGradient" destination="25" id="name-outlet-25"/>
                 <outlet property="UILabelCategory" destination="8900" id="name-outlet-8900"/>
+                <outlet property="UIViewGradient" destination="25" id="name-outlet-25"/>
             </connections>
             <point key="canvasLocation" x="1" y="-3"/>
         </view>
     </objects>
     <resources>
+        <image name="LogoMyView.png" width="256" height="256"/>
         <image name="FavouriteEmpty.png" width="54" height="52"/>
         <image name="FavouriteFull.png" width="54" height="52"/>
         <image name="CategoryPlaceholder/_PlaceholderPhoto.png" width="750" height="400"/>
@@ -88,7 +88,7 @@
         <image name="CategoryPlaceholder/Stars.png" width="753" height="479"/>
         <image name="CategoryPlaceholder/Technology.png" width="750" height="500"/>
         <image name="CategoryPlaceholder/Random.png" width="750" height="500"/>
-        <image name="LogoMyView_Full.png" width="209" height="40"/>
-        <image name="LogoMyView.png" width="256" height="256"/>
+        <image name="Top Shelf Image Wide" width="2320" height="720"/>
+        <image name="Top Shelf Image" width="2320" height="720"/>
     </resources>
 </document>

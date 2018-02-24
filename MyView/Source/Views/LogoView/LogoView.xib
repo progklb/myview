@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="13196" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="13771" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,46 +13,46 @@
             <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="425" text="Powered by Unsplash" adjustsFontForContentSizeCategory="YES">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by Unsplash" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="425">
                     <rect key="frame" x="899" y="555" width="401" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="401" id="13872"/>
+                        <constraint firstAttribute="height" constant="60" id="13891"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
-                    <constraints>
-                        <constraint id="13872" firstItem="425" firstAttribute="width" constant="401"/>
-                        <constraint id="13891" firstItem="425" firstAttribute="height" constant="60"/>
-                    </constraints>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="11534" translatesAutoresizingMaskIntoConstraints="NO" image="LogoMyView.png">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoMyView.png" translatesAutoresizingMaskIntoConstraints="NO" id="11534">
                     <rect key="frame" x="831" y="515" width="48" height="48"/>
                     <constraints>
-                        <constraint id="13684" firstItem="11534" firstAttribute="width" constant="48"/>
-                        <constraint id="13703" firstAttribute="width" secondItem="11534" secondAttribute="height" multiplier="1:1"/>
+                        <constraint firstAttribute="width" constant="48" id="13684"/>
+                        <constraint firstAttribute="width" secondItem="11534" secondAttribute="height" multiplier="1:1" id="13703"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11807" text="My View" adjustsFontForContentSizeCategory="YES">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11807">
                     <rect key="frame" x="897" y="510" width="401" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="13798"/>
+                        <constraint firstAttribute="width" constant="401" id="13817"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="ZonaPro-Bold" family="Zona Pro" pointSize="43"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
-                    <constraints>
-                        <constraint id="13798" firstItem="11807" firstAttribute="height" constant="60"/>
-                        <constraint id="13817" firstItem="11807" firstAttribute="width" constant="401"/>
-                    </constraints>
                 </label>
             </subviews>
-            <connections/>
             <constraints>
-                <constraint id="13722" firstItem="1" firstAttribute="centerX" secondItem="11534" secondAttribute="centerX" constant="105"/>
-                <constraint id="13741" firstItem="1" firstAttribute="centerY" secondItem="11534" secondAttribute="centerY" constant="1"/>
-                <constraint id="13760" firstItem="11807" firstAttribute="leading" secondItem="11534" secondAttribute="trailing" constant="18"/>
-                <constraint id="13779" firstItem="11807" firstAttribute="centerY" secondItem="1" secondAttribute="centerY"/>
-                <constraint id="13910" firstItem="425" firstAttribute="top" secondItem="11807" secondAttribute="centerY" constant="15"/>
-                <constraint id="13929" firstItem="425" firstAttribute="leading" secondItem="11807" secondAttribute="leading" constant="2"/>
+                <constraint firstAttribute="centerX" secondItem="11534" secondAttribute="centerX" constant="105" id="13722"/>
+                <constraint firstAttribute="centerY" secondItem="11534" secondAttribute="centerY" constant="1" id="13741"/>
+                <constraint firstItem="11807" firstAttribute="leading" secondItem="11534" secondAttribute="trailing" constant="18" id="13760"/>
+                <constraint firstItem="11807" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="13779"/>
+                <constraint firstItem="425" firstAttribute="top" secondItem="11807" secondAttribute="centerY" constant="15" id="13910"/>
+                <constraint firstItem="425" firstAttribute="leading" secondItem="11807" secondAttribute="leading" constant="2" id="13929"/>
             </constraints>
         </view>
     </objects>
     <resources>
+        <image name="LogoMyView.png" width="256" height="256"/>
         <image name="FavouriteEmpty.png" width="54" height="52"/>
         <image name="FavouriteFull.png" width="54" height="52"/>
         <image name="CategoryPlaceholder/_PlaceholderPhoto.png" width="750" height="400"/>
@@ -76,7 +78,7 @@
         <image name="CategoryPlaceholder/Stars.png" width="753" height="479"/>
         <image name="CategoryPlaceholder/Technology.png" width="750" height="500"/>
         <image name="CategoryPlaceholder/Random.png" width="750" height="500"/>
-        <image name="LogoMyView_Full.png" width="209" height="40"/>
-        <image name="LogoMyView.png" width="256" height="256"/>
+        <image name="Top Shelf Image Wide" width="2320" height="720"/>
+        <image name="Top Shelf Image" width="2320" height="720"/>
     </resources>
 </document>

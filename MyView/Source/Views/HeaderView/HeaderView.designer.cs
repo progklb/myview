@@ -16,10 +16,6 @@ namespace MyView.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView UIImageLogo { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel UILabelCategory { get; set; }
 
         [Outlet]
@@ -28,11 +24,6 @@ namespace MyView.Views
 
         void ReleaseDesignerOutlets ()
         {
-            if (UIImageLogo != null) {
-                UIImageLogo.Dispose ();
-                UIImageLogo = null;
-            }
-
             if (UILabelCategory != null) {
                 UILabelCategory.Dispose ();
                 UILabelCategory = null;

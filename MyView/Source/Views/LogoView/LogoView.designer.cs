@@ -14,16 +14,8 @@ namespace MyView.Views
     [Register ("LogoView")]
     partial class LogoView
     {
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView UIImageLogo { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
-            if (UIImageLogo != null) {
-                UIImageLogo.Dispose ();
-                UIImageLogo = null;
-            }
         }
     }
 }
