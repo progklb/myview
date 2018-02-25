@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Foundation;
 using CoreGraphics;
@@ -53,9 +54,13 @@ namespace MyView.Views
 			
 			base.AwakeFromNib();
 			
+            // Add random as first item
 			var categoriesList = new List<SlideshowCategory>();
 			categoriesList.Add(Constants.Slideshow.Random);
-			categoriesList.AddRange(Constants.Slideshow.Categories);
+
+            // Add all other categories, first sorting alphabetically by display name
+            var categories = Constants.Slideshow.Categories.OrderBy(cat => cat.DisplayName);
+            categoriesList.AddRange(categories);
 			
 			UICollectionCategories.RegisterClassForCell(typeof(ImageCell), new NSString(ImageCell.CellIdentifier));
 			UICollectionCategories.Source = new CategorySelectSource(categoriesList);

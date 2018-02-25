@@ -216,7 +216,7 @@
     <BundleResource Include="Resources\CategoryPlaceholder\Food&amp;Drink.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Motorcycles.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Music.png" />
-    <BundleResource Include="Resources\CategoryPlaceholder\Nature.png" />
+    <BundleResource Include="Resources\CategoryPlaceholder\Outdoors.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Objects.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Ocean.png" />
     <BundleResource Include="Resources\CategoryPlaceholder\Business.png" />

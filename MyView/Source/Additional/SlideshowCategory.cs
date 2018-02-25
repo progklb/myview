@@ -12,6 +12,8 @@ namespace MyView.Additional
 		#region PROPERTIES
 		/// The on-screen name of this category
 		public string DisplayName { get; set; }
+        /// The filename used to represent this category
+        public string AssetName { get; set; }
 		/// The query parameter for the server call when requesting images.
 		public string QueryString { get; set; }
 		
@@ -19,7 +21,7 @@ namespace MyView.Additional
 		public SlideshowAdapter.SlideshowModes SlideshowMode { get; set; }
 		
 		/// Image to display in category select.
-		public string PreviewPath { get { return $"{Path.Combine(Constants.Images.PlaceholderPhotoPath, DisplayName.Replace(" ", ""))}.png"; } }
+        public string PreviewPath { get { return $"{Path.Combine(Constants.Images.PlaceholderPhotoPath, AssetName)}.png"; } }
 		#endregion
 		
 		
