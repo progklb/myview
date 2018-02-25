@@ -132,11 +132,12 @@ namespace MyView.Adapters
         async Task StartServiceAsync()
         {
 // Provide an override for DEBUG mode to save bandwidth. Because developers have Internet limits too!            
-#if !DEBUG
-			var customSize = UnsplashImage.UnsplashImageSizes.Full;
+#if DEBUG
+			var customSize = UnsplashImage.UnsplashImageSizes.Default;
 #else
-			var customSize = UnsplashImage.UnsplashImageSizes.Small;
+			var customSize = UnsplashImage.UnsplashImageSizes.Default;
 #endif
+
             // Download the next image. Note that we take the current time, initiate image download, and then wait the remaining time until
             // raising the cycle event. In this manner, download time does not affect the cycling time (unless the download exceeds the cycle time,
             // in which case we immediately cycle to the downloaded image as soon as it is available).
@@ -146,7 +147,7 @@ namespace MyView.Adapters
             // This breaks out of this service and starts a new one, causing a soon-as-possible cleanup and display of the new category.
             // Note that we don't cancel mid-download because this causes an exception when using "await" (the awaiting is waiting for a finished Task from the downloader)
             // and changing this to a non-Task-based approach requires quite a bit of rework.
-                        
+
             IsRunning = true;
         	bool firstRun = true;
         	
