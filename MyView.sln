@@ -22,4 +22,13 @@ Global
 		{BFDFFC5B-E898-40E6-A5AF-236D7759A964}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{BFDFFC5B-E898-40E6-A5AF-236D7759A964}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.FileWidth = 80
+		$1.EolMarker = Unix
+		$1.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $2
+		$2.scope = text/x-csharp
+	EndGlobalSection
 EndGlobal
