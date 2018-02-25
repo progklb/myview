@@ -39,8 +39,10 @@ namespace MyView.Views
     	/// Whether and how we should display the location text.
 		public LocationVisibilityMode LocationVisibility { get; set; } = LocationVisibilityMode.Selected;
 		/// How we should display the author text.
-		public AuthorVisibilityMode AuthorVisibility { get; set; } = AuthorVisibilityMode.Selected;
+        public AuthorVisibilityMode AuthorVisibility { get; set; } = AuthorVisibilityMode.Selected;
     	
+        /// True if the UI is currently in a dimmed state. False if fully transparent or opaque.
+        private bool Dimmed { get; set; } = false;
     	/// The target alpha value for <see cref="AnimateDim"/>.
     	public nfloat DimmedAlpha { get; set; } = 0.5f;
     	/// The amount of time in seconds before automatic dimming takes place.
@@ -48,12 +50,9 @@ namespace MyView.Views
     	#endregion
     	
     	
-    	#region VARIABLE
+    	#region VARIABLES
     	/// If true, there is currently a timeout running for automatic dimming of this view.
     	private bool m_DimTimeoutRunning = false;
-    	
-    	/// True if the UI is currently in a dimmed state. False if fully transparent or opaque.
-    	private bool m_Dimmed = false;
     	#endregion
     	
     	
@@ -83,10 +82,11 @@ namespace MyView.Views
             // Invalidate any timeout
             base.AnimateIn();
             m_DimTimeoutRunning = false;
-            m_Dimmed = false;
+            Dimmed = false;
 
-            // Location fades differently to the rest of the UI.
-            FadeLocation(AnimateOutDuration, 1f);
+            // Fade text
+            FadeAuthor(AnimateInDuration, 1f);
+            FadeLocation(AnimateInDuration, 1f);
         }
 
         public override void AnimateOut()
@@ -94,25 +94,31 @@ namespace MyView.Views
             // Invalidate any timeout
             base.AnimateOut();
             m_DimTimeoutRunning = false;
-            m_Dimmed = false;
+            Dimmed = false;
         }
 
         /// <summary>
-        /// Fades this view to a semi-transparent state.
+        /// Fades this view to its dimmed display state.
         /// </summary>
         public virtual void AnimateDim()
         {
             Hidden = false;
-            nfloat targetAlpha = DimmedAlpha;
+            Dimmed = true;
 
-            m_Dimmed = true;
-
+            // Set the alpha of this view based on the visibility of the text. If either the author/locale text must be shown, then dim this view, otherwise hide entirely.
+            nfloat targetAlpha = (AuthorVisibility == AuthorVisibilityMode.Always || LocationVisibility == LocationVisibilityMode.Always) ? DimmedAlpha : 0f;
             Animate(
                 AnimateOutDuration,
                 () => { Alpha = targetAlpha; }
             );
 
-            // Fully fade out the location
+            // Fully fade out the author text
+            if (AuthorVisibility == AuthorVisibilityMode.Selected)
+            {
+                FadeAuthor(AnimateOutDuration, 0f);
+            }
+
+            // Fully fade out the location text
             if (LocationVisibility == LocationVisibilityMode.Selected)
             {
                 FadeLocation(AnimateOutDuration, 0f);
@@ -213,7 +219,7 @@ namespace MyView.Views
             var cityName = city ?? string.Empty;
             var countryName = country ?? string.Empty;
 
-            if (LocationVisibility == LocationVisibilityMode.Always || (LocationVisibility == LocationVisibilityMode.Selected && !m_Dimmed))
+            if (LocationVisibility == LocationVisibilityMode.Always || (LocationVisibility == LocationVisibilityMode.Selected && !Dimmed))
             {
                 AnimateLocationChangeAsync(cityName, countryName).ConfigureAwait(false);
             }
