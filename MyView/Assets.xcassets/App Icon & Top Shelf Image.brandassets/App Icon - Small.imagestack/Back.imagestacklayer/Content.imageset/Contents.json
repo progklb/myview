@@ -1,12 +1,12 @@
 {
   "images": [
     {
-      "filename": "ico-back@1x.png",
+      "filename": "ico-small-back@1x.jpg",
       "scale": "1x",
       "idiom": "tv"
     },
     {
-      "filename": "ico-back@2x.png",
+      "filename": "ico-small-back@2x.jpg",
       "scale": "2x",
       "idiom": "tv"
     }
