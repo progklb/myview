@@ -131,6 +131,11 @@ namespace MyView.Screens
 			var selectRecognizer = new UITapGestureRecognizer(OnRemoteSelectClicked);
 			selectRecognizer.AllowedPressTypes = new NSNumber[] { NSNumber.FromInt64((Int64)UIPressType.Select) };
 			View.AddGestureRecognizer(selectRecognizer);
+
+			var touchRecognizer = new UITapGestureRecognizer(OnRemoteTouched);
+			touchRecognizer.AllowedPressTypes = new NSNumber[] { };
+			touchRecognizer.AllowedTouchTypes = new NSNumber[] { NSNumber.FromInt64((Int64)UITouchType.Indirect) };
+			View.AddGestureRecognizer(touchRecognizer);
 		}
 		
 		/// <summary>
@@ -155,17 +160,12 @@ namespace MyView.Screens
 		#endregion
 		
 		
-		#region EVENT HANDLERS
+		#region EVENT HANDLERS - CONTROLS
 		void OnRemoteMenuClicked()
 		{
 			if (CurrentMode == ApplicationModes.ImageView || CurrentMode == ApplicationModes.ImageDetails)
 			{
-				CurrentMode = ApplicationModes.CategorySelect;
-				SetSelectRecognizerEnabled(false);
-				SetHeader(null);
-				m_Select.AnimateIn();
-				m_Header.AnimateIn();
-				m_Footer.AnimateOut();
+				OnShowCategorySelect();
 			}
 			else if (CurrentMode == ApplicationModes.CategorySelect)
 			{
@@ -173,8 +173,16 @@ namespace MyView.Screens
 				OnCategoryItemSelected(m_LastSelectedCategory);
 			}
 		}
-		
+
 		void OnRemoteSelectClicked()
+		{
+			if (CurrentMode == ApplicationModes.ImageView || CurrentMode == ApplicationModes.ImageDetails)
+			{
+				OnShowCategorySelect();
+			}
+		}
+
+		void OnRemoteTouched()
 		{
 			if (CurrentMode == ApplicationModes.ImageView)
 			{
@@ -190,7 +198,20 @@ namespace MyView.Screens
 				m_Footer.AnimateDim();
 			}
 		}
-		
+		#endregion
+
+
+		#region EVENT HANDLERS - OTHER
+		void OnShowCategorySelect()
+		{
+			CurrentMode = ApplicationModes.CategorySelect;
+			SetSelectRecognizerEnabled(false);
+			SetHeader(null);
+			m_Select.AnimateIn();
+			m_Header.AnimateIn();
+			m_Footer.AnimateOut();
+		}
+
 		void OnCategoryItemSelected(SlideshowCategory category)
 		{
 			m_Slideshow.SetSlideshowCategory(category);

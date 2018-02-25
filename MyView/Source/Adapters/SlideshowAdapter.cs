@@ -133,9 +133,9 @@ namespace MyView.Adapters
         {
 // Provide an override for DEBUG mode to save bandwidth. Because developers have Internet limits too!            
 #if !DEBUG
-			var customSize = UnsplashImage.UnsplashImageSizes.Small;
+			var customSize = UnsplashImage.UnsplashImageSizes.Full;
 #else
-			var customSize = UnsplashImage.UnsplashImageSizes.Default;
+			var customSize = UnsplashImage.UnsplashImageSizes.Small;
 #endif
             // Download the next image. Note that we take the current time, initiate image download, and then wait the remaining time until
             // raising the cycle event. In this manner, download time does not affect the cycling time (unless the download exceeds the cycle time,
@@ -158,10 +158,10 @@ namespace MyView.Adapters
             }
         	
         	UnsplashImage unsplashImage;
-        	            
+        	
             do
             {
-            	// Pull new list of images from serve if we are starting a new slideshow or if we have displayed all.
+            	// Pull new list of images from server if we are starting a new slideshow or if we have displayed all.
             	if (firstRun || (m_CurrentImageIndex == CurrentList.Count - 1))
             	{
 		            m_CurrentImageIndex = 0;
