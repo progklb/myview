@@ -8,18 +8,22 @@ namespace MyView
 	[Register("AppDelegate")]
 	public class AppDelegate : UIApplicationDelegate
 	{
-		// class-level declarations
-
 		public override UIWindow Window
 		{
 			get;
 			set;
 		}
 
+        /// <summary>
+        /// Override point for customization after application launch.
+        /// </summary>
+        /// <returns><c>true</c>, if launching was finished, <c>false</c> otherwise.</returns>
+        /// <param name="application">Application.</param>
+        /// <param name="launchOptions">Launch options.</param>
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
-			// Override point for customization after application launch.
-			// If not required for your application you can safely delete this method
+            // Disable screensaver/sleeping
+            UIApplication.SharedApplication.IdleTimerDisabled = true;
 
 			return true;
 		}
