@@ -119,7 +119,6 @@ namespace MyView.Screens
 
             m_Footer = BaseView.CreateView<FooterView>(this.View);
             m_Logo = BaseView.CreateView<LogoView>(this.View, null, false);
-            m_Options = BaseView.CreateView<OptionsView>(this.View);
 
             m_ImageViews = new UIImageView[] { UIImageBackground1, UIImageBackground2 };
 
@@ -132,6 +131,8 @@ namespace MyView.Screens
         /// </summary>
         void InitialiseControls()
         {
+            // NOTE Changing the order that these recognizers are added to the array requires updating the SelectRecognizerEnabled property.
+
             var menuRecognizer = new UITapGestureRecognizer(OnRemoteMenuClicked);
             menuRecognizer.AllowedPressTypes = new NSNumber[] { NSNumber.FromInt64((Int64)UIPressType.Menu) };
             View.AddGestureRecognizer(menuRecognizer);
@@ -227,6 +228,7 @@ namespace MyView.Screens
             CurrentMode = ApplicationModes.Options;
             SelectRecognizerEnabled = false;
 
+            m_Options = BaseView.CreateView<OptionsView>(this.View);
             m_Options.AnimateIn();
             m_Header.AnimateOut();
             m_Footer.AnimateOut();
@@ -234,7 +236,9 @@ namespace MyView.Screens
 
         void HideOptions()
         {
-            m_Options.AnimateOut();
+            m_Options.AnimateOutAndRemove();
+            m_Options = null;
+
             m_Header.AnimateIn();
             ShowImageDetails();
         }
