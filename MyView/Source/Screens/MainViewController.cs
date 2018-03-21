@@ -39,6 +39,7 @@ namespace MyView.Screens
 		private FooterView m_Footer;
 		private AlertView m_Alert;
 		private LogoView m_Logo;
+        private OptionsView m_Options;
 		
 		/// Provides images for display on this page
         private SlideshowAdapter m_Slideshow;
@@ -66,8 +67,6 @@ namespace MyView.Screens
 			InitialiseControls();
 			InitialiseSlideshow();
 			
-			// We start at the category select screen. Note that we disable the
-			// select recognizer so that it does not steal input from the category select view.
 			CurrentMode = ApplicationModes.ImageView;
 			SetSelectRecognizerEnabled(true);
 			m_Footer.AnimateDim();
@@ -110,9 +109,10 @@ namespace MyView.Screens
 			m_Header = BaseView.CreateView<HeaderView>(this.View);
 			m_Header.ShowBackingGradient = true;
 			
-			m_Footer = BaseView.CreateView<FooterView>(this.View);
-			m_Logo = BaseView.CreateView<LogoView>(this.View, null, false);
-			
+            m_Footer = BaseView.CreateView<FooterView>(this.View);
+            m_Logo = BaseView.CreateView<LogoView>(this.View, null, false);
+            m_Options = BaseView.CreateView<OptionsView>(this.View);
+            
 			m_ImageViews = new UIImageView[] { UIImageBackground1, UIImageBackground2 };
 			
 			UIImageBackground1.Alpha = 0f;
@@ -163,66 +163,104 @@ namespace MyView.Screens
 		#region EVENT HANDLERS - CONTROLS
 		void OnRemoteMenuClicked()
 		{
-			if (CurrentMode == ApplicationModes.ImageView || CurrentMode == ApplicationModes.ImageDetails)
-			{
-				OnShowCategorySelect();
-			}
-			else if (CurrentMode == ApplicationModes.CategorySelect)
-			{
-				// Close menu, setting our original category.
-				OnCategoryItemSelected(m_LastSelectedCategory);
-			}
+            switch (CurrentMode)
+            {
+                case ApplicationModes.ImageView:
+                case ApplicationModes.ImageDetails:
+                    ShowOptions();
+                    break;
+                case ApplicationModes.Options:
+                    HideOptions();
+                    break;
+                case ApplicationModes.CategorySelect:
+                    // Close menu, setting our original category.
+                    OnCategoryItemSelected(m_LastSelectedCategory);
+                    break;
+            }
 		}
 
 		void OnRemoteSelectClicked()
 		{
-			if (CurrentMode == ApplicationModes.ImageView || CurrentMode == ApplicationModes.ImageDetails)
-			{
-				OnShowCategorySelect();
-			}
+            switch (CurrentMode)
+            {
+                case ApplicationModes.ImageView:
+                case ApplicationModes.ImageDetails:
+                    ShowCategorySelect();
+                    break;
+            }
 		}
 
 		void OnRemoteTouched()
 		{
-			if (CurrentMode == ApplicationModes.ImageView)
-			{
-				CurrentMode = ApplicationModes.ImageDetails;
-				m_Header.AnimateIn();
-				m_Footer.AnimateIn();
-				m_Footer.StartDimTimeout(OnFooterDim);
-			}
-			else if (CurrentMode == ApplicationModes.ImageDetails)
-			{
-				CurrentMode = ApplicationModes.ImageView;
-				m_Header.AnimateOut();
-				m_Footer.AnimateDim();
-			}
+            switch (CurrentMode)
+            {
+                case ApplicationModes.ImageView:
+                    CurrentMode = ApplicationModes.ImageDetails;
+                    m_Header.AnimateIn();
+                    m_Footer.AnimateIn();
+                    m_Footer.StartDimTimeout(OnFooterDim);
+                    break;
+
+                case ApplicationModes.ImageDetails:
+                    CurrentMode = ApplicationModes.ImageView;
+                    m_Header.AnimateOut();
+                    m_Footer.AnimateDim();
+                    break;
+            }
 		}
-		#endregion
+        #endregion
 
 
-		#region EVENT HANDLERS - OTHER
-		void OnShowCategorySelect()
+        #region EVENT HANDLERS - USER INTERFACE
+
+        // NOTE We disable the select recognizer when displaying any interactive overlays as the
+        // MainViewController recognizer will steal "select" input from any overlay view that we 
+        // are interacting with.
+
+        void ShowOptions()
+        {
+            CurrentMode = ApplicationModes.Options;
+            SetSelectRecognizerEnabled(false);
+
+            m_Options.AnimateIn();
+            m_Header.AnimateOut();
+            m_Footer.AnimateOut();
+        }
+
+        void HideOptions()
+        {
+            m_Options.AnimateOut();
+            ShowImage();
+        }
+
+        void ShowCategorySelect()
 		{
 			CurrentMode = ApplicationModes.CategorySelect;
 			SetSelectRecognizerEnabled(false);
+
 			SetHeader(null);
 			m_Select.AnimateIn();
 			m_Header.AnimateIn();
 			m_Footer.AnimateOut();
 		}
 
+        void ShowImage()
+        {
+            CurrentMode = ApplicationModes.ImageDetails;
+            SetSelectRecognizerEnabled(true);
+
+            SetHeader(m_Slideshow.CurrentCategory);
+            m_Select.AnimateOut();
+            m_Footer.AnimateIn();
+            m_Footer.StartDimTimeout(OnFooterDim);
+        }
+
 		void OnCategoryItemSelected(SlideshowCategory category)
 		{
 			m_Slideshow.SetSlideshowCategory(category);
 			m_LastSelectedCategory = category;
-			
-			CurrentMode = ApplicationModes.ImageDetails;
-			SetSelectRecognizerEnabled(true);
-			SetHeader(m_Slideshow.CurrentCategory);
-			m_Select.AnimateOut();
-			m_Footer.AnimateIn();
-			m_Footer.StartDimTimeout(OnFooterDim);
+
+            ShowImage();
 		}
 		
 		void OnCategoryItemFocused(SlideshowCategory category)
@@ -234,8 +272,8 @@ namespace MyView.Screens
 		{
 			if (CurrentMode != ApplicationModes.CategorySelect)
 			{
-				m_Header.AnimateOut();
-				CurrentMode = ApplicationModes.ImageView;
+                CurrentMode = ApplicationModes.ImageView;
+                m_Header.AnimateOut();
 			}
 		}
 		#endregion
@@ -294,7 +332,7 @@ namespace MyView.Screens
 		/// Sets the items to display on the header view.
 		/// </summary>
 		/// <param name="category">The category that has been selected.</param>
-		void SetHeader(SlideshowCategory category)
+		void SetHeader(SlideshowCategory category = null)
 		{
 			m_Header.SetCategoryText(category?.DisplayName);
 		}

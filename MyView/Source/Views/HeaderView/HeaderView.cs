@@ -55,7 +55,7 @@ namespace MyView.Views
         /// If a null parameter is provided, the category label will be hidden.
         /// </summary>
         /// <param name="categoryText">Text to display.</param>
-        public void SetCategoryText(string categoryText)
+        public void SetCategoryText(string categoryText = null)
         {
         	if (categoryText != null)
         	{

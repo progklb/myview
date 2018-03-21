@@ -7,6 +7,7 @@
 	{
 		CategorySelect,
 		ImageDetails,
-		ImageView
+		ImageView,
+        Options
 	}
 }

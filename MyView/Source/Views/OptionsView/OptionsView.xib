@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.XIB" version="3.0" toolsVersion="13771" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="light"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1" customClass="OptionsView" restorationIdentifier="OptionsView" opaque="NO">
+            <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" customColorSpace="sRGB" colorSpace="calibratedRGB" red="0.23137254901960785" green="0.23137254901960785" blue="0.23137254901960785" alpha="1"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Options!" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="696" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                    <constraints>
+                        <constraint id="915" firstItem="696" firstAttribute="width" constant="1920"/>
+                        <constraint id="928" firstItem="696" firstAttribute="height" constant="1080"/>
+                    </constraints>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint id="889" firstItem="696" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>
+                <constraint id="902" firstItem="696" firstAttribute="top" secondItem="1" secondAttribute="top"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="Top Shelf Image Wide" width="2320" height="720"/>
+        <image name="Top Shelf Image" width="2320" height="720"/>
+        <image name="Content" width="1280" height="768"/>
+        <image name="FavouriteEmpty.png" width="54" height="52"/>
+        <image name="FavouriteFull.png" width="54" height="52"/>
+        <image name="CategoryPlaceholder/_PlaceholderPhoto.png" width="750" height="400"/>
+        <image name="StartUp/StartUp.jpg" width="4896" height="3264"/>
+        <image name="CategoryPlaceholder/Animals.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Architecture.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Aviation.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Bokeh.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Cars.png" width="730" height="500"/>
+        <image name="CategoryPlaceholder/Cities.png" width="744" height="500"/>
+        <image name="CategoryPlaceholder/Food&amp;Drink.png" width="753" height="500"/>
+        <image name="CategoryPlaceholder/Motorcycles.png" width="753" height="442"/>
+        <image name="CategoryPlaceholder/Music.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Outdoors.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Objects.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Ocean.png" width="753" height="481"/>
+        <image name="CategoryPlaceholder/Business.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/People.png" width="749" height="500"/>
+        <image name="CategoryPlaceholder/Retro.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Roads.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Seasons.png" width="753" height="500"/>
+        <image name="CategoryPlaceholder/Sports.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Stars.png" width="753" height="479"/>
+        <image name="CategoryPlaceholder/Technology.png" width="750" height="500"/>
+        <image name="CategoryPlaceholder/Random.png" width="750" height="500"/>
+        <image name="LogoMyView.png" width="256" height="256"/>
+    </resources>
+</document>

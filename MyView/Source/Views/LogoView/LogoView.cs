@@ -9,7 +9,7 @@ namespace MyView.Views
     	#endregion
     	
     	
-    	#region INHERITED METHODS
+    	#region HELPER FUNCTIONS
     	public void AnimateOutAndRemove()
 		{
 			Animate(
