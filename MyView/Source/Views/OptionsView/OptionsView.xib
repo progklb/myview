@@ -13,23 +13,186 @@
         <view contentMode="scaleToFill" id="1" customClass="OptionsView" restorationIdentifier="OptionsView" opaque="NO">
             <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" customColorSpace="sRGB" colorSpace="calibratedRGB" red="0.23137254901960785" green="0.23137254901960785" blue="0.23137254901960785" alpha="1"/>
             <subviews>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Options!" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="696" translatesAutoresizingMaskIntoConstraints="NO">
+                <view contentMode="scaleToFill" id="2710" translatesAutoresizingMaskIntoConstraints="NO" alpha="0.5">
                     <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                    <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
+                    <subviews/>
+                </view>
+                <visualEffectView opaque="NO" contentMode="center" id="10540" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" clipsSubviews="YES">
+                    <rect key="frame" x="460" y="240" width="1000" height="600"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="10541" fixedFrame="YES">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                <real key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <blurEffect style="extraLight"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                            <real key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </visualEffectView>
+                <view contentMode="scaleToFill" id="4314" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="460" y="240" width="1000" height="600"/>
+                    <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="0"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6403" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="75" y="75" width="400" height="70"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                            <nil key="highlightedColor"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                            </accessibility>
+                            <constraints>
+                                <constraint id="9698" firstItem="6403" firstAttribute="height" constant="70"/>
+                                <constraint id="9699" firstItem="6403" firstAttribute="width" constant="400"/>
+                            </constraints>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transition Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7356" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="75" y="170" width="400" height="70"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                            <nil key="highlightedColor"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                            </accessibility>
+                            <constraints>
+                                <constraint id="9702" firstItem="7356" firstAttribute="width" constant="400"/>
+                                <constraint id="9703" firstItem="7356" firstAttribute="height" constant="70"/>
+                            </constraints>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Persistent Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7425" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="75" y="265" width="400" height="70"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                            <nil key="highlightedColor"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                            </accessibility>
+                            <constraints>
+                                <constraint id="9706" firstItem="7425" firstAttribute="height" constant="70"/>
+                                <constraint id="9707" firstItem="7425" firstAttribute="width" constant="400"/>
+                            </constraints>
+                        </label>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="9314" translatesAutoresizingMaskIntoConstraints="NO" autoresizesSubviews="NO">
+                            <rect key="frame" x="475" y="75" width="450" height="70"/>
+                            <segments>
+                                <segment title="Short"/>
+                                <segment title="Medium"/>
+                                <segment title="Long"/>
+                            </segments>
+                            <constraints>
+                                <constraint id="9321" firstItem="9314" firstAttribute="width" constant="450"/>
+                                <constraint id="9322" firstItem="9314" firstAttribute="height" constant="69"/>
+                            </constraints>
+                            <rect key="contentStretch" x="0.0" y="0.0" width="1" height="1"/>
+                        </segmentedControl>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="9325" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="475" y="170" width="450" height="70"/>
+                            <segments>
+                                <segment title="Short"/>
+                                <segment title="Medium"/>
+                                <segment title="Long"/>
+                            </segments>
+                            <constraints>
+                                <constraint id="9329" firstItem="9325" firstAttribute="width" constant="450"/>
+                                <constraint id="9330" firstItem="9325" firstAttribute="height" constant="69"/>
+                            </constraints>
+                        </segmentedControl>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9933" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="475" y="265" width="450" height="70"/>
+                            <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                            <state key="normal" title="State..."/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                    <real key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <constraints>
+                                <constraint id="9936" firstItem="9933" firstAttribute="width" constant="450"/>
+                                <constraint id="9937" firstItem="9933" firstAttribute="height" constant="70"/>
+                            </constraints>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="10402" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="100" y="455" width="350" height="70"/>
+                            <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                            <state key="normal" title="Block Photo"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                    <real key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <constraints>
+                                <constraint id="10404" firstItem="10402" firstAttribute="height" constant="70"/>
+                                <constraint id="13581" firstItem="10402" firstAttribute="width" constant="350"/>
+                            </constraints>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="10453" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="550" y="455" width="350" height="70"/>
+                            <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                            <state key="normal" title="Block User"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                    <real key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <constraints>
+                                <constraint id="10455" firstItem="10453" firstAttribute="height" constant="70"/>
+                                <constraint id="13520" firstItem="10453" firstAttribute="width" constant="350"/>
+                            </constraints>
+                        </button>
+                    </subviews>
                     <constraints>
-                        <constraint id="915" firstItem="696" firstAttribute="width" constant="1920"/>
-                        <constraint id="928" firstItem="696" firstAttribute="height" constant="1080"/>
+                        <constraint id="9319" firstItem="4314" firstAttribute="trailing" secondItem="9314" secondAttribute="trailing" constant="75"/>
+                        <constraint id="9335" firstItem="4314" firstAttribute="height" constant="600"/>
+                        <constraint id="9336" firstItem="4314" firstAttribute="width" constant="1000"/>
+                        <constraint id="9337" firstItem="9325" firstAttribute="top" secondItem="9314" secondAttribute="bottom" constant="26"/>
+                        <constraint id="9338" firstItem="4314" firstAttribute="trailing" secondItem="9325" secondAttribute="trailing" constant="75"/>
+                        <constraint id="9696" firstItem="6403" firstAttribute="leading" secondItem="4314" secondAttribute="leading" constant="75"/>
+                        <constraint id="9697" firstItem="6403" firstAttribute="top" secondItem="4314" secondAttribute="top" constant="75"/>
+                        <constraint id="9700" firstItem="7356" firstAttribute="leading" secondItem="4314" secondAttribute="leading" constant="75"/>
+                        <constraint id="9701" firstItem="7356" firstAttribute="top" secondItem="6403" secondAttribute="bottom" constant="25"/>
+                        <constraint id="9704" firstItem="7425" firstAttribute="leading" secondItem="4314" secondAttribute="leading" constant="75"/>
+                        <constraint id="9705" firstItem="7425" firstAttribute="top" secondItem="7356" secondAttribute="bottom" constant="25"/>
+                        <constraint id="9709" firstItem="9314" firstAttribute="top" secondItem="6403" secondAttribute="top"/>
+                        <constraint id="9934" firstItem="4314" firstAttribute="trailing" secondItem="9933" secondAttribute="trailing" constant="75"/>
+                        <constraint id="9935" firstItem="9933" firstAttribute="top" secondItem="9325" secondAttribute="bottom" constant="26"/>
+                        <constraint id="13436" firstItem="10402" firstAttribute="leading" secondItem="4314" secondAttribute="leading" constant="100"/>
+                        <constraint id="13457" firstItem="4314" firstAttribute="bottom" secondItem="10402" secondAttribute="bottom" constant="75"/>
+                        <constraint id="13478" firstItem="4314" firstAttribute="trailing" secondItem="10453" secondAttribute="trailing" constant="100"/>
+                        <constraint id="13499" firstItem="4314" firstAttribute="bottom" secondItem="10453" secondAttribute="bottom" constant="75"/>
                     </constraints>
-                </textField>
+                    <variation key="userInterfaceStyle=light">
+                        <mask key="subviews">
+                            <include reference="9325"/>
+                        </mask>
+                        <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="0"/>
+                    </variation>
+                    <variation key="userInterfaceStyle=dark">
+                        <mask key="subviews">
+                            <include reference="9325"/>
+                        </mask>
+                    </variation>
+                </view>
             </subviews>
             <constraints>
-                <constraint id="889" firstItem="696" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>
-                <constraint id="902" firstItem="696" firstAttribute="top" secondItem="1" secondAttribute="top"/>
+                <constraint id="3289" firstItem="2710" firstAttribute="leading" secondItem="1" secondAttribute="leading"/>
+                <constraint id="3324" firstItem="2710" firstAttribute="top" secondItem="1" secondAttribute="top"/>
+                <constraint id="3359" firstItem="2710" firstAttribute="trailing" secondItem="1" secondAttribute="trailing"/>
+                <constraint id="3394" firstItem="2710" firstAttribute="bottom" secondItem="1" secondAttribute="bottom"/>
+                <constraint id="6195" firstItem="4314" firstAttribute="centerX" secondItem="2710" secondAttribute="centerX"/>
+                <constraint id="6230" firstItem="4314" firstAttribute="centerY" secondItem="2710" secondAttribute="centerY"/>
+                <constraint id="9333" firstItem="4314" firstAttribute="centerX" secondItem="2710" secondAttribute="centerX"/>
+                <constraint id="9334" firstItem="4314" firstAttribute="centerY" secondItem="2710" secondAttribute="centerY"/>
             </constraints>
+            <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="0"/>
         </view>
     </objects>
     <resources>
