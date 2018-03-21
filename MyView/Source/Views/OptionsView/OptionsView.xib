@@ -81,7 +81,7 @@
                                 <constraint id="9707" firstItem="7425" firstAttribute="width" constant="400"/>
                             </constraints>
                         </label>
-                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="9314" translatesAutoresizingMaskIntoConstraints="NO" autoresizesSubviews="NO">
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="9314" translatesAutoresizingMaskIntoConstraints="NO" autoresizesSubviews="NO" restorationIdentifier="UISegDisplay">
                             <rect key="frame" x="475" y="75" width="450" height="70"/>
                             <segments>
                                 <segment title="Short"/>
@@ -94,7 +94,7 @@
                             </constraints>
                             <rect key="contentStretch" x="0.0" y="0.0" width="1" height="1"/>
                         </segmentedControl>
-                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="9325" translatesAutoresizingMaskIntoConstraints="NO">
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="9325" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UISegTransition">
                             <rect key="frame" x="475" y="170" width="450" height="70"/>
                             <segments>
                                 <segment title="Short"/>
@@ -106,7 +106,7 @@
                                 <constraint id="9330" firstItem="9325" firstAttribute="height" constant="69"/>
                             </constraints>
                         </segmentedControl>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9933" translatesAutoresizingMaskIntoConstraints="NO">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9933" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIButtonPersistentDetails">
                             <rect key="frame" x="475" y="265" width="450" height="70"/>
                             <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                             <state key="normal" title="State..."/>
@@ -120,7 +120,7 @@
                                 <constraint id="9937" firstItem="9933" firstAttribute="height" constant="70"/>
                             </constraints>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="10402" translatesAutoresizingMaskIntoConstraints="NO">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="10402" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIButtonBlockPhoto">
                             <rect key="frame" x="100" y="455" width="350" height="70"/>
                             <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                             <state key="normal" title="Block Photo"/>
@@ -134,7 +134,7 @@
                                 <constraint id="13581" firstItem="10402" firstAttribute="width" constant="350"/>
                             </constraints>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="10453" translatesAutoresizingMaskIntoConstraints="NO">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="10453" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIButtonBlockUser">
                             <rect key="frame" x="550" y="455" width="350" height="70"/>
                             <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                             <state key="normal" title="Block User"/>
@@ -193,6 +193,13 @@
                 <constraint id="9334" firstItem="4314" firstAttribute="centerY" secondItem="2710" secondAttribute="centerY"/>
             </constraints>
             <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="0"/>
+            <connections>
+                <outlet property="UIButtonPersistentDetails" destination="9933" id="name-outlet-9933"/>
+                <outlet property="UISegTransition" destination="9325" id="name-outlet-9325"/>
+                <outlet property="UISegDisplay" destination="9314" id="name-outlet-9314"/>
+                <outlet property="UIButtonBlockPhoto" destination="10402" id="name-outlet-10402"/>
+                <outlet property="UIButtonBlockUser" destination="10453" id="name-outlet-10453"/>
+            </connections>
         </view>
     </objects>
     <resources>

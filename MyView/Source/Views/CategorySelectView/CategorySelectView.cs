@@ -13,15 +13,8 @@ namespace MyView.Views
 	/// The bottom footer bar that is displayed as an overlay allowing the user to
 	/// select an image category to view.
 	/// </summary>
-    public partial class CategorySelectView : BaseView
+    public partial class CategorySelectView : AdvancedBaseView
     {
-    	#region CONSTANTS
-    	private nfloat ANIM_IN_DURATION = 0.25f;
-    	private nfloat ANIM_OUT_DURATION = 0.25f;
-    	private nfloat ANIM_SCALE_TARGET = 1.1f;
-    	#endregion
-    	
-    	
     	#region PROPERTIES
     	public CategorySelectSource Source { get { return UICollectionCategories.Source as CategorySelectSource; } }
     	
@@ -48,10 +41,6 @@ namespace MyView.Views
         #region INHERITED METHODS
         public override void AwakeFromNib()
 		{
-			// Override the base class animation durations
-			AnimateInDuration = ANIM_IN_DURATION;
-			AnimateOutDuration = ANIM_OUT_DURATION;
-			
 			base.AwakeFromNib();
 			
             // Add random as first item
@@ -71,32 +60,17 @@ namespace MyView.Views
 		
 		public override void AnimateIn()
 		{
-			base.AnimateIn();
-			
-			// Scale downward
-			Transform = CGAffineTransform.MakeScale(ANIM_SCALE_TARGET, ANIM_SCALE_TARGET);
-			Animate(
-				AnimateInDuration,
-				() => Transform = CGAffineTransform.MakeIdentity(),
-				() => 
-					{	// Start displaying the last category we had selected.
-						if (LastFocusedItem != null)
-						{
-							OnItemFocused(LastFocusedItem);
-						}
-					}
-			);
-		}
-		
-		public override void AnimateOut()
-		{
-			base.AnimateOut();
-			
-			// Scale upward
-			Transform = CGAffineTransform.MakeIdentity();
-			Animate(
-				AnimateOutDuration,
-				() => Transform = CGAffineTransform.MakeScale(ANIM_SCALE_TARGET, ANIM_SCALE_TARGET)
+            base.AnimateIn();
+
+            // Start displaying the last category we had selected after the duration of the animation.
+            ExecuteAsync(
+                () => { 
+        			if (LastFocusedItem != null)
+        			{
+        				OnItemFocused(LastFocusedItem);
+        			}
+        		},
+                (int)(AnimateInDuration * 1000)
 			);
 		}
         #endregion
@@ -131,8 +105,8 @@ namespace MyView.Views
        		UILabelCategory.Text = text;
         }
         #endregion
-        
-        
+
+
         #region HELPERS
        /// <summary>
        /// Is called when a category item is selected.

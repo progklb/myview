@@ -195,6 +195,7 @@
     <Compile Include="Source\Views\OptionsView\OptionsView.designer.cs">
       <DependentUpon>OptionsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\Views\AdvancedBaseView.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Storyboard\Main.storyboard" />
