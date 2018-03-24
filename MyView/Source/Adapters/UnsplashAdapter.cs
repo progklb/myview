@@ -14,7 +14,7 @@ namespace MyView.Adapters
 	/// <summary>
 	/// Handles all requests to and from the Unsplash server.
 	/// </summary>
-	public class UnsplashAdapter
+	public sealed class UnsplashAdapter
 	{
 		#region TYPES
 		/// <summary>
@@ -137,7 +137,7 @@ namespace MyView.Adapters
             	AddCustomSizeParameter(ref request);
             	
                 var response = await m_HttpClient.GetAsync(request);
-				
+
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = response.Content.ReadAsStringAsync().Result;
@@ -147,13 +147,13 @@ namespace MyView.Adapters
                 }
                 else
                 {
-                    Console.WriteLine($"[{nameof(UnsplashAdapter)}] Failure: {response.Content.ReadAsStringAsync().Result}");
+                    Console.WriteLine($"[{nameof(UnsplashAdapter)}] Server-side failure: Non-success returned. Response:\n{response.Content.ReadAsStringAsync().Result}");
                 	OnErrorThrown(SERVER_ERROR_MESSAGE);
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[{nameof(UnsplashAdapter)}] Exception: \n{e}");
+                Console.WriteLine($"[{nameof(UnsplashAdapter)}] Exception:\n{e}");
                 OnErrorThrown(GENERIC_FAILURE_MESSAGE);
             }
 

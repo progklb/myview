@@ -13,7 +13,7 @@ namespace MyView.Adapters
     /// <summary>
     /// Provides images at fixed intervals and defines parameters for display.
     /// </summary>
-    public class SlideshowAdapter
+    public sealed class SlideshowAdapter
     {
     	#region TYPES
     	/// <summary>
