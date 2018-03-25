@@ -200,7 +200,10 @@ namespace LightWeightJsonParser
                 ParseChunk(out value, chunk, outputSpacer);
 
                 // Add key value pair
-                Add(key, value);
+                if (!ObjectData.ContainsKey(key))
+                {
+                    Add(key, value);
+                }
 
                 // Skip to end of whitespace
                 while (char.IsWhiteSpace(jsonChunk[i])) { i++; }
