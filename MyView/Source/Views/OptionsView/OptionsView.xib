@@ -20,10 +20,10 @@
                     <subviews/>
                 </view>
                 <visualEffectView opaque="NO" contentMode="center" id="10540" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" clipsSubviews="YES">
-                    <rect key="frame" x="460" y="240" width="1000" height="600"/>
+                    <rect key="frame" x="435" y="240" width="1050" height="625"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="10541" fixedFrame="YES">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1050" height="625"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
@@ -31,7 +31,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <blurEffect style="extraLight"/>
+                    <blurEffect style="light"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
                             <real key="value" value="15"/>
@@ -39,7 +39,7 @@
                     </userDefinedRuntimeAttributes>
                 </visualEffectView>
                 <view contentMode="scaleToFill" id="4314" translatesAutoresizingMaskIntoConstraints="NO">
-                    <rect key="frame" x="460" y="240" width="1000" height="600"/>
+                    <rect key="frame" x="435" y="240" width="1050" height="625"/>
                     <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="0"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6403" translatesAutoresizingMaskIntoConstraints="NO">
@@ -68,7 +68,7 @@
                                 <constraint id="9703" firstItem="7356" firstAttribute="height" constant="70"/>
                             </constraints>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Persistent Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7425" translatesAutoresizingMaskIntoConstraints="NO">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7425" translatesAutoresizingMaskIntoConstraints="NO">
                             <rect key="frame" x="75" y="265" width="400" height="70"/>
                             <fontDescription key="fontDescription" type="system" pointSize="38"/>
                             <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
@@ -81,47 +81,46 @@
                                 <constraint id="9707" firstItem="7425" firstAttribute="width" constant="400"/>
                             </constraints>
                         </label>
-                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="9314" translatesAutoresizingMaskIntoConstraints="NO" autoresizesSubviews="NO" restorationIdentifier="UISegDisplay">
-                            <rect key="frame" x="475" y="75" width="450" height="70"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="14010" translatesAutoresizingMaskIntoConstraints="NO">
+                            <rect key="frame" x="75" y="360" width="400" height="70"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                            <nil key="highlightedColor"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                            </accessibility>
+                            <constraints>
+                                <constraint id="14011" firstItem="14010" firstAttribute="height" constant="70"/>
+                                <constraint id="14012" firstItem="14010" firstAttribute="width" constant="400"/>
+                            </constraints>
+                        </label>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="9314" translatesAutoresizingMaskIntoConstraints="NO" autoresizesSubviews="NO" restorationIdentifier="UISegCycle">
+                            <rect key="frame" x="475" y="75" width="500" height="70"/>
                             <segments>
                                 <segment title="Short"/>
                                 <segment title="Medium"/>
                                 <segment title="Long"/>
                             </segments>
                             <constraints>
-                                <constraint id="9321" firstItem="9314" firstAttribute="width" constant="450"/>
                                 <constraint id="9322" firstItem="9314" firstAttribute="height" constant="69"/>
+                                <constraint id="14094" firstItem="9314" firstAttribute="width" constant="500"/>
                             </constraints>
                             <rect key="contentStretch" x="0.0" y="0.0" width="1" height="1"/>
                         </segmentedControl>
                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="9325" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UISegTransition">
-                            <rect key="frame" x="475" y="170" width="450" height="70"/>
+                            <rect key="frame" x="475" y="170" width="500" height="70"/>
                             <segments>
                                 <segment title="Short"/>
                                 <segment title="Medium"/>
                                 <segment title="Long"/>
                             </segments>
                             <constraints>
-                                <constraint id="9329" firstItem="9325" firstAttribute="width" constant="450"/>
                                 <constraint id="9330" firstItem="9325" firstAttribute="height" constant="69"/>
+                                <constraint id="14097" firstItem="9325" firstAttribute="width" constant="500"/>
                             </constraints>
                         </segmentedControl>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9933" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIButtonPersistentDetails">
-                            <rect key="frame" x="475" y="265" width="450" height="70"/>
-                            <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                            <state key="normal" title="State..."/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
-                                    <real key="value" value="10"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <constraints>
-                                <constraint id="9936" firstItem="9933" firstAttribute="width" constant="450"/>
-                                <constraint id="9937" firstItem="9933" firstAttribute="height" constant="70"/>
-                            </constraints>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="10402" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIButtonBlockPhoto">
-                            <rect key="frame" x="100" y="455" width="350" height="70"/>
+                            <rect key="frame" x="100" y="485" width="350" height="70"/>
                             <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                             <state key="normal" title="Block Photo"/>
                             <userDefinedRuntimeAttributes>
@@ -135,9 +134,9 @@
                             </constraints>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="10453" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIButtonBlockUser">
-                            <rect key="frame" x="550" y="455" width="350" height="70"/>
+                            <rect key="frame" x="550" y="485" width="350" height="70"/>
                             <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                            <state key="normal" title="Block User"/>
+                            <state key="normal" title="Block Author"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
                                     <real key="value" value="10"/>
@@ -148,26 +147,53 @@
                                 <constraint id="13520" firstItem="10453" firstAttribute="width" constant="350"/>
                             </constraints>
                         </button>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="13985" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UISegAuthor">
+                            <rect key="frame" x="475" y="360" width="500" height="70"/>
+                            <segments>
+                                <segment title="Selected"/>
+                                <segment title="Always"/>
+                            </segments>
+                            <constraints>
+                                <constraint id="13990" firstItem="13985" firstAttribute="height" constant="69"/>
+                                <constraint id="14103" firstItem="13985" firstAttribute="width" constant="500"/>
+                            </constraints>
+                        </segmentedControl>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="13993" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UISegLocation">
+                            <rect key="frame" x="475" y="265" width="500" height="70"/>
+                            <segments>
+                                <segment title="Never"/>
+                                <segment title="Selected"/>
+                                <segment title="Always"/>
+                            </segments>
+                            <constraints>
+                                <constraint id="13997" firstItem="13993" firstAttribute="height" constant="69"/>
+                                <constraint id="14100" firstItem="13993" firstAttribute="width" constant="500"/>
+                            </constraints>
+                        </segmentedControl>
                     </subviews>
                     <constraints>
-                        <constraint id="9319" firstItem="4314" firstAttribute="trailing" secondItem="9314" secondAttribute="trailing" constant="75"/>
-                        <constraint id="9335" firstItem="4314" firstAttribute="height" constant="600"/>
-                        <constraint id="9336" firstItem="4314" firstAttribute="width" constant="1000"/>
-                        <constraint id="9337" firstItem="9325" firstAttribute="top" secondItem="9314" secondAttribute="bottom" constant="26"/>
-                        <constraint id="9338" firstItem="4314" firstAttribute="trailing" secondItem="9325" secondAttribute="trailing" constant="75"/>
+                        <constraint id="9336" firstItem="4314" firstAttribute="width" constant="1050"/>
                         <constraint id="9696" firstItem="6403" firstAttribute="leading" secondItem="4314" secondAttribute="leading" constant="75"/>
                         <constraint id="9697" firstItem="6403" firstAttribute="top" secondItem="4314" secondAttribute="top" constant="75"/>
                         <constraint id="9700" firstItem="7356" firstAttribute="leading" secondItem="4314" secondAttribute="leading" constant="75"/>
                         <constraint id="9701" firstItem="7356" firstAttribute="top" secondItem="6403" secondAttribute="bottom" constant="25"/>
                         <constraint id="9704" firstItem="7425" firstAttribute="leading" secondItem="4314" secondAttribute="leading" constant="75"/>
                         <constraint id="9705" firstItem="7425" firstAttribute="top" secondItem="7356" secondAttribute="bottom" constant="25"/>
-                        <constraint id="9709" firstItem="9314" firstAttribute="top" secondItem="6403" secondAttribute="top"/>
-                        <constraint id="9934" firstItem="4314" firstAttribute="trailing" secondItem="9933" secondAttribute="trailing" constant="75"/>
-                        <constraint id="9935" firstItem="9933" firstAttribute="top" secondItem="9325" secondAttribute="bottom" constant="26"/>
-                        <constraint id="13436" firstItem="10402" firstAttribute="leading" secondItem="4314" secondAttribute="leading" constant="100"/>
-                        <constraint id="13457" firstItem="4314" firstAttribute="bottom" secondItem="10402" secondAttribute="bottom" constant="75"/>
-                        <constraint id="13478" firstItem="4314" firstAttribute="trailing" secondItem="10453" secondAttribute="trailing" constant="100"/>
-                        <constraint id="13499" firstItem="4314" firstAttribute="bottom" secondItem="10453" secondAttribute="bottom" constant="75"/>
+                        <constraint id="14013" firstItem="14010" firstAttribute="top" secondItem="7425" secondAttribute="bottom" constant="25"/>
+                        <constraint id="14014" firstItem="14010" firstAttribute="leading" secondItem="4314" secondAttribute="leading" constant="75"/>
+                        <constraint id="14091" firstItem="4314" firstAttribute="height" constant="625"/>
+                        <constraint id="14092" firstItem="9314" firstAttribute="top" secondItem="4314" secondAttribute="top" constant="75"/>
+                        <constraint id="14093" firstItem="4314" firstAttribute="trailing" secondItem="9314" secondAttribute="trailing" constant="75"/>
+                        <constraint id="14095" firstItem="9325" firstAttribute="top" secondItem="9314" secondAttribute="bottom" constant="26"/>
+                        <constraint id="14096" firstItem="4314" firstAttribute="trailing" secondItem="9325" secondAttribute="trailing" constant="75"/>
+                        <constraint id="14098" firstItem="13993" firstAttribute="top" secondItem="9325" secondAttribute="bottom" constant="26"/>
+                        <constraint id="14099" firstItem="4314" firstAttribute="trailing" secondItem="13993" secondAttribute="trailing" constant="75"/>
+                        <constraint id="14101" firstItem="13985" firstAttribute="top" secondItem="13993" secondAttribute="bottom" constant="26"/>
+                        <constraint id="14102" firstItem="4314" firstAttribute="trailing" secondItem="13985" secondAttribute="trailing" constant="75"/>
+                        <constraint id="14104" firstItem="4314" firstAttribute="bottom" secondItem="10453" secondAttribute="bottom" constant="70"/>
+                        <constraint id="14105" firstItem="4314" firstAttribute="trailing" secondItem="10453" secondAttribute="trailing" constant="150"/>
+                        <constraint id="14106" firstItem="10402" firstAttribute="leading" secondItem="4314" secondAttribute="leading" constant="100"/>
+                        <constraint id="14107" firstItem="4314" firstAttribute="bottom" secondItem="10402" secondAttribute="bottom" constant="70"/>
                     </constraints>
                     <variation key="userInterfaceStyle=light">
                         <mask key="subviews">
@@ -188,17 +214,18 @@
                 <constraint id="3359" firstItem="2710" firstAttribute="trailing" secondItem="1" secondAttribute="trailing"/>
                 <constraint id="3394" firstItem="2710" firstAttribute="bottom" secondItem="1" secondAttribute="bottom"/>
                 <constraint id="6195" firstItem="4314" firstAttribute="centerX" secondItem="2710" secondAttribute="centerX"/>
-                <constraint id="6230" firstItem="4314" firstAttribute="centerY" secondItem="2710" secondAttribute="centerY"/>
+                <constraint id="6230" firstItem="4314" firstAttribute="centerY" secondItem="2710" secondAttribute="centerY" constant="12.5"/>
                 <constraint id="9333" firstItem="4314" firstAttribute="centerX" secondItem="2710" secondAttribute="centerX"/>
-                <constraint id="9334" firstItem="4314" firstAttribute="centerY" secondItem="2710" secondAttribute="centerY"/>
+                <constraint id="9334" firstItem="4314" firstAttribute="centerY" secondItem="2710" secondAttribute="centerY" constant="12.5"/>
             </constraints>
             <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="0"/>
             <connections>
-                <outlet property="UIButtonPersistentDetails" destination="9933" id="name-outlet-9933"/>
                 <outlet property="UISegTransition" destination="9325" id="name-outlet-9325"/>
-                <outlet property="UISegDisplay" destination="9314" id="name-outlet-9314"/>
+                <outlet property="UISegCycle" destination="9314" id="name-outlet-9314"/>
                 <outlet property="UIButtonBlockPhoto" destination="10402" id="name-outlet-10402"/>
                 <outlet property="UIButtonBlockUser" destination="10453" id="name-outlet-10453"/>
+                <outlet property="UISegAuthor" destination="13985" id="name-outlet-13985"/>
+                <outlet property="UISegLocation" destination="13993" id="name-outlet-13993"/>
             </connections>
         </view>
     </objects>

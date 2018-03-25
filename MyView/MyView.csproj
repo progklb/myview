@@ -196,6 +196,9 @@
       <DependentUpon>OptionsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\Views\AdvancedBaseView.cs" />
+    <Compile Include="Source\Adapters\SettingsAdapter.cs" />
+    <Compile Include="Source\Additional\DurationModes.cs" />
+    <Compile Include="Source\Additional\VisiblityModes.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Storyboard\Main.storyboard" />

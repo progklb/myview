@@ -54,7 +54,7 @@ namespace MyView.Adapters
 
 
 		#region PROPERTIES
-		public static UnsplashAdapter Instance { get { return GetAdapterInstance(); } }
+		public static UnsplashAdapter Instance { get => GetAdapterInstance(); }
 		
 		/// A custom size that can be specified for image downloads. This is original (full) size by default.
 		public static SizingParameters CustomSize { get; set; } = SizingParameters.Full;
@@ -64,7 +64,8 @@ namespace MyView.Adapters
 
 
 		#region VARIABLES
-		private static UnsplashAdapter m_UnsplashAdapter;
+        private static UnsplashAdapter m_Instance;
+
         private static HttpClient m_HttpClient = new HttpClient();
         private static WebClient m_WebClient = new WebClient();
         #endregion
@@ -260,12 +261,12 @@ namespace MyView.Adapters
         #region HELPERS
         static UnsplashAdapter GetAdapterInstance()
 		{
-			if (m_UnsplashAdapter == null)
+			if (m_Instance == null)
 			{
-				m_UnsplashAdapter = new UnsplashAdapter();
+				m_Instance = new UnsplashAdapter();
 			}
 
-			return m_UnsplashAdapter; 
+			return m_Instance; 
 		}
 		#endregion
 	}

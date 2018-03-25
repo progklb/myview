@@ -1,6 +1,9 @@
 using System;
 using System.Threading.Tasks;
 
+using MyView.Adapters;
+using MyView.Additional;
+
 namespace MyView.Views
 {
 	/// <summary>
@@ -9,37 +12,16 @@ namespace MyView.Views
 	/// </summary>
     public partial class FooterView : BaseView
     {
-    	#region TYPES
-    	public enum LocationVisibilityMode
-    	{
-    		/// Location will never be displayed
-    		Never,
-			/// Location will only be displayed when the footer is at full opacity (after animating in).
-    		Selected,
-			/// Location will always be displayed.
-    		Always
-    	}
-
-		public enum AuthorVisibilityMode
-		{
-			/// Item will only be displayed when the footer is at full opacity (after animating in).
-			Selected,
-			/// Item will always be displayed.
-			Always
-		}
-    	#endregion
-    	
-    	
     	#region CONSTANTS
     	private const string AUTHOR_HANDLE_FORMAT = "@{0}";
     	#endregion
     	
     	
     	#region PROPERTIES
-    	/// Whether and how we should display the location text.
-		public LocationVisibilityMode LocationVisibility { get; set; } = LocationVisibilityMode.Selected;
-		/// How we should display the author text.
-        public AuthorVisibilityMode AuthorVisibility { get; set; } = AuthorVisibilityMode.Selected;
+        /// How we should display the author text.
+        public AuthorVisibilityMode AuthorVisibility { get => SettingsAdapter.AuthorVisibility; }
+        /// Whether and how we should display the location text.
+        public LocationVisibilityMode LocationVisibility { get => SettingsAdapter.LocationVisibility; }
     	
         /// True if the UI is currently in a dimmed state. False if fully transparent or opaque.
         private bool Dimmed { get; set; } = false;
@@ -205,12 +187,6 @@ namespace MyView.Views
         /// <param name="country">Name of the country.</param>
         public void SetLocationText(string city, string country)
         {
-            /*
-                Location fades are different to the rest of the UI:
-                When the footer goes into a dimmed state, the location should not be visible. In such cases we simply assign the text, not animating it because
-                we don't want it to appear. If not dimmed however, we should animate the change normally.
-            */
-
             if (LocationVisibility == LocationVisibilityMode.Never)
             {
                 return;

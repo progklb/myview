@@ -24,9 +24,17 @@ namespace MyView.Adapters
     		Random,
     		Query
     	}
-    	#endregion
-    	
-    	
+        #endregion
+
+
+        #region CONSTANTS
+        /// The predefined cycle times short, medium, long, corresponding respectively to <see cref=" DurationModes"/>.
+        private readonly int[] CYCLE_TIMES = { 10000, 20000, 30000 };
+        /// The predefined transition duration times short, medium, long, corresponding respectively to <see cref=" TransitionDurations"/>.
+        private readonly int[] TRANS_DURATIONS = { 1000, 2000, 3000 };
+        #endregion
+
+
         #region EVENTS
         /// Is raised when an image cycle expires. The parameter carries the new image to display.
         public event Action<UnsplashImage> OnImageCycled = delegate { };
@@ -38,6 +46,9 @@ namespace MyView.Adapters
 
 
         #region PROPERTIES
+        /// An existing instance of this adapter. If no instance exists, one will be instantiated and returned.
+        public static SlideshowAdapter Instance { get => GetAdapterInstance(); }
+
         /// The default slideshow category if there is no <see cref="CurrentCategory"/> assigned.
         public SlideshowCategory DefaultCategory { get; private set; } = Constants.Slideshow.Random;
         /// The currently active slideshow category.
@@ -50,16 +61,20 @@ namespace MyView.Adapters
         
         /// Whether the slideshow is active.
         public bool IsRunning { get; private set; }
-        /// The time in milliseconds between cycles. Changes to this value will only take effect after the current image cycle.
-        public int CycleTime { get; set; } = 10000;
+
+        /// The time in milliseconds between cycles.
+        public int CycleDuration { get => CYCLE_TIMES[(int)SettingsAdapter.SlideshowCycleDurationMode]; }
         /// The duration in milliseconds of transitions between images.
-        public int TransitionDuration { get; set; } = 2000;
+        public int TransitionDuration { get => TRANS_DURATIONS[(int)SettingsAdapter.SlideshowTransitionDurationMode]; }
+
         /// The interval between retrying server requests after a failure.
-        public int RetryTimeout { get; set; } = 5000;
+        public int RetryTimeout { get => 5000; }
         #endregion
-        
-        
+
+
         #region VARIABLES
+        private static SlideshowAdapter m_Instance;
+
         /// Timer used to track cycle time.
         private Timer m_Timer;
 		/// The index of the <see cref="CurrentImage"/> from <see cref="CurrentList"/>
@@ -192,8 +207,8 @@ namespace MyView.Adapters
 		                	firstRun = false;
 	                	}
 	                	else
-	                	{   
-	                		while (CycleTime + TransitionDuration - m_Timer.GetElapsedTime() > 0)
+	                	{
+	                		while (CycleDuration + TransitionDuration - m_Timer.GetElapsedTime() > 0)
 	                		{	
 								if (HasCategoryChanged()) { goto Finished; } // Break out of inner loop incase of category change
 	                			await Task.Delay(100);
@@ -283,6 +298,16 @@ Finished:
         
         
         #region HELPERS
+        static SlideshowAdapter GetAdapterInstance()
+        {
+            if (m_Instance == null)
+            {
+                m_Instance = new SlideshowAdapter();
+            }
+
+            return m_Instance;
+        }
+
         /// <summary>
         /// Raises the <see cref="OnErrorThrown"/> event with the provided message.
         /// </summary>

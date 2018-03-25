@@ -27,6 +27,9 @@ namespace MyView.Screens
         /// The current mode that we are viewing the app in.
         public ApplicationModes CurrentMode { get; private set; }
 
+        /// Provides images for display on this page
+        private SlideshowAdapter Slideshow { get => SlideshowAdapter.Instance; }
+
         /// Returns an explicit focus target if one has been set. To trigger a focus on this target, first set it and then call <see cref="UpdateFocusIfNeeded"/>
         public override UIView PreferredFocusedView { get { return FocusTarget.TargetView ?? base.PreferredFocusedView; } }
 
@@ -48,8 +51,6 @@ namespace MyView.Screens
         private LogoView m_Logo;
         private OptionsView m_Options;
 
-        /// Provides images for display on this page
-        private SlideshowAdapter m_Slideshow;
         /// Keeps track of our last selected category.
         private SlideshowCategory m_LastSelectedCategory;
 
@@ -57,8 +58,6 @@ namespace MyView.Screens
         private UIImageView[] m_ImageViews;
         /// The index of the currently display image view.
         private int m_CurrentImageIdx;
-
-        private bool m_ListenForSelect;
         #endregion
 
 
@@ -71,6 +70,8 @@ namespace MyView.Screens
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+
+            SettingsAdapter.LoadSettings();
 
             InitialiseInterface();
             InitialiseControls();
@@ -86,11 +87,11 @@ namespace MyView.Screens
             base.ViewDidAppear(animated);
 
             // Start image provider
-            m_Slideshow.Start();
+            Slideshow.Start();
 
             // Set up the UI to correspond to our current state
-            m_LastSelectedCategory = m_Slideshow.CurrentCategory;
-            SetHeader(m_Slideshow.CurrentCategory);
+            m_LastSelectedCategory = Slideshow.CurrentCategory;
+            SetHeader(Slideshow.CurrentCategory);
 
             SetBackground(new UnsplashImage(UIImage.FromFile(Constants.Images.StartUpPhoto).AsJPEG().ToArray()));
         }
@@ -99,7 +100,7 @@ namespace MyView.Screens
         {
             base.ViewWillDisappear(animated);
 
-            m_Slideshow.Stop();
+            Slideshow.Stop();
         }
         #endregion
 
@@ -152,19 +153,17 @@ namespace MyView.Screens
         /// </summary>
         void InitialiseSlideshow()
         {
-            m_Slideshow = new SlideshowAdapter();
-
-            m_Slideshow.OnImageCycled += SetBackground;
-            m_Slideshow.OnImageCycled += SetFooter;
+            Slideshow.OnImageCycled += SetBackground;
+            Slideshow.OnImageCycled += SetFooter;
 
             // Display alert on error. Successful downloads hide the alert.
-            m_Slideshow.OnErrorThrown += ShowAlert;
-            m_Slideshow.OnImageCycled += HideAlert;
+            Slideshow.OnErrorThrown += ShowAlert;
+            Slideshow.OnImageCycled += HideAlert;
 
             // Start up logic
-            m_Slideshow.OnImageCycled += HideStartUpLogo;
+            Slideshow.OnImageCycled += HideStartUpLogo;
 
-            m_Slideshow.SetSlideshowCategory(m_Slideshow.DefaultCategory);
+            Slideshow.SetSlideshowCategory(Slideshow.DefaultCategory);
         }
         #endregion
 
@@ -284,10 +283,10 @@ namespace MyView.Screens
 
         void OnCategoryItemSelected(SlideshowCategory category)
         {
-            m_Slideshow.SetSlideshowCategory(category);
+            Slideshow.SetSlideshowCategory(category);
             m_LastSelectedCategory = category;
 
-            SetHeader(m_Slideshow.CurrentCategory);
+            SetHeader(Slideshow.CurrentCategory);
 
             m_Select.AnimateOut();
             ShowImageDetails();
@@ -295,7 +294,7 @@ namespace MyView.Screens
 
         void OnCategoryItemFocused(SlideshowCategory category)
         {
-            m_Slideshow.SetSlideshowCategory(category);
+            Slideshow.SetSlideshowCategory(category);
         }
         #endregion
 
@@ -334,7 +333,7 @@ namespace MyView.Screens
         /// </summary>
         void HideStartUpLogo(UnsplashImage image)
         {
-            m_Slideshow.OnImageCycled -= HideStartUpLogo;
+            Slideshow.OnImageCycled -= HideStartUpLogo;
 
             m_Logo.AnimateOutAndRemove();
 
@@ -356,7 +355,7 @@ namespace MyView.Screens
         {
             // Fade out old view
             UIView.Animate(
-                m_Slideshow.TransitionDuration / 1000f,
+                Slideshow.TransitionDuration / 1000f,
                 () => { m_ImageViews[m_CurrentImageIdx].Alpha = 0f; }
             );
 
@@ -365,7 +364,7 @@ namespace MyView.Screens
 
             // Fade in new view
             UIView.Animate(
-                m_Slideshow.TransitionDuration / 1000f,
+                Slideshow.TransitionDuration / 1000f,
                 () => { m_ImageViews[m_CurrentImageIdx].Alpha = 1f; }
             );
 

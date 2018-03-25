@@ -1,5 +1,8 @@
 using System;
 
+using MyView.Adapters;
+using MyView.Additional;
+
 namespace MyView.Views
 {
     /// <summary>
@@ -13,14 +16,22 @@ namespace MyView.Views
 
 
         #region INHERITED METHODS
+        public override void AwakeFromNib()
+        {
+            base.AwakeFromNib();
+
+            IntialiseUI();
+        }
+
         public override void AnimateIn()
         {
             base.AnimateIn();
 
-            UISegDisplay.ValueChanged += OnDisplayDurationChanged;
+            UISegCycle.ValueChanged += OnDisplayDurationChanged;
             UISegTransition.ValueChanged += OnTransitionDurationChanged;
+            UISegLocation.ValueChanged += OnShowLocationChanged;
+            UISegAuthor.ValueChanged += OnShowAuthorChanged;
 
-            UIButtonPersistentDetails.PrimaryActionTriggered += OnPersistentDetailsChanged;
             UIButtonBlockPhoto.PrimaryActionTriggered += OnBlockPhoto;
             UIButtonBlockUser.PrimaryActionTriggered += OnBlockUser;
         }
@@ -29,30 +40,40 @@ namespace MyView.Views
         {
             base.AnimateOut();
 
-            UISegDisplay.ValueChanged -= OnDisplayDurationChanged;
+            UISegCycle.ValueChanged -= OnDisplayDurationChanged;
             UISegTransition.ValueChanged -= OnTransitionDurationChanged;
+            UISegLocation.ValueChanged -= OnShowLocationChanged;
+            UISegAuthor.ValueChanged -= OnShowAuthorChanged;
 
-            UIButtonPersistentDetails.PrimaryActionTriggered -= OnPersistentDetailsChanged;
             UIButtonBlockPhoto.PrimaryActionTriggered -= OnBlockPhoto;
             UIButtonBlockUser.PrimaryActionTriggered -= OnBlockUser;
         }
         #endregion
 
 
-        #region EVENT HANDLERS
+        #region EVENT HANDLERS - OPTIONS
         void OnDisplayDurationChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("Display duration changed");
+            SettingsAdapter.SlideshowCycleDurationMode = (DurationModes)(int)UISegCycle.SelectedSegment;
+            SettingsAdapter.SaveSettings();
         }
 
         void OnTransitionDurationChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("Transition duration changed");
+            SettingsAdapter.SlideshowTransitionDurationMode = (DurationModes)(int)UISegTransition.SelectedSegment;
+            SettingsAdapter.SaveSettings();
         }
 
-        void OnPersistentDetailsChanged(object sender, EventArgs e)
+        void OnShowAuthorChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("Persistent details changed");
+            SettingsAdapter.AuthorVisibility = (AuthorVisibilityMode)(int)UISegAuthor.SelectedSegment;
+            SettingsAdapter.SaveSettings();
+        }
+
+        void OnShowLocationChanged(object sender, EventArgs e)
+        {
+            SettingsAdapter.LocationVisibility = (LocationVisibilityMode)(int)UISegLocation.SelectedSegment;
+            SettingsAdapter.SaveSettings();
         }
 
         void OnBlockPhoto(object sender, EventArgs e)
@@ -63,6 +84,18 @@ namespace MyView.Views
         void OnBlockUser(object sender, EventArgs e)
         {
             Console.WriteLine("Blocked user");
+        }
+        #endregion
+
+
+        #region HELPER FUNCTIONS
+        void IntialiseUI()
+        {
+            UISegCycle.SelectedSegment = (int)SettingsAdapter.SlideshowCycleDurationMode;
+            UISegTransition.SelectedSegment = (int)SettingsAdapter.SlideshowTransitionDurationMode;
+
+            UISegAuthor.SelectedSegment = (int)SettingsAdapter.AuthorVisibility;
+            UISegLocation.SelectedSegment = (int)SettingsAdapter.LocationVisibility;
         }
         #endregion
     }

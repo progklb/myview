@@ -24,11 +24,15 @@ namespace MyView.Views
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton UIButtonPersistentDetails { get; set; }
+        UIKit.UISegmentedControl UISegAuthor { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UISegmentedControl UISegDisplay { get; set; }
+        UIKit.UISegmentedControl UISegCycle { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UISegmentedControl UISegLocation { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -46,14 +50,19 @@ namespace MyView.Views
                 UIButtonBlockUser = null;
             }
 
-            if (UIButtonPersistentDetails != null) {
-                UIButtonPersistentDetails.Dispose ();
-                UIButtonPersistentDetails = null;
+            if (UISegAuthor != null) {
+                UISegAuthor.Dispose ();
+                UISegAuthor = null;
             }
 
-            if (UISegDisplay != null) {
-                UISegDisplay.Dispose ();
-                UISegDisplay = null;
+            if (UISegCycle != null) {
+                UISegCycle.Dispose ();
+                UISegCycle = null;
+            }
+
+            if (UISegLocation != null) {
+                UISegLocation.Dispose ();
+                UISegLocation = null;
             }
 
             if (UISegTransition != null) {
