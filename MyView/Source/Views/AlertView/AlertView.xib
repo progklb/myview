@@ -58,7 +58,7 @@
                         <constraint firstItem="5" firstAttribute="trailing" secondItem="4" secondAttribute="trailing" id="101"/>
                         <constraint firstItem="5" firstAttribute="bottom" secondItem="4" secondAttribute="bottom" id="102"/>
                     </constraints>
-                    <blurEffect style="dark"/>
+                    <blurEffect style="light"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <real key="value" value="15"/>

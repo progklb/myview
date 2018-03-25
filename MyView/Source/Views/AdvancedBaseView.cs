@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 using CoreGraphics;
 
@@ -65,6 +66,14 @@ namespace MyView.Views
                 () => { Alpha = 0f; },
                 () => { RemoveFromSuperview(); }
             );
+        }
+
+        public async void AnimateOutAndRemove(int delayMs, Action callback = null)
+        {
+            await Task.Delay(delayMs);
+            AnimateOutAndRemove();
+
+            callback?.Invoke();
         }
 		#endregion
 	}

@@ -20,6 +20,8 @@ namespace MyView.Screens
         private const string ALERT_HEADER = "Oh no!";
         /// The amount of time in milliseconds before automatically hiding the image interface.
         private const int IMAGE_INTERFACE_TIMEOUT = 3000;
+        /// The amount of time in milliseconds before automatically hiding the alert message.
+        private const int TEMPORARY_ALERT_TIMEOUT = 3000;
         #endregion
 
 
@@ -157,7 +159,7 @@ namespace MyView.Screens
             Slideshow.OnImageCycled += SetFooter;
 
             // Display alert on error. Successful downloads hide the alert.
-            Slideshow.OnErrorThrown += ShowAlert;
+            Slideshow.OnErrorThrown += message => { ShowAlert(message); };
             Slideshow.OnImageCycled += HideAlert;
 
             // Start up logic
@@ -228,6 +230,9 @@ namespace MyView.Screens
             SelectRecognizerEnabled = false;
 
             m_Options = BaseView.CreateView<OptionsView>(this.View);
+            m_Options.OnPhotoBlocked += id => { ShowAlert("You will never see this photo again", "Photo blocked", TEMPORARY_ALERT_TIMEOUT); };
+            m_Options.OnAuthorBlocked += id => { ShowAlert("You will no longer see photos from this author", "Author blocked", TEMPORARY_ALERT_TIMEOUT); };
+
             m_Options.AnimateIn();
             m_Header.AnimateOut();
             m_Footer.AnimateOut();
@@ -304,7 +309,7 @@ namespace MyView.Screens
         /// Presents an alert to the user, indicating that something went wrong.
         /// </summary>
         /// <param name="message">Alert message to display.</param>
-        void ShowAlert(string message)
+        void ShowAlert(string message, string title = ALERT_HEADER, int timeout = -1)
         {
             if (m_Alert == null)
             {
@@ -312,7 +317,12 @@ namespace MyView.Screens
                 m_Alert.AnimateIn();
             }
 
-            m_Alert.SetText(ALERT_HEADER, message);
+            m_Alert.SetText(title, message);
+
+            if (timeout > 0)
+            {
+                m_Alert.AnimateOutAndRemove(timeout, () => m_Alert = null);
+            }
         }
 
         /// <summary>

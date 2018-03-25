@@ -10,6 +10,12 @@ namespace MyView.Views
     /// </summary>
     public partial class OptionsView : AdvancedBaseView
     {
+        #region EVENTS
+        public event Action<string> OnPhotoBlocked = delegate { };
+        public event Action<string> OnAuthorBlocked = delegate { };
+        #endregion
+
+
         #region CONSTRUCTOR
         public OptionsView(IntPtr handle) : base(handle) { }
         #endregion
@@ -80,12 +86,16 @@ namespace MyView.Views
         {
             SettingsAdapter.BlockPhoto(SlideshowAdapter.Instance.CurrentImage?.id);
             SettingsAdapter.SaveSettings();
+
+            OnPhotoBlocked(SlideshowAdapter.Instance.CurrentImage?.id);
         }
 
         void OnBlockAuthor(object sender, EventArgs e)
         {
             SettingsAdapter.BlockAuthor(SlideshowAdapter.Instance.CurrentImage?.user.id);
             SettingsAdapter.SaveSettings();
+
+            OnAuthorBlocked(SlideshowAdapter.Instance.CurrentImage?.user.id);
         }
         #endregion
 
