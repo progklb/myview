@@ -177,6 +177,7 @@ namespace MyView.Adapters
         	
             do
             {
+Start:
             	// Pull new list of images from server if we are starting a new slideshow or if we have displayed all.
             	if (firstRun || (m_CurrentImageIndex == CurrentList.Count - 1))
             	{
@@ -195,6 +196,13 @@ namespace MyView.Adapters
 				if (CurrentList != null && CurrentList.Count != 0)
 				{
 					unsplashImage = CurrentList[m_CurrentImageIndex];
+
+                    // If we have chosen an item that is in the blocked lists, return to start to increment to the next image.
+                    if (SettingsAdapter.IsBlockedAuthor(unsplashImage.user?.id) || SettingsAdapter.IsBlockedPhoto(unsplashImage.id))
+                    {
+                        goto Start;
+                    }
+
 					unsplashImage.custom.imageData = await UnsplashAdapter.DownloadPhotoAsync(unsplashImage, customSize);
 					
 					if (unsplashImage.custom.imageData != null)

@@ -79,18 +79,6 @@ namespace MyView.Adapters
 
                 BlockedAuthors = GetList(NSUserDefaults.StandardUserDefaults.StringArrayForKey(BLOCKED_AUTHORS_KEY));
                 BlockedPhotos = GetList(NSUserDefaults.StandardUserDefaults.StringArrayForKey(BLOCKED_PHOTOS_KEY));
-
-                System.Console.WriteLine("Blocked photo list: {0}", BlockedPhotos.Count);
-                foreach (var id in BlockedPhotos)
-                {
-                    System.Console.WriteLine("      - " + id);
-                }
-
-                System.Console.WriteLine("Blocked author list: {0}", BlockedAuthors.Count);
-                foreach (var id in BlockedAuthors)
-                {
-                    System.Console.WriteLine("      - " + id);
-                }
             }
         }
         #endregion

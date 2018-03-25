@@ -94,7 +94,6 @@ namespace MyView.Views
         {
             Hidden = false;
             nfloat targetAlpha = 1f;
-            //Alpha = 0f;
 
             Animate(
                 AnimateInDuration,
