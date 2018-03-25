@@ -15,7 +15,8 @@ namespace MyView
 			// TODO Set the rest of these fields.
 			
 			image.id = json["id"].AsString();
-			
+
+            image.user.id = json["user"]["id"].AsString();
 			image.user.name = json["user"]["name"].AsString();
 			image.user.username = json["user"]["username"].AsString();
 			

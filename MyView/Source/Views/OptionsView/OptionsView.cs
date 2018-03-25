@@ -33,7 +33,7 @@ namespace MyView.Views
             UISegAuthor.ValueChanged += OnShowAuthorChanged;
 
             UIButtonBlockPhoto.PrimaryActionTriggered += OnBlockPhoto;
-            UIButtonBlockUser.PrimaryActionTriggered += OnBlockUser;
+            UIButtonBlockAuthor.PrimaryActionTriggered += OnBlockAuthor;
         }
 
         public override void AnimateOut()
@@ -46,7 +46,7 @@ namespace MyView.Views
             UISegAuthor.ValueChanged -= OnShowAuthorChanged;
 
             UIButtonBlockPhoto.PrimaryActionTriggered -= OnBlockPhoto;
-            UIButtonBlockUser.PrimaryActionTriggered -= OnBlockUser;
+            UIButtonBlockAuthor.PrimaryActionTriggered -= OnBlockAuthor;
         }
         #endregion
 
@@ -78,12 +78,14 @@ namespace MyView.Views
 
         void OnBlockPhoto(object sender, EventArgs e)
         {
-            Console.WriteLine("Blocked photo");
+            SettingsAdapter.BlockPhoto(SlideshowAdapter.Instance.CurrentImage?.id);
+            SettingsAdapter.SaveSettings();
         }
 
-        void OnBlockUser(object sender, EventArgs e)
+        void OnBlockAuthor(object sender, EventArgs e)
         {
-            Console.WriteLine("Blocked user");
+            SettingsAdapter.BlockAuthor(SlideshowAdapter.Instance.CurrentImage?.user.id);
+            SettingsAdapter.SaveSettings();
         }
         #endregion
 

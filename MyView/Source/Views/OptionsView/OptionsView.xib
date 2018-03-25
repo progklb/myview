@@ -133,7 +133,7 @@
                                 <constraint id="13581" firstItem="10402" firstAttribute="width" constant="350"/>
                             </constraints>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="10453" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIButtonBlockUser">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="10453" translatesAutoresizingMaskIntoConstraints="NO" restorationIdentifier="UIButtonBlockAuthor">
                             <rect key="frame" x="550" y="485" width="350" height="70"/>
                             <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                             <state key="normal" title="Block Author"/>
@@ -223,7 +223,7 @@
                 <outlet property="UISegTransition" destination="9325" id="name-outlet-9325"/>
                 <outlet property="UISegCycle" destination="9314" id="name-outlet-9314"/>
                 <outlet property="UIButtonBlockPhoto" destination="10402" id="name-outlet-10402"/>
-                <outlet property="UIButtonBlockUser" destination="10453" id="name-outlet-10453"/>
+                <outlet property="UIButtonBlockAuthor" destination="10453" id="name-outlet-10453"/>
                 <outlet property="UISegAuthor" destination="13985" id="name-outlet-13985"/>
                 <outlet property="UISegLocation" destination="13993" id="name-outlet-13993"/>
             </connections>

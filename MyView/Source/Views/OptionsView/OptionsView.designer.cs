@@ -16,11 +16,11 @@ namespace MyView.Views
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton UIButtonBlockPhoto { get; set; }
+        UIKit.UIButton UIButtonBlockAuthor { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton UIButtonBlockUser { get; set; }
+        UIKit.UIButton UIButtonBlockPhoto { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -40,14 +40,14 @@ namespace MyView.Views
 
         void ReleaseDesignerOutlets ()
         {
+            if (UIButtonBlockAuthor != null) {
+                UIButtonBlockAuthor.Dispose ();
+                UIButtonBlockAuthor = null;
+            }
+
             if (UIButtonBlockPhoto != null) {
                 UIButtonBlockPhoto.Dispose ();
                 UIButtonBlockPhoto = null;
-            }
-
-            if (UIButtonBlockUser != null) {
-                UIButtonBlockUser.Dispose ();
-                UIButtonBlockUser = null;
             }
 
             if (UISegAuthor != null) {
