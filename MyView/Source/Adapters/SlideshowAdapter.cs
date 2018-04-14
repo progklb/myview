@@ -90,7 +90,7 @@ namespace MyView.Adapters
         {
         	if (!IsRunning)
         	{
-	        	UnsplashAdapter.CustomSize = UnsplashAdapter.SizingParameters.W1920H1080;
+                UnsplashAdapter.CustomSize = UnsplashAdapter.SizingParameters.Full;
 	        	UnsplashAdapter.OnErrorThrown += RaiseOnErrorThrown;
 	        	
 	            m_Timer = new Timer();
