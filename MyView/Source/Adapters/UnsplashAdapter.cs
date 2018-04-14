@@ -218,7 +218,7 @@ namespace MyView.Adapters
 			
 			try
 			{
-				var endpoint = GetSizeEndpoint(image, customSizeOverride);
+				var endpoint = image.links.download_location;
 				data = await m_WebClient.DownloadDataTaskAsync(endpoint);
 				
 				Console.WriteLine($"[{nameof(UnsplashAdapter)}] Photo downloaded. Size = {data.Length} bytes. Location = {endpoint}");
@@ -230,30 +230,6 @@ namespace MyView.Adapters
 			}
 
 			return data;
-		}
-		
-		/// <summary>
-		/// Returns the specific endpoint corresponding to the custom size override parameter, or if this is default the global setting.
-		/// </summary>
-		/// <returns>The size endpoint.</returns>
-		/// <param name="image">Unsplash image to get download endpoint.</param>
-		/// <param name="customSizeOverride">Custom size override.</param>
-		static string GetSizeEndpoint(UnsplashImage image, UnsplashImageSizes customSizeOverride)
-		{
-			switch (customSizeOverride)
-			{
-				// If we have a size override, download this size instead.
-				case UnsplashImageSizes.Full:		return image.urls.full;
-				case UnsplashImageSizes.Regular:	return image.urls.regular;
-				case UnsplashImageSizes.Small:		return image.urls.small;
-				case UnsplashImageSizes.Thumb:		return image.urls.thumb;
-				case UnsplashImageSizes.Custom:		return image.urls.custom;
-				
-				// Otherwise check the global setting and act accordingly.
-				case UnsplashImageSizes.Default:
-				default:
-					return CustomSize == SizingParameters.Full ? image.urls.full : image.urls.custom;
-			}
 		}
         #endregion
 

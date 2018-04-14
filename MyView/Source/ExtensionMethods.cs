@@ -34,6 +34,8 @@ namespace MyView
 				}
 			}
 			
+			// "urls" object to be used for hotlinking only.
+
 			image.urls.raw = json["urls"]["raw"].AsString();
 			image.urls.full = json["urls"]["full"].AsString();
 			image.urls.regular = json["urls"]["regular"].AsString();
@@ -45,6 +47,8 @@ namespace MyView
 			{
 				image.urls.custom = json["urls"]["custom"].AsString();		
 			}
+
+			// "links" object to be used for any downloads.
 			
 			image.links.html = json["links"]["html"].AsString();
 			image.links.download = json["links"]["download"].AsString();
